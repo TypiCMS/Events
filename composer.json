@@ -8,8 +8,8 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "typicms/core": "dev-master",
+        "eluceo/ical": "~0.3"
     },
     "autoload": {
         "classmap": [
