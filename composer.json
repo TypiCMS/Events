@@ -16,7 +16,7 @@
             "migrations"
         ],
         "psr-4": {
-            "TypiCMS\\Modules\\Events\\": ""
+            "TypiCMS\\Modules\\Events\\": "src/"
         }
     },
     "minimum-stability": "stable"
