@@ -40,7 +40,7 @@ class PublicController extends BasePublicController
 
         $models = Paginator::make($data->items, $data->totalItems, $itemsPerPage);
 
-        $this->layout->content = View::make('events.public.index')->withModels($models);
+        return view('events.public.index')->withModels($models);
     }
 
     /**
@@ -56,7 +56,7 @@ class PublicController extends BasePublicController
 
         $this->title['parent'] = $model->title;
 
-        $this->layout->content = View::make('events.public.show')
+        return view('events.public.show')
             ->withModel($model);
     }
 
