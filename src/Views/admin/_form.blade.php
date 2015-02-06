@@ -18,12 +18,12 @@
     <div class="col-sm-4 form-group @if($errors->has('start_date'))has-error @endif">
         {{ Form::label('start_date', trans('validation.attributes.start_date'), array('class' => 'control-label')) }}
         {{ Form::text('start_date', $model->present()->dateOrNow('start_date'), array('class' => 'datepicker form-control', 'data-value' => $model->present()->dateOrNow('start_date'), 'placeholder' => trans('validation.attributes.DDMMYYYY'))) }}
-        {{ $errors->first('start_date', '<p class="help-block">:message</p>') }}
+        {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
     </div>
     <div class="col-sm-3 form-group @if($errors->has('start_time'))has-error @endif">
         {{ Form::label('start_time', trans('validation.attributes.start_time'), array('class' => 'control-label')) }}
         {{ Form::text('start_time', $model->present()->startTime, array('class' => 'form-control', 'placeholder' => trans('validation.attributes.HH:MM'))) }}
-        {{ $errors->first('start_time', '<p class="help-block">:message</p>') }}
+        {!! $errors->first('start_time', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -31,12 +31,12 @@
     <div class="col-sm-4 form-group @if($errors->has('end_date'))has-error @endif">
         {{ Form::label('end_date', trans('validation.attributes.end_date'), array('class' => 'control-label')) }}
         {{ Form::text('end_date', $model->present()->dateOrNow('end_date'), array('class' => 'datepicker form-control', 'data-value' => $model->present()->dateOrNow('end_date'), 'placeholder' => trans('validation.attributes.DDMMYYYY'))) }}
-        {{ $errors->first('end_date', '<p class="help-block">:message</p>') }}
+        {!! $errors->first('end_date', '<p class="help-block">:message</p>') !!}
     </div>
     <div class="col-sm-3 form-group @if($errors->has('end_time'))has-error @endif">
         {{ Form::label('end_time', trans('validation.attributes.end_time'), array('class' => 'control-label')) }}
         {{ Form::text('end_time', $model->present()->endTime, array('class' => 'form-control', 'placeholder' => trans('validation.attributes.HH:MM'))) }}
-        {{ $errors->first('end_time', '<p class="help-block">:message</p>') }}
+        {!! $errors->first('end_time', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -59,7 +59,7 @@
                         <button class="btn btn-default btn-slug @if($errors->has($lang.'.slug'))btn-danger @endif" type="button">@lang('validation.attributes.generate')</button>
                     </span>
                 </div>
-                {{ $errors->first($lang.'.slug', '<p class="help-block">:message</p>') }}
+                {!! $errors->first($lang.'.slug', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         {!! BootForm::checkbox(trans('labels.online'), $lang.'[status]') !!}

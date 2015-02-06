@@ -49,9 +49,6 @@ Route::group(
     }
 );
 
-Route::group(array('prefix'=>'api'), function() {
-    Route::resource(
-        'events',
-        'TypiCMS\Modules\Events\Controllers\ApiController'
-    );
+Route::group(['prefix'=>'api'], function() {
+    Route::resource('events', 'ApiController');
 });
