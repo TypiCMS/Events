@@ -1,35 +1,24 @@
 <?php
 namespace TypiCMS\Modules\Events\Providers;
 
-use Lang;
-use View;
 use Config;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\Application;
-
-// Models
-use TypiCMS\Modules\Events\Models\Event;
-use TypiCMS\Modules\Events\Models\EventTranslation;
-
-// Repo
-use TypiCMS\Modules\Events\Repositories\EloquentEvent;
-
-// Cache
-use TypiCMS\Modules\Events\Repositories\CacheDecorator;
-use TypiCMS\Services\Cache\LaravelCache;
-
-// Form
-use TypiCMS\Modules\Events\Services\Form\EventForm;
-use TypiCMS\Modules\Events\Services\Form\EventFormLaravelValidator;
-
-// Observers
-use TypiCMS\Observers\SlugObserver;
-use TypiCMS\Observers\FileObserver;
-
-// Calendar
-use TypiCMS\Modules\Events\Services\Calendar;
 use Eluceo\iCal\Component\Calendar as EluceoCalendar;
 use Eluceo\iCal\Component\Event as EluceoEvent;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
+use Lang;
+use TypiCMS\Modules\Events\Models\Event;
+use TypiCMS\Modules\Events\Models\EventTranslation;
+use TypiCMS\Modules\Events\Repositories\CacheDecorator;
+use TypiCMS\Modules\Events\Repositories\EloquentEvent;
+use TypiCMS\Modules\Events\Services\Calendar;
+use TypiCMS\Modules\Events\Services\Form\EventForm;
+use TypiCMS\Modules\Events\Services\Form\EventFormLaravelValidator;
+use TypiCMS\Observers\FileObserver;
+use TypiCMS\Observers\SlugObserver;
+use TypiCMS\Services\Cache\LaravelCache;
+use View;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -40,9 +29,19 @@ class ModuleProvider extends ServiceProvider
         require __DIR__ . '/../routes.php';
 
         // Add dirs
-        View::addLocation(__DIR__ . '/../Views');
-        Lang::addNamespace('events', __DIR__ . '/../lang');
-        Config::addNamespace('events', __DIR__ . '/../config');
+        View::addNamespace('events', __DIR__ . '/../views/');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'events');
+        $this->publishes([
+            __DIR__ . '/../config/' => config_path('typicms/events'),
+        ], 'config');
+        $this->publishes([
+            __DIR__ . '/../migrations/' => base_path('/database/migrations'),
+        ], 'migrations');
+
+        AliasLoader::getInstance()->alias(
+            'Events',
+            'TypiCMS\Modules\Events\Facades\Facade'
+        );
 
         // Observers
         EventTranslation::observe(new SlugObserver);
@@ -81,10 +80,6 @@ class ModuleProvider extends ServiceProvider
                 new EluceoCalendar('TypiCMS'),
                 new EluceoEvent
             );
-        });
-
-        $app->before(function ($request, $response) {
-            require __DIR__ . '/../breadcrumbs.php';
         });
 
     }

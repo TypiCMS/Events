@@ -1,7 +1,7 @@
 <?php
 namespace TypiCMS\Modules\Events\Controllers;
 
-use Str;
+use Illuminate\Support\Str;
 use View;
 use Input;
 use Config;

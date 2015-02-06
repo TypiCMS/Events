@@ -13,7 +13,7 @@ if (! App::runningInConsole()) {
         ),
         function () {
             $routes = app('TypiCMS.routes');
-            foreach (Config::get('app.locales') as $lang) {
+            foreach (Config::get('translatable.locales') as $lang) {
                 if (isset($routes['events'][$lang])) {
                     $uri = $routes['events'][$lang];
                 } else {
@@ -49,7 +49,7 @@ Route::group(
     }
 );
 
-Route::group(array('prefix'=>'api/v1'), function() {
+Route::group(array('prefix'=>'api'), function() {
     Route::resource(
         'events',
         'TypiCMS\Modules\Events\Controllers\ApiController'

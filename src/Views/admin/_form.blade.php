@@ -1,6 +1,6 @@
 @section('js')
-    {{ HTML::script(asset('//tinymce.cachefly.net/4.1/tinymce.min.js')) }}
-    {{ HTML::script(asset('js/admin/form.js')) }}
+    <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+    <script src="{{ asset('js/admin/form.js') }}"></script>
 @stop
 
 @section('otherSideLink')
@@ -10,7 +10,7 @@
 
 @include('core::admin._buttons-form')
 
-{{ BootForm::hidden('id'); }}
+{!! BootForm::hidden('id') !!}
 
 @include('core::admin._image-fieldset', ['field' => 'image'])
 
@@ -49,7 +49,7 @@
     <div class="tab-pane fade @if ($locale == $lang)in active @endif" id="{{ $lang }}">
         <div class="row">
             <div class="col-md-6 form-group">
-                {{ BootForm::text(trans('labels.title'), $lang.'[title]') }}
+                {!! BootForm::text(trans('labels.title'), $lang.'[title]') !!}
             </div>
             <div class="col-md-6 form-group @if($errors->has($lang.'.slug'))has-error @endif">
                 {{ Form::label($lang.'[slug]', trans('validation.attributes.slug'), array('class' => 'control-label')) }}
@@ -62,9 +62,9 @@
                 {{ $errors->first($lang.'.slug', '<p class="help-block">:message</p>') }}
             </div>
         </div>
-        {{ BootForm::checkbox(trans('labels.online'), $lang.'[status]') }}
-        {{ BootForm::textarea(trans('labels.summary'), $lang.'[summary]')->addClass('editor')->rows(4) }}
-        {{ BootForm::textarea(trans('labels.body'), $lang.'[body]')->addClass('editor') }}
+        {!! BootForm::checkbox(trans('labels.online'), $lang.'[status]') !!}
+        {!! BootForm::textarea(trans('labels.summary'), $lang.'[summary]')->addClass('editor')->rows(4) !!}
+        {!! BootForm::textarea(trans('labels.body'), $lang.'[body]')->addClass('editor') !!}
     </div>
 
     @endforeach
