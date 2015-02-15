@@ -9,7 +9,7 @@ if (! App::runningInConsole()) {
     Route::group(
         array(
             'before'    => 'visitor.publicAccess',
-            'namespace' => 'TypiCMS\Modules\Events\Controllers',
+            'namespace' => 'TypiCMS\Modules\Events\Http\Controllers',
         ),
         function () {
             $routes = app('TypiCMS.routes');
@@ -41,7 +41,7 @@ if (! App::runningInConsole()) {
 
 Route::group(
     array(
-        'namespace' => 'TypiCMS\Modules\Events\Controllers',
+        'namespace' => 'TypiCMS\Modules\Events\Http\Controllers',
         'prefix'    => 'admin',
     ),
     function () {

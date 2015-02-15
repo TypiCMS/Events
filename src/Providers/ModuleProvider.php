@@ -13,8 +13,6 @@ use TypiCMS\Modules\Events\Models\EventTranslation;
 use TypiCMS\Modules\Events\Repositories\CacheDecorator;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
-use TypiCMS\Modules\Events\Services\Form\EventForm;
-use TypiCMS\Modules\Events\Services\Form\EventFormLaravelValidator;
 use TypiCMS\Observers\FileObserver;
 use TypiCMS\Observers\SlugObserver;
 use TypiCMS\Services\Cache\LaravelCache;
@@ -68,13 +66,6 @@ class ModuleProvider extends ServiceProvider
             $laravelCache = new LaravelCache($app['cache'], 'events', 10);
 
             return new CacheDecorator($repository, $laravelCache);
-        });
-
-        $app->bind('TypiCMS\Modules\Events\Services\Form\EventForm', function (Application $app) {
-            return new EventForm(
-                new EventFormLaravelValidator($app['validator']),
-                $app->make('TypiCMS\Modules\Events\Repositories\EventInterface')
-            );
         });
 
         $app->bind('TypiCMS\Modules\Events\Services\Calendar', function () {

@@ -1,7 +1,7 @@
 <?php
-namespace TypiCMS\Modules\Events\Controllers;
+namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use TypiCMS\Controllers\BaseApiController;
+use TypiCMS\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Events\Repositories\EventInterface as Repository;
 
 class ApiController extends BaseApiController

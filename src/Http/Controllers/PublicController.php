@@ -1,5 +1,5 @@
 <?php
-namespace TypiCMS\Modules\Events\Controllers;
+namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Config;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Input;
 use Response;
 use TypiCMS;
-use TypiCMS\Controllers\BasePublicController;
+use TypiCMS\Http\Controllers\BasePublicController;
 use TypiCMS\Modules\Events\Repositories\EventInterface;
 use TypiCMS\Modules\Events\Services\Calendar;
 use View;
@@ -17,7 +17,7 @@ class PublicController extends BasePublicController
 
     protected $calendar;
 
-    public function __construct(EventInterface $event, Calendar $calendar)
+    public function __construct(EventInterface $event)
     {
         parent::__construct($event);
         $this->title['parent'] = Str::title(trans_choice('events::global.events', 2));
