@@ -48,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider {
                         $uri = $routes['events'][$lang];
                     } else {
                         $uri = 'events';
-                        if (Config::get('app.fallback_locale') != $lang || Config::get('app.main_locale_in_url')) {
+                        if (Config::get('app.fallback_locale') != $lang || config('typicms.main_locale_in_url')) {
                             $uri = $lang . '/' . $uri;
                         }
                     }
