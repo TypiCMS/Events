@@ -1,8 +1,11 @@
 @extends('core::public.master')
 
+@section('title', trans('events::global.name') . ' – ' . $websiteTitle)
+@section('ogTitle', trans('events::global.name'))
+
 @section('main')
 
-    <h2>{{ Illuminate\Support\Str::title(trans_choice('events::global.events', 2)) }}</h2>
+    <h2>@lang('events::global.name')</h2>
 
     @if ($models->count())
     <ul>

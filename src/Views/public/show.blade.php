@@ -1,3 +1,9 @@
+@extends('core::public.master')
+
+@section('title', $model->title . ' – ' . trans('news::global.name') . ' – ' . $websiteTitle)
+@section('ogTitle', $model->title)
+@section('description', $model->summary)
+@section('image', $model->present()->thumbAbsoluteSrc())
 
 @section('main')
 
@@ -8,7 +14,7 @@
         <a class="btn btn-default btn-xs" href="{{ route($lang.'.events.slug.ics', $model->slug) }}">
             <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
         </a>
-        <div>{!! $model->body !!}</div>
+        <div class="body">{!! $model->body !!}</div>
     </article>
 
 @stop
