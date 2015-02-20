@@ -17,7 +17,7 @@ class PublicController extends BasePublicController
 
     protected $calendar;
 
-    public function __construct(EventInterface $event)
+    public function __construct(EventInterface $event, Calendar $calendar)
     {
         parent::__construct($event);
         $this->title['parent'] = Str::title(trans_choice('events::global.events', 2));
