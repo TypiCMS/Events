@@ -12,9 +12,6 @@
         "eluceo/ical": "~0.6"
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-4": {
             "TypiCMS\\Modules\\Events\\": "src/"
         }
