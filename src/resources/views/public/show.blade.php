@@ -4,6 +4,7 @@
 @section('ogTitle', $model->title)
 @section('description', $model->summary)
 @section('image', $model->present()->thumbAbsoluteSrc())
+@section('bodyClass', 'body-event body-event-' . $model->id)
 
 @section('main')
 

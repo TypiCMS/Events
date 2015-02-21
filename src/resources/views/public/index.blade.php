@@ -2,6 +2,7 @@
 
 @section('title', trans('events::global.name') . ' – ' . $websiteTitle)
 @section('ogTitle', trans('events::global.name'))
+@section('bodyClass', 'body-events')
 
 @section('main')
 
