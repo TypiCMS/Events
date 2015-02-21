@@ -20,7 +20,6 @@ class PublicController extends BasePublicController
     public function __construct(EventInterface $event, Calendar $calendar)
     {
         parent::__construct($event);
-        $this->title['parent'] = Str::title(trans_choice('events::global.events', 2));
         $this->calendar = $calendar;
     }
 
@@ -54,8 +53,6 @@ class PublicController extends BasePublicController
         $model = $this->repository->bySlug($slug);
 
         TypiCMS::setModel($model);
-
-        $this->title['parent'] = $model->title;
 
         return view('events::public.show')
             ->with(compact('model'));
