@@ -1,11 +1,11 @@
 <?php
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use TypiCMS\Http\Controllers\AdminSimpleController;
+use TypiCMS\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
 use TypiCMS\Modules\Events\Repositories\EventInterface;
 
-class AdminController extends AdminSimpleController
+class AdminController extends BaseAdminController
 {
 
     public function __construct(EventInterface $event)
