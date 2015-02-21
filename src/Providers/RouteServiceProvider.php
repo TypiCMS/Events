@@ -54,6 +54,7 @@ class RouteServiceProvider extends ServiceProvider {
                     }
                     $router->get($uri, array('as' => $lang.'.events', 'uses' => 'PublicController@index'));
                     $router->get($uri.'/{slug}', array('as' => $lang.'.events.slug', 'uses' => 'PublicController@show'));
+                    $router->get($uri.'/{slug}/ics', array('as' => $lang.'.events.slug.ics', 'uses' => 'PublicController@ics'));
                 }
             });
 
