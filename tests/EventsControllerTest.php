@@ -3,15 +3,11 @@ use TypiCMS\Modules\Events\Models\Event;
 
 class EventsControllerTest extends TestCase
 {
-    public function tearDown()
-    {
-        Mockery::close();
-    }
 
     public function testAdminIndex()
     {
-        $this->get('admin/events');
-        $this->assertTrue($this->client->getResponse()->isOk());
+        $response = $this->call('GET', 'admin/events');
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     public function testStoreFails()
