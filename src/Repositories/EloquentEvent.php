@@ -24,7 +24,7 @@ class EloquentEvent extends RepositoriesAbstract implements EventInterface
     {
         $query = $this->make($with);
         $query->where('end_date', '>=', date('Y-m-d'))
-            ->whereHasOnlineTranslation()
+            ->online()
             ->orderBy('start_date');
         if ($number) {
             $query->take($number);
