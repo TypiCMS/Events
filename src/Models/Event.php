@@ -16,6 +16,8 @@ class Event extends Base
 
     protected $presenter = 'TypiCMS\Modules\Events\Presenters\ModulePresenter';
 
+    protected $dates = ['start_date', 'end_date'];
+
     protected $fillable = array(
         'start_date',
         'end_date',
