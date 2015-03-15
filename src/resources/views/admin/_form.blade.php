@@ -16,19 +16,19 @@
 
 <div class="row">
     <div class="col-sm-4">
-        {!! BootForm::date(trans('validation.attributes.start_date'), 'start_date')->value($model->present()->dateOrNow('start_date'))->placeholder(trans('validation.attributes.DDMMYYYY'))->addClass('datepicker') !!}
-    </div>
-    <div class="col-sm-3">
-        {!! BootForm::text(trans('validation.attributes.start_time'), 'start_time')->placeholder(trans('validation.attributes.HH:MM'))->addClass('timepicker') !!}
+        <div class="form-group">
+            <label class="control-label" for="start_date">@lang('validation.attributes.start_date')</label>
+            <input class="form-control" type="datetime-local" name="start_date" value="{{ Input::old('start_date', $model->present()->datetimeOrNow('start_date')) }}" id="start_date">
+        </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-4">
-        {!! BootForm::date(trans('validation.attributes.end_date'), 'end_date')->value($model->present()->dateOrNow('end_date'))->placeholder(trans('validation.attributes.DDMMYYYY'))->addClass('datepicker') !!}
-    </div>
-    <div class="col-sm-3">
-        {!! BootForm::text(trans('validation.attributes.end_time'), 'end_time')->placeholder(trans('validation.attributes.HH:MM'))->addClass('timepicker') !!}
+        <div class="form-group">
+            <label class="control-label" for="end_date">@lang('validation.attributes.end_date')</label>
+            <input class="form-control" type="datetime-local" name="end_date" value="{{ Input::old('end_date', $model->present()->datetimeOrNow('end_date')) }}" id="end_date">
+        </div>
     </div>
 </div>
 

@@ -8,10 +8,8 @@ class FormRequest extends AbstractFormRequest {
     public function rules()
     {
         $rules = [
-            'start_date' => 'required|date',
-            'start_time' => 'date_format:G:i',
-            'end_date'   => 'required|date',
-            'end_time'   => 'date_format:G:i',
+            'start_date' => 'required|date_format:Y-m-d\TG:i',
+            'end_date'   => 'required|date_format:Y-m-d\TG:i',
             'image'      => 'image|max:2000|image_size:>=500',
         ];
         foreach (config('translatable.locales') as $locale) {
