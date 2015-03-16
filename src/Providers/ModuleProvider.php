@@ -68,7 +68,7 @@ class ModuleProvider extends ServiceProvider
 
         $app->bind('TypiCMS\Modules\Events\Repositories\EventInterface', function (Application $app) {
             $repository = new EloquentEvent(new Event);
-            if (! Config::get('app.cache')) {
+            if (! config('typicms.cache')) {
                 return $repository;
             }
             $laravelCache = new LaravelCache($app['cache'], 'events', 10);
