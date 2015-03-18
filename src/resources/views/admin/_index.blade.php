@@ -1,8 +1,8 @@
 <div ng-app="typicms" ng-cloak ng-controller="ListController">
 
     <h1>
-        <a href="{{ url }}/create" class="btn-add"><i class="fa fa-plus-circle"></i><span class="sr-only" translate>New</span></a>
-        <span translate translate-n="models.length" translate-plural="{{ models.length }} events">{{ models.length }} event</span>
+        <a href="{{ route('admin.' . $module . '.create') }}" class="btn-add"><i class="fa fa-plus-circle"></i><span class="sr-only" translate>New</span></a>
+        <span translate translate-n="models.length" translate-plural="@{{ models.length }} events">@{{ models.length }} event</span>
     </h1>
 
     <div class="btn-toolbar" role="toolbar" ng-include="'/views/partials/btnLocales.html'"></div>
@@ -23,7 +23,7 @@
                 <tr>
                     <td colspan="6"></td>
                     <td>
-                        <input st-search="'title'" class="form-control input-sm" placeholder="{{ 'Search' | translate }}…" type="text">
+                        <input st-search="'title'" class="form-control input-sm" placeholder="@{{ 'Search' | translate }}…" type="text">
                     </td>
                 </tr>
             </thead>
@@ -33,10 +33,12 @@
                     <td><typi-btn-delete ng-click="delete(model)"></typi-btn-delete></td>
                     <td typi-btn-edit></td>
                     <td typi-btn-status></td>
-                    <td typi-thumb-list-item></td>
-                    <td>{{ model.start_date | dateFromMySQL:'short' }}</td>
-                    <td>{{ model.end_date | dateFromMySQL:'short' }}</td>
-                    <td>{{ model.title }}</td>
+                    <td>
+                        <img ng-src="@{{ model.thumb }}" alt="">
+                    </td>
+                    <td>@{{ model.start_date | dateFromMySQL:'short' }}</td>
+                    <td>@{{ model.end_date | dateFromMySQL:'short' }}</td>
+                    <td>@{{ model.title }}</td>
                 </tr>
             </tbody>
             <tfoot>
