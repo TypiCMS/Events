@@ -30,9 +30,11 @@
 
             <tbody>
                 <tr ng-repeat="model in displayedModels">
-                    <td><typi-btn-delete ng-click="delete(model)"></typi-btn-delete></td>
-                    <td typi-btn-edit></td>
-                    <td typi-btn-status></td>
+                    <td typi-btn-delete action="delete(model)"></td>
+                    <td>
+                        @include('core::admin._button-edit')
+                    </td>
+                    <td typi-btn-status action="toggleStatus(model)" model="model"></td>
                     <td>
                         <img ng-src="@{{ model.thumb }}" alt="">
                     </td>
