@@ -8,6 +8,7 @@
 
 @section('main')
 
+    @include('core::public._btn-prev-next', ['module' => 'Events', 'model' => $model])
     <article>
         <h2>{{ $model->title }}</h2>
         <div class="date">{!! $model->present()->dateFromTo !!} <br>{!! $model->present()->timeFromTo !!}</div>
