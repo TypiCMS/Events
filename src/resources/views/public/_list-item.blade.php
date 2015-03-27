@@ -1,5 +1,10 @@
 <li>
-    <strong>{{ $event->title }}</strong><br>
-    <span class="date">{!! $event->present()->dateFromTo !!}</span><br>
-    <a href="{{ route($lang . '.events.slug', $event->slug) }}" class="btn btn-default btn-xs">@lang('db.More')</a>
+    <a href="{{ route($lang . '.events.slug', $event->slug) }}">
+        {!! $event->present()->thumb(540, 400) !!}
+        <div class="list-news-info">
+            <div class="title">{{ $event->title }}</div>
+            <div class="summary">{{ $event->summary }}</div>
+            <div class="date">{!! $event->present()->dateFromTo !!}</div>
+        </div>
+    </a>
 </li>

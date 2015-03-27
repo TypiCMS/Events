@@ -6,7 +6,7 @@
 
 @section('main')
 
-    <h2>@lang('events::global.name')</h2>
+    <h1>@lang('events::global.name')</h1>
 
     @if ($models->count())
     @include('events::public._list', ['items' => $models])
