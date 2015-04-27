@@ -1,10 +1,11 @@
 @extends('core::public.master')
+<?php $page = TypiCMS::getPageLinkedToModule('events') ?>
 
 @section('title', $model->title . ' – ' . trans('news::global.name') . ' – ' . $websiteTitle)
 @section('ogTitle', $model->title)
 @section('description', $model->summary)
 @section('image', $model->present()->thumbAbsoluteSrc())
-@section('bodyClass', 'body-event body-event-' . $model->id)
+@section('bodyClass', 'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id)
 
 @section('main')
 
