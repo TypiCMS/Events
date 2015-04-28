@@ -30,13 +30,9 @@ class PublicController extends BasePublicController
      */
     public function index()
     {
-        TypiCMS::setModel($this->repository->getModel());
-
         $page = Input::get('page');
         $perPage = config('typicms.events.per_page');
-
         $data = $this->repository->byPage($page, $perPage, ['translations']);
-
         $models = new Paginator($data->items, $data->totalItems, $perPage, null, ['path' => Paginator::resolveCurrentPath()]);
 
         return view('events::public.index')
@@ -51,9 +47,6 @@ class PublicController extends BasePublicController
     public function show($slug)
     {
         $model = $this->repository->bySlug($slug);
-
-        TypiCMS::setModel($model);
-
         return view('events::public.show')
             ->with(compact('model'));
     }
