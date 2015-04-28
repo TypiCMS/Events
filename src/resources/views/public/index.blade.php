@@ -1,12 +1,13 @@
-@extends('core::public.master')
+@extends('pages::public.master')
+<?php $page = TypiCMS::getPageLinkedToModule('events') ?>
 
-@section('title', trans('events::global.name') . ' – ' . $websiteTitle)
-@section('ogTitle', trans('events::global.name'))
-@section('bodyClass', 'body-events')
+@section('bodyClass', 'body-events body-events-index body-page body-page-' . $page->id)
 
 @section('main')
 
-    <h1>@lang('events::global.name')</h1>
+    {!! $page->body !!}
+
+    @include('galleries::public._galleries', ['model' => $page])
 
     @if ($models->count())
     @include('events::public._list', ['items' => $models])

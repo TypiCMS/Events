@@ -1,9 +1,9 @@
 <?php
 namespace TypiCMS\Modules\Events\Providers;
 
-use Config;
-use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Routing\Router;
+use TypiCMS\Facades\TypiCMS;
 
 class RouteServiceProvider extends ServiceProvider {
 
@@ -42,13 +42,14 @@ class RouteServiceProvider extends ServiceProvider {
             /**
              * Front office routes
              */
-            $routes = $this->app->make('TypiCMS.routes');
-            foreach (Config::get('translatable.locales') as $lang) {
-                if (isset($routes['events'][$lang])) {
-                    $uri = $routes['events'][$lang];
-                    $router->get($uri, array('as' => $lang.'.events', 'uses' => 'PublicController@index'));
-                    $router->get($uri.'/{slug}', array('as' => $lang.'.events.slug', 'uses' => 'PublicController@show'));
-                    $router->get($uri.'/{slug}/ics', array('as' => $lang.'.events.slug.ics', 'uses' => 'PublicController@ics'));
+            if ($page = TypiCMS::getPageLinkedToModule('events')) {
+                foreach (config('translatable.locales') as $lang) {
+                    $options = $page->private ? ['middleware' => 'auth'] : [] ;
+                    if ($uri = $page->uri($lang)) {
+                        $router->get($uri, $options + ['as' => $lang.'.events', 'uses' => 'PublicController@index']);
+                        $router->get($uri.'/{slug}', $options + ['as' => $lang.'.events.slug', 'uses' => 'PublicController@show']);
+                        $router->get($uri.'/{slug}/ics', $options + ['as' => $lang.'.events.slug.ics', 'uses' => 'PublicController@ics']);
+                    }
                 }
             }
 
