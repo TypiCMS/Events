@@ -1,7 +1,7 @@
 <?php
 namespace TypiCMS\Modules\Events\Presenters;
 
-use Laracasts\Presenter\Presenter;
+use TypiCMS\Modules\Core\Presenters\Presenter;
 
 class ModulePresenter extends Presenter
 {
