@@ -1,7 +1,7 @@
 <?php
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use TypiCMS\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
 use TypiCMS\Modules\Events\Repositories\EventInterface;
 

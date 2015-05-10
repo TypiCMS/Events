@@ -3,7 +3,7 @@ namespace TypiCMS\Modules\Events\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use TypiCMS\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
 
 class EloquentEvent extends RepositoriesAbstract implements EventInterface
 {

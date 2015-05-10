@@ -13,9 +13,9 @@ use TypiCMS\Modules\Events\Models\EventTranslation;
 use TypiCMS\Modules\Events\Repositories\CacheDecorator;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
-use TypiCMS\Observers\FileObserver;
-use TypiCMS\Observers\SlugObserver;
-use TypiCMS\Services\Cache\LaravelCache;
+use TypiCMS\Modules\Core\Observers\FileObserver;
+use TypiCMS\Modules\Core\Observers\SlugObserver;
+use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 use View;
 
 class ModuleProvider extends ServiceProvider

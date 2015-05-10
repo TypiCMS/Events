@@ -3,7 +3,7 @@ namespace TypiCMS\Modules\Events\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
-use TypiCMS\Facades\TypiCMS;
+use TypiCMS\Modules\Core\Facades\TypiCMS;
 
 class RouteServiceProvider extends ServiceProvider {
 

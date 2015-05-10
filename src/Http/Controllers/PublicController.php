@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Input;
 use Response;
 use TypiCMS;
-use TypiCMS\Http\Controllers\BasePublicController;
+use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
 use TypiCMS\Modules\Events\Repositories\EventInterface;
 use TypiCMS\Modules\Events\Services\Calendar;
 use View;
