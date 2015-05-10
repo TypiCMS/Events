@@ -3,9 +3,9 @@ namespace TypiCMS\Modules\Events\Models;
 
 use Carbon\Carbon;
 use Dimsav\Translatable\Translatable;
+use Laracasts\Presenter\PresentableTrait;
 use TypiCMS\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
-use TypiCMS\Presenters\PresentableTrait;
 
 class Event extends Base
 {
