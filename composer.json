@@ -1,6 +1,7 @@
 {
     "name": "typicms/events",
     "description": "",
+    "license": "MIT",
     "authors": [
         {
             "name": "Samuel De Backer",
