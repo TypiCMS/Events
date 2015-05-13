@@ -1,16 +1,14 @@
 <?php
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use Config;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
-use Input;
-use Response;
 use TypiCMS;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
 use TypiCMS\Modules\Events\Repositories\EventInterface;
 use TypiCMS\Modules\Events\Services\Calendar;
-use View;
 
 class PublicController extends BasePublicController
 {
