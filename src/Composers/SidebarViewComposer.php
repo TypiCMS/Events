@@ -17,7 +17,7 @@ class SidebarViewComposer extends BaseSidebarViewComposer
                 $item->route('admin.events.index');
                 $item->append('admin.events.create');
                 $item->authorize(
-                    $this->user->hasAccess('events.index')
+                    $this->auth->hasAccess('events.index')
                 );
             });
         });
