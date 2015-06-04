@@ -9,8 +9,8 @@
         }
     ],
     "require": {
-        "typicms/core": "~2.3.0",
-        "eluceo/ical": "~0.7"
+        "eluceo/ical": "~0.7",
+        "typicms/core": "~2.4.0"
     },
     "autoload": {
         "psr-4": {
