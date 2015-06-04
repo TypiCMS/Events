@@ -73,11 +73,21 @@ class ModuleProvider extends ServiceProvider
             return new CacheDecorator($repository, $laravelCache);
         });
 
+        /**
+         * Calendar service
+         */
         $app->bind('TypiCMS\Modules\Events\Services\Calendar', function () {
             return new Calendar(
                 new EluceoCalendar('TypiCMS'),
                 new EluceoEvent
             );
+        });
+
+        /**
+         * Return the page linked to this module (for @inject in views)
+         */
+        $app->singleton('typicms.events.page', function (Application $app) {
+            return TypiCMS::getPageLinkedToModule('events');
         });
 
     }
