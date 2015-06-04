@@ -3,8 +3,6 @@ namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Str;
 use TypiCMS;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
 use TypiCMS\Modules\Events\Repositories\EventInterface;
@@ -24,7 +22,7 @@ class PublicController extends BasePublicController
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function index()
     {
@@ -40,7 +38,7 @@ class PublicController extends BasePublicController
     /**
      * Show event.
      *
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function show($slug)
     {
@@ -52,7 +50,7 @@ class PublicController extends BasePublicController
     /**
      * Show event.
      *
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function ics($slug)
     {
@@ -60,7 +58,7 @@ class PublicController extends BasePublicController
 
         $this->calendar->add($event);
 
-        $response = Response::make($this->calendar->render(), 200);
+        $response = response($this->calendar->render(), 200);
         $response->header('Content-Type', 'text/calendar; charset=utf-8');
         $response->header('Content-Disposition', 'attachment; filename="' . $event->slug . '.ics"');
 
