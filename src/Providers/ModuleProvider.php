@@ -6,14 +6,15 @@ use Eluceo\iCal\Component\Event as EluceoEvent;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use TypiCMS\Modules\Core\Facades\TypiCMS;
+use TypiCMS\Modules\Core\Observers\FileObserver;
+use TypiCMS\Modules\Core\Observers\SlugObserver;
+use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Models\EventTranslation;
 use TypiCMS\Modules\Events\Repositories\CacheDecorator;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
-use TypiCMS\Modules\Core\Observers\FileObserver;
-use TypiCMS\Modules\Core\Observers\SlugObserver;
-use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 
 class ModuleProvider extends ServiceProvider
 {
