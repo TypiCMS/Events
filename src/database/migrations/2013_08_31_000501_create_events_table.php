@@ -27,7 +27,7 @@ class CreateEventsTable extends Migration
         Schema::create('event_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->increments('id')->unsigned();
+            $table->increments('id');
             $table->integer('event_id')->unsigned();
 
             $table->string('locale');
