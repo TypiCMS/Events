@@ -18,7 +18,7 @@
         <a class="btn btn-default btn-xs" href="{{ route($lang.'.events.slug.ics', $model->slug) }}">
             <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
         </a>
-        <div class="body">{!! $model->body !!}</div>
+        <div class="body">{!! $model->present()->body !!}</div>
     </article>
 
 @stop
