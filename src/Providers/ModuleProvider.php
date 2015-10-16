@@ -64,6 +64,13 @@ class ModuleProvider extends ServiceProvider
          */
         $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Events\Composers\SidebarViewComposer');
 
+        /**
+         * Add the page in the view.
+         */
+        $app->view->composer('events::public.*', function ($view) {
+            $view->page = TypiCMS::getPageLinkedToModule('events');
+        });
+
         $app->bind('TypiCMS\Modules\Events\Repositories\EventInterface', function (Application $app) {
             $repository = new EloquentEvent(new Event);
             if (! config('typicms.cache')) {
@@ -82,13 +89,6 @@ class ModuleProvider extends ServiceProvider
                 new EluceoCalendar('TypiCMS'),
                 new EluceoEvent
             );
-        });
-
-        /**
-         * Return the page linked to this module (for @inject in views)
-         */
-        $app->singleton('typicms.events.page', function (Application $app) {
-            return TypiCMS::getPageLinkedToModule('events');
         });
 
     }
