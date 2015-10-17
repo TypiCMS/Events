@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateEventsTable extends Migration
 {
@@ -42,7 +42,7 @@ class CreateEventsTable extends Migration
 
             $table->timestamps();
 
-            $table->unique(array('event_id', 'locale'));
+            $table->unique(['event_id', 'locale']);
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 
         });
@@ -58,5 +58,4 @@ class CreateEventsTable extends Migration
         Schema::drop('event_translations');
         Schema::drop('events');
     }
-
 }

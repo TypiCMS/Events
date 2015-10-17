@@ -1,4 +1,5 @@
 <?php
+
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
@@ -10,7 +11,6 @@ use TypiCMS\Modules\Events\Services\Calendar;
 
 class PublicController extends BasePublicController
 {
-
     protected $calendar;
 
     public function __construct(EventInterface $event, Calendar $calendar)
@@ -43,6 +43,7 @@ class PublicController extends BasePublicController
     public function show($slug)
     {
         $model = $this->repository->bySlug($slug);
+
         return view('events::public.show')
             ->with(compact('model'));
     }
@@ -60,7 +61,7 @@ class PublicController extends BasePublicController
 
         $response = response($this->calendar->render(), 200);
         $response->header('Content-Type', 'text/calendar; charset=utf-8');
-        $response->header('Content-Disposition', 'attachment; filename="' . $event->slug . '.ics"');
+        $response->header('Content-Disposition', 'attachment; filename="'.$event->slug.'.ics"');
 
         return $response;
     }
