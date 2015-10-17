@@ -1,13 +1,13 @@
 <?php
+
 namespace TypiCMS\Modules\Events\Presenters;
 
 use TypiCMS\Modules\Core\Presenters\Presenter;
 
 class ModulePresenter extends Presenter
 {
-
     /**
-     * Return start_date formated as d.m.Y
+     * Return start_date formated as d.m.Y.
      *
      * @return string
      */
@@ -17,7 +17,7 @@ class ModulePresenter extends Presenter
     }
 
     /**
-     * Return end_date formated as d.m.Y
+     * Return end_date formated as d.m.Y.
      *
      * @return string
      */
@@ -27,34 +27,36 @@ class ModulePresenter extends Presenter
     }
 
     /**
-     * Return start_date formated as H:i
+     * Return start_date formated as H:i.
      *
      * @return string
      */
     public function startTime()
     {
-        if (! $this->entity->start_date) {
+        if (!$this->entity->start_date) {
             return '';
         }
+
         return $this->entity->start_date->format('H:i');
     }
 
     /**
-     * Return end_date formated as H:i
+     * Return end_date formated as H:i.
      *
      * @return string
      */
     public function endTime()
     {
-        if (! $this->entity->end_date) {
+        if (!$this->entity->end_date) {
             return '';
         }
+
         return $this->entity->end_date->format('H:i');
     }
 
     /**
      * concat start and end date
-     * without repeating common month and year
+     * without repeating common month and year.
      *
      * @return string html data
      */
@@ -65,9 +67,9 @@ class ModulePresenter extends Presenter
         $dateFormat = '%d %B %Y';
         $sDateFormat = $dateFormat;
         if ($sDate == $eDate) {
-            return ucfirst(trans('events::global.on')) .
-                ' <time datetime="' . $sDate . '">' .
-                $sDate->formatLocalized($dateFormat) .
+            return ucfirst(trans('events::global.on')).
+                ' <time datetime="'.$sDate.'">'.
+                $sDate->formatLocalized($dateFormat).
                 '</time>';
         }
         if ($sDate->format('Y') == $eDate->format('Y')) {
@@ -77,21 +79,20 @@ class ModulePresenter extends Presenter
             }
         }
 
-        $dateFromTo  = ucfirst(trans('events::global.from')) . ' ';
-        $dateFromTo .= '<time datetime="' . $sDate . '">';
+        $dateFromTo = ucfirst(trans('events::global.from')).' ';
+        $dateFromTo .= '<time datetime="'.$sDate.'">';
         $dateFromTo .= $sDate->formatLocalized($sDateFormat);
         $dateFromTo .= '</time>';
-        $dateFromTo .= ' ' . trans('events::global.to') . ' ';
-        $dateFromTo .= '<time datetime="' . $eDate . '">';
+        $dateFromTo .= ' '.trans('events::global.to').' ';
+        $dateFromTo .= '<time datetime="'.$eDate.'">';
         $dateFromTo .= $eDate->formatLocalized($dateFormat);
         $dateFromTo .= '</time>';
 
         return $dateFromTo;
-
     }
 
     /**
-     * concat start and end time
+     * concat start and end time.
      *
      * @return string
      */
@@ -100,9 +101,9 @@ class ModulePresenter extends Presenter
         $timeFromTo = $this->entity->start_time;
         $eTime = $this->entity->end_time;
         if ($eTime) {
-            $timeFromTo .= ' - ' . $eTime;
+            $timeFromTo .= ' - '.$eTime;
         }
-        return $timeFromTo;
 
+        return $timeFromTo;
     }
 }

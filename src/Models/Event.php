@@ -1,7 +1,7 @@
 <?php
+
 namespace TypiCMS\Modules\Events\Models;
 
-use Carbon\Carbon;
 use Dimsav\Translatable\Translatable;
 use Laracasts\Presenter\PresentableTrait;
 use TypiCMS\Modules\Core\Models\Base;
@@ -9,7 +9,6 @@ use TypiCMS\Modules\History\Traits\Historable;
 
 class Event extends Base
 {
-
     use Historable;
     use Translatable;
     use PresentableTrait;
@@ -18,7 +17,7 @@ class Event extends Base
 
     protected $dates = ['start_date', 'end_date'];
 
-    protected $fillable = array(
+    protected $fillable = [
         'start_date',
         'end_date',
         'start_time',
@@ -30,20 +29,20 @@ class Event extends Base
         'status',
         'summary',
         'body',
-    );
+    ];
 
     /**
      * Translatable model configs.
      *
      * @var array
      */
-    public $translatedAttributes = array(
+    public $translatedAttributes = [
         'title',
         'slug',
         'status',
         'summary',
         'body',
-    );
+    ];
 
     protected $appends = ['status', 'title', 'thumb'];
 
@@ -52,7 +51,7 @@ class Event extends Base
      *
      * @var array
      */
-    public $attachments = array(
+    public $attachments = [
         'image',
-    );
+    ];
 }

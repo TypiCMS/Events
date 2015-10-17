@@ -1,4 +1,5 @@
 <?php
+
 namespace TypiCMS\Modules\Events\Services;
 
 use Eluceo\iCal\Component\Calendar as ElucleoCalendar;
@@ -17,7 +18,7 @@ class Calendar
     }
 
     /**
-     * add an event to the calendar
+     * add an event to the calendar.
      *
      * @param Event $model
      */
@@ -26,7 +27,7 @@ class Calendar
         $this->iEvent->setNoTime(true);
 
         $start_date = $model->start_date;
-        $end_date   = $model->end_date;
+        $end_date = $model->end_date;
         if ($model->start_time) {
             $time = explode(':', $model->start_time);
             $start_date = $start_date->setTime($time[0], $time[1]);
@@ -49,7 +50,7 @@ class Calendar
     }
 
     /**
-     * Render .ics calendar
+     * Render .ics calendar.
      *
      * @param $model
      */
