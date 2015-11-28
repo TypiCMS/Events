@@ -27,6 +27,7 @@ class Event extends Base
         'title',
         'slug',
         'status',
+        'location',
         'summary',
         'body',
     ];
@@ -40,6 +41,7 @@ class Event extends Base
         'title',
         'slug',
         'status',
+        'location',
         'summary',
         'body',
     ];

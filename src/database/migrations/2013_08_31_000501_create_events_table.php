@@ -37,6 +37,7 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->string('slug')->nullable();
 
+            $table->text('location');
             $table->text('summary');
             $table->text('body');
 
