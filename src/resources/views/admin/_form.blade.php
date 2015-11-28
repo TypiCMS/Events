@@ -10,14 +10,20 @@
 @include('core::admin._image-fieldset', ['field' => 'image'])
 
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-6">
         {!! BootForm::text(trans('validation.attributes.start_date'), 'start_date')->value($model->present()->datetimeOrNow('start_date'))->addClass('datetimepicker') !!}
+    </div>
+    <div class="col-sm-6">
+        {!! BootForm::text(trans('validation.attributes.end_date'), 'end_date')->value($model->present()->datetimeOrNow('end_date'))->addClass('datetimepicker') !!}
     </div>
 </div>
 
 <div class="row">
-    <div class="col-sm-4">
-        {!! BootForm::text(trans('validation.attributes.end_date'), 'end_date')->value($model->present()->datetimeOrNow('end_date'))->addClass('datetimepicker') !!}
+    <div class="col-sm-6">
+        {!! BootForm::text(trans('validation.attributes.price'), 'price') !!}
+    </div>
+    <div class="col-sm-6">
+        {!! BootForm::text(trans('validation.attributes.currency'), 'currency')->defaultValue('EUR') !!}
     </div>
 </div>
 

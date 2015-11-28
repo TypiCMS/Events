@@ -14,38 +14,29 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
             $table->increments('id');
-
             $table->datetime('start_date');
             $table->datetime('end_date')->nullable();
             $table->string('image')->nullable();
-
+            $table->decimal('price', 10)->nullable();
+            $table->string('currency', 3)->default('EUR');
             $table->timestamps();
         });
 
         Schema::create('event_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->integer('event_id')->unsigned();
-
             $table->string('locale');
-
             $table->boolean('status')->default(0);
-
             $table->string('title');
             $table->string('slug')->nullable();
-
             $table->text('location');
             $table->text('summary');
             $table->text('body');
-
             $table->timestamps();
-
             $table->unique(['event_id', 'locale']);
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-
         });
     }
 
