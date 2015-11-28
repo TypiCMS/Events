@@ -26,7 +26,7 @@ class ModuleProvider extends ServiceProvider
         );
 
         $modules = $this->app['config']['typicms']['modules'];
-        $this->app['config']->set('typicms.modules', array_merge(['events' => ['linkable_to_page']], $modules));
+        $this->app['config']->set('typicms.modules', array_merge(['events' => ['linkable_to_page', 'linkable_to_slide']], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'events');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'events');
