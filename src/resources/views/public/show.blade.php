@@ -9,22 +9,17 @@
 @section('main')
 
     @include('core::public._btn-prev-next', ['module' => 'Events', 'model' => $model])
-     <div itemscope itemtype="http://schema.org/Event">
-        <meta itemprop="description" content="{{ $model->summary }}">
+
+    <article class="event" itemscope itemtype="http://schema.org/Event">
+        <h1 itemprop="name">{{ $model->title }}</h1>
+        <link itemprop="url" href="{{ route($lang.'.events.slug', $model->slug) }}">
         <meta itemprop="startDate" content="{{ $model->start_date->toIso8601String() }}">
         <meta itemprop="endDate" content="{{ $model->end_date->toIso8601String() }}">
-        <meta itemprop="duration" content="0000-00-00T1:00">
-        <link itemprop="url" href="{{ URL::current() }}" rel="author"/>
-        <a itemprop="url" href="{{ URL::current() }}">
-            <span itemprop="name" style="display:block;"><strong>{{ $model->title }}</strong></span>
-        </a>
-        <div itemprop="location" itemscope itemtype="http://schema.org/Text">{{ $model->location }}</div>
-    </div>
-    <article>
-        <h1>{{ $model->title }}</h1>
+        <meta itemprop="image" content="{{ $model->present()->thumbAbsoluteSrc() }}">
         {!! $model->present()->thumb(null, 200) !!}
+        <div itemprop="location">{{ $model->location }}</div>
         <div class="date">{!! $model->present()->dateFromTo !!} <br>{!! $model->present()->timeFromTo !!}</div>
-        <p class="summary">{{ nl2br($model->summary) }}</p>
+        <p itemprop="description" class="summary">{{ nl2br($model->summary) }}</p>
         <a class="btn btn-default btn-xs" href="{{ route($lang.'.events.slug.ics', $model->slug) }}">
             <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
         </a>
