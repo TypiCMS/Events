@@ -18,8 +18,6 @@ class CreateEventsTable extends Migration
             $table->datetime('start_date');
             $table->datetime('end_date')->nullable();
             $table->string('image')->nullable();
-            $table->decimal('price', 10)->nullable();
-            $table->string('currency', 3)->default('EUR');
             $table->timestamps();
         });
 
