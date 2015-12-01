@@ -18,15 +18,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.price'), 'price') !!}
-    </div>
-    <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.currency'), 'currency')->defaultValue('EUR') !!}
-    </div>
-</div>
-
 @include('core::admin._tabs-lang')
 
 <div class="tab-content">

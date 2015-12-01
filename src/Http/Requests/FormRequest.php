@@ -12,8 +12,6 @@ class FormRequest extends AbstractFormRequest
             'start_date' => 'required|date_format:Y-m-d G:i:s',
             'end_date'   => 'required|date_format:Y-m-d G:i:s',
             'image'      => 'image|max:2000',
-            'price'      => 'numeric',
-            'currency'   => 'max:3',
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules[$locale.'.slug'] = [
