@@ -23,6 +23,8 @@ class Event extends Base
         'start_time',
         'end_time',
         'image',
+        'price',
+        'currency',
         // Translatable columns
         'title',
         'slug',
