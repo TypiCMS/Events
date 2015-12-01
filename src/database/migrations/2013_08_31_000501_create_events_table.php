@@ -29,7 +29,8 @@ class CreateEventsTable extends Migration
             $table->boolean('status')->default(0);
             $table->string('title');
             $table->string('slug')->nullable();
-            $table->text('location');
+            $table->string('venue')->nullable();
+            $table->text('address');
             $table->text('summary');
             $table->text('body');
             $table->timestamps();

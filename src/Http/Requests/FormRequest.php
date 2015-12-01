@@ -21,7 +21,7 @@ class FormRequest extends AbstractFormRequest
                 'max:255',
             ];
             $rules[$locale.'.title'] = 'max:255';
-            $rules[$locale.'.location'] = 'max:255';
+            $rules[$locale.'.venue'] = 'max:255';
         }
 
         return $rules;

@@ -28,7 +28,8 @@
         @include('core::form._title-and-slug')
         <input type="hidden" name="{{ $lang }}[status]" value="0">
         {!! BootForm::checkbox(trans('validation.attributes.online'), $lang.'[status]') !!}
-        {!! BootForm::textarea(trans('validation.attributes.location'), $lang.'[location]')->rows(4) !!}
+        {!! BootForm::text(trans('validation.attributes.venue'), $lang.'[venue]') !!}
+        {!! BootForm::textarea(trans('validation.attributes.address'), $lang.'[address]')->rows(4) !!}
         {!! BootForm::textarea(trans('validation.attributes.summary'), $lang.'[summary]')->rows(4) !!}
         {!! BootForm::textarea(trans('validation.attributes.body'), $lang.'[body]')->addClass('ckeditor') !!}
     </div>
