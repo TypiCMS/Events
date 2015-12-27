@@ -2,7 +2,7 @@
     <a href="{{ route($lang . '.events.slug', $event->slug) }}" itemprop="url">
         <meta itemprop="startDate" content="{{ $event->start_date->toIso8601String() }}">
         <meta itemprop="endDate" content="{{ $event->end_date->toIso8601String() }}">
-        <meta itemprop="image" content="{{ $event->present()->thumbAbsoluteSrc() }}">
+        <meta itemprop="image" content="{{ $event->present()->thumbUrl() }}">
         <div class="event-image">
             {!! $event->present()->thumb(540, 400) !!}
         </div>
