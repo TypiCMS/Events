@@ -2,7 +2,7 @@
 
 namespace TypiCMS\Modules\Events\Repositories;
 
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Repositories\CacheAbstractDecorator;
 use TypiCMS\Modules\Core\Services\Cache\CacheInterface;
 
@@ -24,7 +24,7 @@ class CacheDecorator extends CacheAbstractDecorator implements EventInterface
      */
     public function incoming($number = 10, array $with = ['translations'])
     {
-        $cacheKey = md5(config('app.locale').'incoming'.$number.implode('.', $with).implode('.', Input::all()));
+        $cacheKey = md5(config('app.locale').'incoming'.$number.implode('.', $with).implode('.', Request::all()));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
