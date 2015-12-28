@@ -11,10 +11,10 @@
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.start_date'), 'start_date')->value($model->present()->datetimeOrNow('start_date'))->addClass('datetimepicker') !!}
+        {!! BootForm::text(trans('validation.attributes.start_date'), 'start_date')->value(old('start_date') ? : $model->present()->datetimeOrNow('start_date'))->addClass('datetimepicker') !!}
     </div>
     <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.end_date'), 'end_date')->value($model->present()->datetimeOrNow('end_date'))->addClass('datetimepicker') !!}
+        {!! BootForm::text(trans('validation.attributes.end_date'), 'end_date')->value(old('end_date') ? : $model->present()->datetimeOrNow('end_date'))->addClass('datetimepicker') !!}
     </div>
 </div>
 
