@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
+use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Repositories\EventInterface as Repository;
 
 class ApiController extends BaseApiController
@@ -36,12 +37,28 @@ class ApiController extends BaseApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update($model)
+    public function update()
     {
-        $error = $this->repository->update(Request::all()) ? false : true;
+        $updated = $this->repository->update(Request::all());
 
         return response()->json([
-            'error' => $error,
-        ], 200);
+            'error' => !$updated,
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Events\Models\Event $event
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Event $event)
+    {
+        $deleted = $this->repository->delete($event);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
     }
 }
