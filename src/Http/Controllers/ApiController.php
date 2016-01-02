@@ -49,13 +49,13 @@ class ApiController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param \TypiCMS\Modules\Events\Models\Event $event
+     * @param \TypiCMS\Modules\Events\Models\Event $events
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Event $event)
+    public function destroy(Event $events)
     {
-        $deleted = $this->repository->delete($event);
+        $deleted = $this->repository->delete($events);
 
         return response()->json([
             'error' => !$deleted,
