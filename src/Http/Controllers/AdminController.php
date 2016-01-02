@@ -30,14 +30,14 @@ class AdminController extends BaseAdminController
     /**
      * Edit form for the specified resource.
      *
-     * @param \TypiCMS\Modules\Events\Models\Event $event
+     * @param \TypiCMS\Modules\Events\Models\Event $events
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Event $event)
+    public function edit(Event $events)
     {
         return view('core::admin.edit')
-            ->with(['model' => $event]);
+            ->with(['model' => $events]);
     }
 
     /**
@@ -57,15 +57,15 @@ class AdminController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \TypiCMS\Modules\Events\Models\Event              $event
+     * @param \TypiCMS\Modules\Events\Models\Event              $events
      * @param \TypiCMS\Modules\Events\Http\Requests\FormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Event $event, FormRequest $request)
+    public function update(Event $events, FormRequest $request)
     {
         $this->repository->update($request->all());
 
-        return $this->redirect($request, $event);
+        return $this->redirect($request, $events);
     }
 }
