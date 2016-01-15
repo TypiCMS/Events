@@ -9,6 +9,10 @@
 
 @include('core::admin._image-fieldset', ['field' => 'image'])
 
+@include('core::form._title-and-slug')
+{!! TranslatableBootForm::hidden('status')->value(0) !!}
+{!! TranslatableBootForm::checkbox(trans('validation.attributes.online'), 'status') !!}
+
 <div class="row">
     <div class="col-sm-6">
         {!! BootForm::text(trans('validation.attributes.start_date'), 'start_date')->value(old('start_date') ? : $model->present()->datetimeOrNow('start_date'))->addClass('datetimepicker') !!}
@@ -18,22 +22,7 @@
     </div>
 </div>
 
-@include('core::admin._tabs-lang')
-
-<div class="tab-content">
-
-    @foreach ($locales as $lang)
-
-    <div class="tab-pane fade @if ($locale == $lang)in active @endif" id="{{ $lang }}">
-        @include('core::form._title-and-slug')
-        <input type="hidden" name="{{ $lang }}[status]" value="0">
-        {!! BootForm::checkbox(trans('validation.attributes.online'), $lang.'[status]') !!}
-        {!! BootForm::text(trans('validation.attributes.venue'), $lang.'[venue]') !!}
-        {!! BootForm::textarea(trans('validation.attributes.address'), $lang.'[address]')->rows(4) !!}
-        {!! BootForm::textarea(trans('validation.attributes.summary'), $lang.'[summary]')->rows(4) !!}
-        {!! BootForm::textarea(trans('validation.attributes.body'), $lang.'[body]')->addClass('ckeditor') !!}
-    </div>
-
-    @endforeach
-
-</div>
+{!! TranslatableBootForm::text(trans('validation.attributes.venue'), 'venue') !!}
+{!! TranslatableBootForm::textarea(trans('validation.attributes.address'), 'address')->rows(4) !!}
+{!! TranslatableBootForm::textarea(trans('validation.attributes.summary'), 'summary')->rows(4) !!}
+{!! TranslatableBootForm::textarea(trans('validation.attributes.body'), 'body')->addClass('ckeditor') !!}
