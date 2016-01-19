@@ -26,4 +26,4 @@
         {!! $model->present()->thumb() !!}
     </article>
 
-@stop
+@endsection

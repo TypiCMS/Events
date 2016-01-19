@@ -14,4 +14,4 @@
 
     {!! $models->appends(Request::except('page'))->render() !!}
 
-@stop
+@endsection
