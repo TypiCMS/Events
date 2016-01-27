@@ -18,8 +18,8 @@
         <h1 class="event-title" itemprop="name">{{ $model->title }}</h1>
         <div class="event-date">{!! $model->present()->dateFromTo !!} <br>{!! $model->present()->timeFromTo !!}</div>
         <div class="event-location" itemprop="location">
-            <span itemprop="name">{{ $event->venue }}</span>
-            <div class="address" itemprop="address">{{ nl2br($event->address) }}</div>
+            <span itemprop="name">{{ $model->venue }}</span>
+            <div class="address" itemprop="address">{{ nl2br($model->address) }}</div>
         </div>
         <p class="event-summary" itemprop="description">{{ nl2br($model->summary) }}</p>
         <a class="btn btn-default btn-xs" href="{{ route($lang.'.events.slug.ics', $model->slug) }}">
