@@ -9,8 +9,8 @@
         <div class="event-info">
             <div class="event-date">{!! $event->present()->dateFromTo !!}</div>
             <div class="event-title" itemprop="name">{{ $event->title }}</div>
-            <div class="event-venue" itemprop="location">
-                <span itemprop="name">{{ $event->location }}</span>
+            <div class="event-location" itemprop="location">
+                <span itemprop="name">{{ $event->venue }}</span>
                 <div class="address" itemprop="address">{{ nl2br($event->address) }}</div>
             </div>
             <div class="event-summary" itemprop="description">{{ $event->summary }}</div>
