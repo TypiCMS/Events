@@ -100,6 +100,7 @@ class ModulePresenter extends Presenter
     {
         $startTime = $this->entity->start_date->format('H:i');
         $endTime = $this->entity->end_date->format('H:i');
-        return $startTime . ' - ' . $endTime;
+
+        return $startTime.' - '.$endTime;
     }
 }
