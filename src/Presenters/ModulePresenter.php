@@ -105,6 +105,7 @@ class ModulePresenter extends Presenter
     {
         $startTime = $this->entity->start_date->format($this->timeFormat);
         $endTime = $this->entity->end_date->format($this->timeFormat);
-        return $startTime . $separator . $endTime;
+
+        return $startTime.$separator.$endTime;
     }
 }
