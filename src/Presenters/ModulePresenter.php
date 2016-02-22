@@ -96,10 +96,10 @@ class ModulePresenter extends Presenter
      *
      * @return string
      */
-    public function timeFromTo()
+    public function timeFromTo($separator = ' - ')
     {
-        $startTime = $this->entity->start_date->format('H:i');
-        $endTime = $this->entity->end_date->format('H:i');
-        return $startTime . ' - ' . $endTime;
+        $startTime = $this->entity->start_date->format($this->timeFormat);
+        $endTime = $this->entity->end_date->format($this->timeFormat);
+        return $startTime . $separator . $endTime;
     }
 }
