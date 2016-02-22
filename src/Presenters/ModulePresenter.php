@@ -6,28 +6,31 @@ use TypiCMS\Modules\Core\Presenters\Presenter;
 
 class ModulePresenter extends Presenter
 {
+    private $dateFormat = 'd.m.Y';
+    private $timeFormat = 'H:i';
+
     /**
-     * Return start_date formated as d.m.Y.
+     * Return formatted start_date.
      *
      * @return string
      */
     public function startDate()
     {
-        return $this->entity->start_date->format('d.m.Y');
+        return $this->entity->start_date->format($this->dateFormat);
     }
 
     /**
-     * Return end_date formated as d.m.Y.
+     * Return formatted end_date.
      *
      * @return string
      */
     public function endDate()
     {
-        return $this->entity->end_date->format('d.m.Y');
+        return $this->entity->end_date->format($this->dateFormat);
     }
 
     /**
-     * Return start_date formated as H:i.
+     * Return time formatted start_date.
      *
      * @return string
      */
@@ -37,11 +40,11 @@ class ModulePresenter extends Presenter
             return '';
         }
 
-        return $this->entity->start_date->format('H:i');
+        return $this->entity->start_date->format($this->timeFormat);
     }
 
     /**
-     * Return end_date formated as H:i.
+     * Return time formatted end_date.
      *
      * @return string
      */
@@ -51,12 +54,12 @@ class ModulePresenter extends Presenter
             return '';
         }
 
-        return $this->entity->end_date->format('H:i');
+        return $this->entity->end_date->format($this->timeFormat);
     }
 
     /**
-     * concat start and end date
-     * without repeating common month and year.
+     * Format start + end date without repeating
+     * month and year if they are the same.
      *
      * @return string html data
      */
@@ -92,7 +95,9 @@ class ModulePresenter extends Presenter
     }
 
     /**
-     * concat start and end time.
+     * Format start and end time.
+     *
+     * @param $separator string
      *
      * @return string
      */
