@@ -66,7 +66,7 @@ class ModulePresenter extends Presenter
         $eDate = $this->entity->end_date;
         $dateFormat = '%d %B %Y';
         $sDateFormat = $dateFormat;
-        if ($sDate == $eDate) {
+        if ($sDate->format('Ymd') == $eDate->format('Ymd')) {
             return ucfirst(trans('events::global.on')).
                 ' <time datetime="'.$sDate->toIso8601String().'">'.
                 $sDate->formatLocalized($dateFormat).
@@ -98,12 +98,8 @@ class ModulePresenter extends Presenter
      */
     public function timeFromTo()
     {
-        $timeFromTo = $this->entity->start_time;
-        $eTime = $this->entity->end_time;
-        if ($eTime) {
-            $timeFromTo .= ' - '.$eTime;
-        }
-
-        return $timeFromTo;
+        $startTime = $this->entity->start_date->format('H:i');
+        $endTime = $this->entity->end_date->format('H:i');
+        return $startTime . ' - ' . $endTime;
     }
 }
