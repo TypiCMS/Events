@@ -1,10 +1,10 @@
 @extends('core::public.master')
 
-@section('title', $model->title . ' – ' . trans('events::global.name') . ' – ' . $websiteTitle)
+@section('title', $model->title.' – '.trans('events::global.name').' – '.$websiteTitle)
 @section('ogTitle', $model->title)
 @section('description', $model->summary)
 @section('image', $model->present()->thumbUrl())
-@section('bodyClass', 'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id)
+@section('bodyClass', 'body-events body-event-'.$model->id.' body-page body-page-'.$page->id)
 
 @section('main')
 

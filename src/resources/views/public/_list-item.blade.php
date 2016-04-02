@@ -1,5 +1,5 @@
 <li class="event" itemscope itemtype="http://schema.org/Event">
-    <a href="{{ route($lang . '.events.slug', $event->slug) }}" itemprop="url">
+    <a href="{{ route($lang.'.events.slug', $event->slug) }}" itemprop="url">
         <meta itemprop="startDate" content="{{ $event->start_date->toIso8601String() }}">
         <meta itemprop="endDate" content="{{ $event->end_date->toIso8601String() }}">
         <meta itemprop="image" content="{{ $event->present()->thumbUrl() }}">
