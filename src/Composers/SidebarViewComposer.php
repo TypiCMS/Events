@@ -16,7 +16,7 @@ class SidebarViewComposer
                 $item->icon = config('typicms.events.sidebar.icon', 'icon fa fa-fw fa-calendar');
                 $item->weight = config('typicms.events.sidebar.weight');
                 $item->route('admin::index-events');
-                $item->append('admin::create-events');
+                $item->append('admin::create-event');
                 $item->authorize(
                     Gate::allows('index-events')
                 );
