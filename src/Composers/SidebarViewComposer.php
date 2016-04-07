@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Events\Composers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Sidebar\SidebarGroup;
 use Maatwebsite\Sidebar\SidebarItem;
 
@@ -17,7 +18,7 @@ class SidebarViewComposer
                 $item->route('admin::index-events');
                 $item->append('admin::create-events');
                 $item->authorize(
-                    auth()->user()->can('index-events')
+                    Gate::allows('index-events')
                 );
             });
         });
