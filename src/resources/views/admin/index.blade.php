@@ -1,14 +1,12 @@
 @extends('core::admin.master')
 
-@section('title', trans($module.'::global.name'))
+@section('title', trans('events::global.name'))
 
 @section('main')
 
 <div ng-app="typicms" ng-cloak ng-controller="ListController">
 
-    <a href="{{ route('admin::create-'.str_singular($module)) }}" class="btn-add" title="@lang($module.'::global.New')">
-        <i class="fa fa-plus-circle"></i><span class="sr-only">@lang($module.'::global.New')</span>
-    </a>
+    @include('core::admin._button-create', ['module' => 'events'])
 
     <h1>
         <span>@{{ models.length }} @choice('events::global.events', 2)</span>
@@ -43,7 +41,7 @@
                 <tr ng-repeat="model in displayedModels">
                     <td typi-btn-delete action="delete(model)"></td>
                     <td>
-                        @include('core::admin._button-edit')
+                        @include('core::admin._button-edit', ['module' => 'events'])
                     </td>
                     <td typi-btn-status action="toggleStatus(model)" model="model"></td>
                     <td>
