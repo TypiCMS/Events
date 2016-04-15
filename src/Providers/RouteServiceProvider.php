@@ -33,7 +33,7 @@ class RouteServiceProvider extends ServiceProvider
              */
             if ($page = TypiCMS::getPageLinkedToModule('events')) {
                 $options = $page->private ? ['middleware' => 'auth'] : [];
-                foreach (config('translatable.locales') as $lang) {
+                foreach (config('translatable-bootforms.locales') as $lang) {
                     if ($page->translate($lang)->status && $uri = $page->uri($lang)) {
                         $router->get($uri, $options + ['as' => $lang.'.events', 'uses' => 'PublicController@index']);
                         $router->get($uri.'/{slug}', $options + ['as' => $lang.'.events.slug', 'uses' => 'PublicController@show']);
