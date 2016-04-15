@@ -12,9 +12,9 @@ class FormRequest extends AbstractFormRequest
             'start_date' => 'required|date_format:Y-m-d G:i:s',
             'end_date'   => 'required|date_format:Y-m-d G:i:s',
             'image'      => 'image|max:2000',
-            '*.slug'     => 'alpha_dash|max:255',
-            '*.title'    => 'max:255',
-            '*.venue'    => 'max:255',
+            'slug.*'     => 'alpha_dash|max:255',
+            'title.*'    => 'max:255',
+            'venue.*'    => 'max:255',
         ];
     }
 }
