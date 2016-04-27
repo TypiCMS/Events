@@ -18,6 +18,8 @@
     };
     </script>
 
+    @include('core::admin._table-config')
+
     @include('core::admin._button-create', ['module' => 'events'])
 
     <h1>@lang('events::global.name')</h1>
