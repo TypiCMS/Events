@@ -12,7 +12,6 @@ use TypiCMS\Modules\Core\Observers\FileObserver;
 use TypiCMS\Modules\Core\Observers\SlugObserver;
 use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 use TypiCMS\Modules\Events\Models\Event;
-use TypiCMS\Modules\Events\Models\EventTranslation;
 use TypiCMS\Modules\Events\Repositories\CacheDecorator;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
