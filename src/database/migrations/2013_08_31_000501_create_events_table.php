@@ -8,7 +8,7 @@ class CreateEventsTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
+     * @return null
      */
     public function up()
     {
@@ -32,7 +32,7 @@ class CreateEventsTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
+     * @return null
      */
     public function down()
     {
