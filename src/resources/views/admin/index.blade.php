@@ -29,8 +29,9 @@
     </div>
 
     <div class="table-responsive">
-        @include('core::admin._v-client-table', ['data' => Events::allFiltered(config('typicms.events.select'))])
-        {{-- For server side filtering, use @include('core::admin._v-server-table', ['url' => route('api::index-events')]) --}}
+        @include('core::admin._v-server-table', ['url' => route('api::index-events')])
+        {{-- For client side filtering: --}}
+        {{-- @include('core::admin._v-client-table', ['data' => Events::allFiltered(config('typicms.events.select'))]) --}}
     </div>
 
 </div>
