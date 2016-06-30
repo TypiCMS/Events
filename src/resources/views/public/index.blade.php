@@ -12,6 +12,6 @@
     @include('events::public._list', ['items' => $models])
     @endif
 
-    {!! $models->appends(Request::except('page'))->render() !!}
+    {!! $models->appends(Request::except('page'))->links() !!}
 
 @endsection
