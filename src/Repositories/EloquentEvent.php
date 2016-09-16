@@ -3,15 +3,13 @@
 namespace TypiCMS\Modules\Events\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Events\Models\Event;
 
-class EloquentEvent extends RepositoriesAbstract implements EventInterface
+class EloquentEvent extends EloquentRepository
 {
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
+    protected $repositoryId = 'events';
+
+    protected $model = Event::class;
 
     /**
      * Get incomings events.

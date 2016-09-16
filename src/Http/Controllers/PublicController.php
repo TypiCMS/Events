@@ -6,14 +6,14 @@ use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\Request;
 use TypiCMS;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
-use TypiCMS\Modules\Events\Repositories\EventInterface;
+use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
 
 class PublicController extends BasePublicController
 {
     protected $calendar;
 
-    public function __construct(EventInterface $event, Calendar $calendar)
+    public function __construct(EloquentEvent $event, Calendar $calendar)
     {
         parent::__construct($event);
         $this->calendar = $calendar;

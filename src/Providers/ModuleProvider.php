@@ -10,9 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Core\Observers\FileObserver;
 use TypiCMS\Modules\Core\Observers\SlugObserver;
-use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 use TypiCMS\Modules\Events\Models\Event;
-use TypiCMS\Modules\Events\Repositories\CacheDecorator;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
 
@@ -68,15 +66,7 @@ class ModuleProvider extends ServiceProvider
             $view->page = TypiCMS::getPageLinkedToModule('events');
         });
 
-        $app->bind('TypiCMS\Modules\Events\Repositories\EventInterface', function (Application $app) {
-            $repository = new EloquentEvent(new Event());
-            if (!config('typicms.cache')) {
-                return $repository;
-            }
-            $laravelCache = new LaravelCache($app['cache'], 'events', 10);
-
-            return new CacheDecorator($repository, $laravelCache);
-        });
+        $app->bind('Events', EloquentEvent::class);
 
         /*
          * Calendar service
