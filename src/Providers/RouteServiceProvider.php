@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Events\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
 
 class RouteServiceProvider extends ServiceProvider
@@ -20,13 +21,11 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      *
-     * @param \Illuminate\Routing\Router $router
-     *
      * @return null
      */
-    public function map(Router $router)
+    public function map()
     {
-        $router->group(['namespace' => $this->namespace], function (Router $router) {
+        Route::group(['namespace' => $this->namespace], function (Router $router) {
 
             /*
              * Front office routes
