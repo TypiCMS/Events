@@ -10,7 +10,7 @@
     ],
     "require": {
         "eluceo/ical": "~0.8",
-        "typicms/core": "~3.0.0"
+        "typicms/core": "dev-dev"
     },
     "autoload": {
         "psr-4": {
