@@ -5,7 +5,6 @@ namespace TypiCMS\Modules\Events\Providers;
 use Eluceo\iCal\Component\Calendar as EluceoCalendar;
 use Eluceo\iCal\Component\Event as EluceoEvent;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Core\Observers\FileObserver;
