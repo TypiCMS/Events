@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\Request;
 use TypiCMS;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
