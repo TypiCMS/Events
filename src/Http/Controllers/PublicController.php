@@ -28,7 +28,7 @@ class PublicController extends BasePublicController
     {
         $page = Request::input('page');
         $perPage = config('typicms.events.per_page');
-        $models = $this->repository->paginate($perPage, ['*'], 'page', $page);
+        $models = $this->repository->published()->paginate($perPage, ['*'], 'page', $page);
 
         return view('events::public.index')
             ->with(compact('models'));
@@ -41,7 +41,7 @@ class PublicController extends BasePublicController
      */
     public function show($slug)
     {
-        $model = $this->repository->bySlug($slug);
+        $model = $this->repository->published()->bySlug($slug);
 
         return view('events::public.show')
             ->with(compact('model'));
@@ -54,7 +54,7 @@ class PublicController extends BasePublicController
      */
     public function ics($slug)
     {
-        $event = $this->repository->bySlug($slug);
+        $event = $this->repository->published()->bySlug($slug);
 
         $this->calendar->add($event);
 
