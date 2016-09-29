@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Admin routes
              */
-            $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function(Router $router) {
+            $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function (Router $router) {
                 $router->get('events', 'AdminController@index')->name('admin::index-events');
                 $router->get('events/create', 'AdminController@create')->name('admin::create-event');
                 $router->get('events/{event}/edit', 'AdminController@edit')->name('admin::edit-event');
@@ -55,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * API routes
              */
-            $router->group(['middleware' => 'api', 'prefix' => 'api'], function(Router $router) {
+            $router->group(['middleware' => 'api', 'prefix' => 'api'], function (Router $router) {
                 $router->get('events', 'ApiController@index')->name('api::index-events');
                 $router->put('events/{event}', 'ApiController@update')->name('api::update-event');
                 $router->delete('events/{event}', 'ApiController@destroy')->name('api::destroy-event');
