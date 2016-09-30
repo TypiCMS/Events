@@ -22,7 +22,7 @@ class EloquentEvent extends EloquentRepository
      */
     public function incoming($number = null, array $with = ['translations'])
     {
-        $query = $this->make($with);
+        $query = $this->with($with);
         $query->where('end_date', '>=', date('Y-m-d'))
             ->online()
             ->orderBy('start_date');
