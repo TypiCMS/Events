@@ -77,8 +77,24 @@ class AdminController extends BaseAdminController
      */
     public function update(Event $event, FormRequest $request)
     {
-        $this->repository->update(request('id'), $request->all());
+        $this->repository->update($request->id, $request->all());
 
         return $this->redirect($request, $event);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Events\Models\Event $event
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Event $event)
+    {
+        $deleted = $this->repository->delete($event);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
     }
 }
