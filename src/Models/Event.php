@@ -23,14 +23,6 @@ class Event extends Base
         'start_time',
         'end_time',
         'image',
-        // Translatable columns
-        'title',
-        'slug',
-        'status',
-        'venue',
-        'address',
-        'summary',
-        'body',
     ];
 
     /**
@@ -64,9 +56,9 @@ class Event extends Base
      *
      * @return string
      */
-    public function getStatusAttribute()
+    public function getStatusAttribute($value)
     {
-        return $this->status;
+        return $value;
     }
 
     /**
@@ -74,9 +66,9 @@ class Event extends Base
      *
      * @return string title
      */
-    public function getTitleAttribute()
+    public function getTitleAttribute($value)
     {
-        return $this->title;
+        return $value;
     }
 
     /**

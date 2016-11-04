@@ -6,6 +6,17 @@ use TypiCMS\Modules\Core\Models\BaseTranslation;
 
 class EventTranslation extends BaseTranslation
 {
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'status',
+        'venue',
+        'address',
+        'summary',
+        'body',
+    ];
+
     /**
      * get the parent model.
      */
