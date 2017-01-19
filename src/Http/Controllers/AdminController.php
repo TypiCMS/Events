@@ -21,7 +21,7 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $models = $this->repository->findAll();
+        $models = $this->repository->findAllTranslated();
         app('JavaScript')->put('models', $models);
 
         return view('events::admin.index');
