@@ -20,7 +20,7 @@ class EloquentEvent extends EloquentRepository
      *
      * @return Collection
      */
-    public function incoming($number = null, array $with = ['translations'])
+    public function upcoming($number = null, array $with = ['translations'])
     {
         $query = $this->with($with);
         $query->where('end_date', '>=', date('Y-m-d'))
