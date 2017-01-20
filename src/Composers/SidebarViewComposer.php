@@ -11,8 +11,8 @@ class SidebarViewComposer
 {
     public function compose(View $view)
     {
-        $view->sidebar->group(trans('global.menus.content'), function (SidebarGroup $group) {
-            $group->addItem(trans('events::global.name'), function (SidebarItem $item) {
+        $view->sidebar->group(__('global.menus.content'), function (SidebarGroup $group) {
+            $group->addItem(__('events::global.name'), function (SidebarItem $item) {
                 $item->id = 'events';
                 $item->icon = config('typicms.events.sidebar.icon', 'icon fa fa-fw fa-calendar');
                 $item->weight = config('typicms.events.sidebar.weight');

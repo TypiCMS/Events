@@ -10,18 +10,18 @@
 
 @include('core::form._title-and-slug')
 {!! TranslatableBootForm::hidden('status')->value(0) !!}
-{!! TranslatableBootForm::checkbox(trans('validation.attributes.online'), 'status') !!}
+{!! TranslatableBootForm::checkbox(__('validation.attributes.online'), 'status') !!}
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.start_date'), 'start_date')->value(old('start_date') ? : $model->present()->datetimeOrNow('start_date'))->addClass('datetimepicker') !!}
+        {!! BootForm::text(__('validation.attributes.start_date'), 'start_date')->value(old('start_date') ? : $model->present()->datetimeOrNow('start_date'))->addClass('datetimepicker') !!}
     </div>
     <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.end_date'), 'end_date')->value(old('end_date') ? : $model->present()->datetimeOrNow('end_date'))->addClass('datetimepicker') !!}
+        {!! BootForm::text(__('validation.attributes.end_date'), 'end_date')->value(old('end_date') ? : $model->present()->datetimeOrNow('end_date'))->addClass('datetimepicker') !!}
     </div>
 </div>
 
-{!! TranslatableBootForm::text(trans('validation.attributes.venue'), 'venue') !!}
-{!! TranslatableBootForm::textarea(trans('validation.attributes.address'), 'address')->rows(4) !!}
-{!! TranslatableBootForm::textarea(trans('validation.attributes.summary'), 'summary')->rows(4) !!}
-{!! TranslatableBootForm::textarea(trans('validation.attributes.body'), 'body')->addClass('ckeditor') !!}
+{!! TranslatableBootForm::text(__('validation.attributes.venue'), 'venue') !!}
+{!! TranslatableBootForm::textarea(__('validation.attributes.address'), 'address')->rows(4) !!}
+{!! TranslatableBootForm::textarea(__('validation.attributes.summary'), 'summary')->rows(4) !!}
+{!! TranslatableBootForm::textarea(__('validation.attributes.body'), 'body')->addClass('ckeditor') !!}

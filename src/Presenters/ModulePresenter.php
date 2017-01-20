@@ -70,7 +70,7 @@ class ModulePresenter extends Presenter
         $dateFormat = '%d %B %Y';
         $sDateFormat = $dateFormat;
         if ($sDate->format('Ymd') == $eDate->format('Ymd')) {
-            return ucfirst(trans('events::global.on')).
+            return ucfirst(__('events::global.on')).
                 '<time datetime="'.$sDate->toIso8601String().'">'.
                 $sDate->formatLocalized($dateFormat).
                 '</time>';
@@ -82,11 +82,11 @@ class ModulePresenter extends Presenter
             }
         }
 
-        $dateFromTo = ucfirst(trans('events::global.from'));
+        $dateFromTo = ucfirst(__('events::global.from'));
         $dateFromTo .= '<time datetime="'.$sDate->toIso8601String().'">';
         $dateFromTo .= $sDate->formatLocalized($sDateFormat);
         $dateFromTo .= '</time>';
-        $dateFromTo .= trans('events::global.to');
+        $dateFromTo .= __('events::global.to');
         $dateFromTo .= '<time datetime="'.$eDate->toIso8601String().'">';
         $dateFromTo .= $eDate->formatLocalized($dateFormat);
         $dateFromTo .= '</time>';
