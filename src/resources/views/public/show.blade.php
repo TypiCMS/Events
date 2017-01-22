@@ -6,7 +6,7 @@
 @section('image', $model->present()->thumbUrl())
 @section('bodyClass', 'body-events body-event-'.$model->id.' body-page body-page-'.$page->id)
 
-@section('main')
+@section('content')
 
     @include('core::public._btn-prev-next', ['module' => 'Events', 'model' => $model])
 

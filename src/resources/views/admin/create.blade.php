@@ -2,7 +2,7 @@
 
 @section('title', __('events::global.New'))
 
-@section('main')
+@section('content')
 
     @include('core::admin._button-back', ['module' => 'events'])
     <h1>
