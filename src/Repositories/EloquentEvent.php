@@ -24,7 +24,7 @@ class EloquentEvent extends EloquentRepository
     {
         $query = $this->with($with);
         $query->where('end_date', '>=', date('Y-m-d'))
-            ->online()
+            ->published()
             ->orderBy('start_date');
         if ($number) {
             $query->take($number);

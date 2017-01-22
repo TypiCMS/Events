@@ -10,7 +10,7 @@
 
 @include('core::form._title-and-slug')
 {!! TranslatableBootForm::hidden('status')->value(0) !!}
-{!! TranslatableBootForm::checkbox(__('Online'), 'status') !!}
+{!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
 
 <div class="row">
     <div class="col-sm-6">
