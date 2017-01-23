@@ -34,9 +34,9 @@ class RouteServiceProvider extends ServiceProvider
                 $options = $page->private ? ['middleware' => 'auth'] : [];
                 foreach (locales() as $lang) {
                     if ($page->translate('status', $lang) && $uri = $page->uri($lang)) {
-                        $router->get($uri, $options + ['as' => $lang.'.events', 'uses' => 'PublicController@index']);
-                        $router->get($uri.'/{slug}', $options + ['as' => $lang.'.events.slug', 'uses' => 'PublicController@show']);
-                        $router->get($uri.'/{slug}/ics', $options + ['as' => $lang.'.events.slug.ics', 'uses' => 'PublicController@ics']);
+                        $router->get($uri, $options + ['uses' => 'PublicController@index'])->name($lang.'::index-events');
+                        $router->get($uri.'/{slug}', $options + ['uses' => 'PublicController@show'])->name($lang.'::event');
+                        $router->get($uri.'/{slug}/ics', $options + ['uses' => 'PublicController@ics'])->name($lang.'::event.ics');
                     }
                 }
             }
