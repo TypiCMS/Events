@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
                     if ($page->translate('status', $lang) && $uri = $page->uri($lang)) {
                         $router->get($uri, $options + ['uses' => 'PublicController@index'])->name($lang.'::index-events');
                         $router->get($uri.'/{slug}', $options + ['uses' => 'PublicController@show'])->name($lang.'::event');
-                        $router->get($uri.'/{slug}/ics', $options + ['uses' => 'PublicController@ics'])->name($lang.'::event.ics');
+                        $router->get($uri.'/{slug}/ics', $options + ['uses' => 'PublicController@ics'])->name($lang.'::event-ics');
                     }
                 }
             }

@@ -22,7 +22,7 @@
             <div class="address" itemprop="address">{!! nl2br($model->address) !!}</div>
         </div>
         <p class="event-summary" itemprop="description">{!! nl2br($model->summary) !!}</p>
-        <a class="btn btn-default btn-xs" href="{{ route($lang.'::event.ics', $model->slug) }}">
+        <a class="btn btn-default btn-xs" href="{{ route($lang.'::event-ics', $model->slug) }}">
             <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
         </a>
         <div class="event-body">{!! $model->present()->body !!}</div>
