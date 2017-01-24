@@ -23,11 +23,11 @@
                 <tr>
                     <th class="delete"></th>
                     <th class="edit"></th>
-                    <th st-sort="status" class="status st-sort">@lang('Status')</th>
-                    <th st-sort="image" class="image st-sort">@lang('Image')</th>
-                    <th st-sort="start_date" st-sort-default="reverse" class="date st-sort">@lang('Start date')</th>
-                    <th st-sort="end_date" st-sort-default="reverse" class="date st-sort">@lang('End date')</th>
-                    <th st-sort="title" class="title st-sort">@lang('Title')</th>
+                    <th st-sort="status" class="status st-sort">{{ __('Status') }}</th>
+                    <th st-sort="image" class="image st-sort">{{ __('Image') }}</th>
+                    <th st-sort="start_date" st-sort-default="reverse" class="date st-sort">{{ __('Start date') }}</th>
+                    <th st-sort="end_date" st-sort-default="reverse" class="date st-sort">{{ __('End date') }}</th>
+                    <th st-sort="title" class="title st-sort">{{ __('Title') }}</th>
                 </tr>
                 <tr>
                     <td colspan="6"></td>
