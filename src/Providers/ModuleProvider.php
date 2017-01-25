@@ -9,6 +9,8 @@ use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Core\Observers\FileObserver;
 use TypiCMS\Modules\Core\Observers\SlugObserver;
+use TypiCMS\Modules\Events\Composers\SidebarViewComposer;
+use TypiCMS\Modules\Events\Facades\Events;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
@@ -34,10 +36,7 @@ class ModuleProvider extends ServiceProvider
             __DIR__.'/../database' => base_path('database'),
         ], 'migrations');
 
-        AliasLoader::getInstance()->alias(
-            'Events',
-            'TypiCMS\Modules\Events\Facades\Events'
-        );
+        AliasLoader::getInstance()->alias('Events', Events::class);
 
         // Observers
         Event::observe(new SlugObserver());
@@ -51,12 +50,12 @@ class ModuleProvider extends ServiceProvider
         /*
          * Register route service provider
          */
-        $app->register('TypiCMS\Modules\Events\Providers\RouteServiceProvider');
+        $app->register(RouteServiceProvider::class);
 
         /*
          * Sidebar view composer
          */
-        $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Events\Composers\SidebarViewComposer');
+        $app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
 
         /*
          * Add the page in the view.
