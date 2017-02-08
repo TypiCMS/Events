@@ -49,7 +49,7 @@
                     </td>
                     <td>@{{ model.start_date | dateFromMySQL:'short' }}</td>
                     <td>@{{ model.end_date | dateFromMySQL:'short' }}</td>
-                    <td>@{{ model.title }}</td>
+                    <td>@{{ model.title | translated }}</td>
                 </tr>
             </tbody>
             <tfoot>
