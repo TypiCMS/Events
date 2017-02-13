@@ -45,6 +45,8 @@ class Calendar
         $this->iEvent->setDtEnd($end_date);
         $this->iEvent->setSummary($model->title);
         $this->iEvent->setUseTimezone(true);
+        $this->iEvent->setUrl(url($model->uri()));
+        $this->iEvent->setLocation($model->address, $model->venue);
         // add it to the calendar
         $this->iCalendar->addComponent($this->iEvent);
     }
