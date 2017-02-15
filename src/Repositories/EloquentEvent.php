@@ -29,6 +29,7 @@ class EloquentEvent extends EloquentRepository
             if ($number) {
                 $query->take($number);
             }
+
             return $query->get();
         });
     }
