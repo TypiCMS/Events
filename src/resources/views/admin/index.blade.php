@@ -27,12 +27,12 @@
                     <th st-sort="image" class="image st-sort">{{ __('Image') }}</th>
                     <th st-sort="start_date" st-sort-default="reverse" class="date st-sort">{{ __('Start date') }}</th>
                     <th st-sort="end_date" st-sort-default="reverse" class="date st-sort">{{ __('End date') }}</th>
-                    <th st-sort="title" class="title st-sort">{{ __('Title') }}</th>
+                    <th st-sort="title_translated" class="title_translated st-sort">{{ __('Title') }}</th>
                 </tr>
                 <tr>
                     <td colspan="6"></td>
                     <td>
-                        <input st-search="title" class="form-control input-sm" placeholder="@lang('Search')…" type="text">
+                        <input st-search="title_translated" class="form-control input-sm" placeholder="@lang('Search')…" type="text">
                     </td>
                 </tr>
             </thead>
@@ -49,7 +49,7 @@
                     </td>
                     <td>@{{ model.start_date | dateFromMySQL:'short' }}</td>
                     <td>@{{ model.end_date | dateFromMySQL:'short' }}</td>
-                    <td>@{{ model.title | translated }}</td>
+                    <td>@{{ model.title_translated }}</td>
                 </tr>
             </tbody>
             <tfoot>
