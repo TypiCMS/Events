@@ -20,16 +20,16 @@ class EloquentEvent extends EloquentRepository
      *
      * @return Collection
      */
-    public function upcoming($number = null, array $with = ['translations'])
+    public function upcoming($number = null)
     {
-        $query = $this->with($with);
-        $query->where('end_date', '>=', date('Y-m-d'))
-            ->published()
-            ->orderBy('start_date');
-        if ($number) {
-            $query->take($number);
-        }
-
-        return $query->get();
+        return $this->published()->executeCallback(get_called_class(), __FUNCTION__, func_get_args(), function () use ($number) {
+            $query = $this->prepareQuery($this->createModel())
+                ->where('end_date', '>=', date('Y-m-d'))
+                ->orderBy('start_date');
+            if ($number) {
+                $query->take($number);
+            }
+            return $query->get();
+        });
     }
 }
