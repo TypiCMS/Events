@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use Illuminate\Support\Facades\Request;
 use TypiCMS;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
@@ -25,7 +24,7 @@ class PublicController extends BasePublicController
      */
     public function index()
     {
-        $page = Request::input('page');
+        $page = request('page');
         $perPage = config('typicms.events.per_page');
         $models = $this->repository->published()->paginate($perPage, ['*'], 'page', $page);
 
