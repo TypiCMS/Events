@@ -13,6 +13,9 @@
     </h1>
 
     <div class="btn-toolbar">
+        @include('core::admin._button-select')
+        @include('core::admin._button-actions')
+        @include('core::admin._button-export')
         @include('core::admin._lang-switcher-for-list')
     </div>
 
@@ -39,7 +42,9 @@
 
             <tbody>
                 <tr ng-repeat="model in displayedModels">
-                    <td typi-btn-delete action="delete(model)"></td>
+                    <td>
+                        <input type="checkbox" checklist-model="checked.models" checklist-value="model">
+                    </td>
                     <td>
                         @include('core::admin._button-edit', ['module' => 'events'])
                     </td>
