@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Events\Models;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
+use TypiCMS\Modules\Events\Presenters\ModulePresenter;
 use TypiCMS\Modules\History\Traits\Historable;
 
 class Event extends Base
@@ -13,7 +14,7 @@ class Event extends Base
     use Historable;
     use PresentableTrait;
 
-    protected $presenter = 'TypiCMS\Modules\Events\Presenters\ModulePresenter';
+    protected $presenter = ModulePresenter::class;
 
     protected $dates = ['start_date', 'end_date'];
 
