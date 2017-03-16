@@ -2,7 +2,6 @@
 
 return [
     'per_page' => 50,
-    'select' => ['id', 'title', 'image_id', 'start_date', 'end_date', 'status'],
     'order' => [
         'end_date' => 'desc',
     ],
