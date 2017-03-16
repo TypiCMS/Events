@@ -5,8 +5,8 @@ namespace TypiCMS\Modules\Events\Models;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
-use TypiCMS\Modules\Files\Models\File;
 use TypiCMS\Modules\Events\Presenters\ModulePresenter;
+use TypiCMS\Modules\Files\Models\File;
 use TypiCMS\Modules\History\Traits\Historable;
 
 class Event extends Base
