@@ -7,7 +7,6 @@ use Eluceo\iCal\Component\Event as EluceoEvent;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
-use TypiCMS\Modules\Core\Observers\FileObserver;
 use TypiCMS\Modules\Core\Observers\SlugObserver;
 use TypiCMS\Modules\Events\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Events\Facades\Events;
@@ -40,7 +39,6 @@ class ModuleProvider extends ServiceProvider
 
         // Observers
         Event::observe(new SlugObserver());
-        Event::observe(new FileObserver());
     }
 
     public function register()

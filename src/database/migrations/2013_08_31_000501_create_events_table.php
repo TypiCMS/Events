@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->datetime('start_date');
             $table->datetime('end_date')->nullable();
-            $table->string('image')->nullable();
+            $table->integer('image_id')->unsigned()->nullable();
             $table->json('status');
             $table->json('title');
             $table->json('slug');
