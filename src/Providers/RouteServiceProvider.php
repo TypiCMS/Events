@@ -50,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider
                 $router->get('events/{event}/edit', 'AdminController@edit')->name('admin::edit-event');
                 $router->post('events', 'AdminController@store')->name('admin::store-event');
                 $router->put('events/{event}', 'AdminController@update')->name('admin::update-event');
-                $router->patch('events/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-event');
+                $router->patch('events/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-event-ajax');
                 $router->delete('events/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-event');
             });
         });
