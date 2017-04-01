@@ -31,7 +31,7 @@ class Event extends Base
         'body',
     ];
 
-    protected $appends = ['thumb', 'title_translated'];
+    protected $appends = ['thumb', 'title_translated', 'status_translated'];
 
     /**
      * Append title_translated attribute.
@@ -43,6 +43,18 @@ class Event extends Base
         $locale = config('app.locale');
 
         return $this->translate('title', config('typicms.content_locale', $locale));
+    }
+
+    /**
+     * Append status_translated attribute.
+     *
+     * @return string
+     */
+    public function getStatusTranslatedAttribute()
+    {
+        $locale = config('app.locale');
+
+        return $this->translate('status', config('typicms.content_locale', $locale));
     }
 
     /**
