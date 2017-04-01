@@ -27,13 +27,11 @@ class ModuleProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'events');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'events');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/events'),
         ], 'views');
-        $this->publishes([
-            __DIR__.'/../database' => base_path('database'),
-        ], 'migrations');
 
         AliasLoader::getInstance()->alias('Events', Events::class);
 
