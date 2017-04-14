@@ -15,7 +15,6 @@
     <div class="btn-toolbar">
         @include('core::admin._button-select')
         @include('core::admin._button-actions')
-        @include('core::admin._button-export')
         @include('core::admin._lang-switcher-for-list')
     </div>
 
