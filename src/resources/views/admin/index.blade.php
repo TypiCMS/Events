@@ -25,7 +25,7 @@
                 <tr>
                     <th class="delete"></th>
                     <th class="edit"></th>
-                    <th st-sort="status_translated" class="status_translated st-sort">{{ __('Status') }}</th>
+                    <th st-sort="status_translated" class="status st-sort">{{ __('Status') }}</th>
                     <th st-sort="image" class="image st-sort">{{ __('Image') }}</th>
                     <th st-sort="start_date" st-sort-default="reverse" class="date st-sort">{{ __('Start date') }}</th>
                     <th st-sort="end_date" st-sort-default="reverse" class="date st-sort">{{ __('End date') }}</th>
