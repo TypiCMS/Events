@@ -45,13 +45,13 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function (Router $router) {
-                $router->get('events', 'AdminController@index')->name('admin::index-events');
-                $router->get('events/create', 'AdminController@create')->name('admin::create-event');
-                $router->get('events/{event}/edit', 'AdminController@edit')->name('admin::edit-event');
-                $router->post('events', 'AdminController@store')->name('admin::store-event');
-                $router->put('events/{event}', 'AdminController@update')->name('admin::update-event');
-                $router->patch('events/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-event-ajax');
-                $router->delete('events/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-event');
+                $router->get('events', 'AdminController@index')->name('admin::index-events')->middleware('can:see-all-events');
+                $router->get('events/create', 'AdminController@create')->name('admin::create-event')->middleware('can:create-event');
+                $router->get('events/{event}/edit', 'AdminController@edit')->name('admin::edit-event')->middleware('can:update-event');
+                $router->post('events', 'AdminController@store')->name('admin::store-event')->middleware('can:create-event');
+                $router->put('events/{event}', 'AdminController@update')->name('admin::update-event')->middleware('can:update-event');
+                $router->patch('events/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-event-ajax')->middleware('can:update-event');
+                $router->delete('events/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-event')->middleware('can:delete-event');
             });
         });
     }

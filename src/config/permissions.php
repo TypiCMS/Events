@@ -2,9 +2,9 @@
 
 return [
     'events' => [
-        'index-events' => 'View list',
+        'see-all-events' => 'View list',
         'create-event' => 'Create',
-        'edit-event' => 'Edit',
-        'destroy-event' => 'Destroy',
+        'update-event' => 'Edit',
+        'delete-event' => 'Delete',
     ],
 ];
