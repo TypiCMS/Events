@@ -21,7 +21,7 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $models = $this->repository->with('image')->findAll();
+        $models = $this->repository->with('files')->findAll();
         app('JavaScript')->put('models', $models);
 
         return view('events::admin.index');
@@ -99,5 +99,19 @@ class AdminController extends BaseAdminController
         return response()->json([
             'error' => !$deleted,
         ]);
+    }
+
+    /**
+     * List models.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function files(Event $event)
+    {
+        $data = [
+            'models' => $event->files,
+        ];
+
+        return response()->json($data, 200);
     }
 }
