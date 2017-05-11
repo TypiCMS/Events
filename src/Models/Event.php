@@ -19,7 +19,7 @@ class Event extends Base
 
     protected $dates = ['start_date', 'end_date'];
 
-    protected $guarded = ['id', 'exit', 'galleries'];
+    protected $guarded = ['id', 'exit'];
 
     public $translatable = [
         'title',
