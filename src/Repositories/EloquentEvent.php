@@ -15,8 +15,7 @@ class EloquentEvent extends EloquentRepository
     /**
      * Get incomings events.
      *
-     * @param int   $number number of items to take
-     * @param array $with   array of related items
+     * @param int $number number of items to take
      *
      * @return Collection
      */
