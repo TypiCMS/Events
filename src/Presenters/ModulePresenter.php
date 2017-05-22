@@ -67,7 +67,7 @@ class ModulePresenter extends Presenter
     {
         $sDate = $this->entity->start_date;
         $eDate = $this->entity->end_date;
-        $dateFormat = '%d %B %Y';
+        $dateFormat = '%e %B %Y';
         $sDateFormat = $dateFormat;
         if ($sDate->format('Ymd') == $eDate->format('Ymd')) {
             return ucfirst(__('events::global.on')).
@@ -76,9 +76,9 @@ class ModulePresenter extends Presenter
                 '</time>';
         }
         if ($sDate->format('Y') == $eDate->format('Y')) {
-            $sDateFormat = '%d %B';
+            $sDateFormat = '%e %B';
             if ($sDate->format('m') == $eDate->format('m')) {
-                $sDateFormat = '%d';
+                $sDateFormat = '%e';
             }
         }
 
