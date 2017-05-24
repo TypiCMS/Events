@@ -37,8 +37,6 @@ class Calendar
             $time = explode(':', $model->end_time);
             $end_date = $end_date->setTime($time[0], $time[1]);
             $this->iEvent->setNoTime(false);
-        } else {
-            $end_date = $end_date->addDay();
         }
         // fill event
         $this->iEvent->setDtStart($start_date);
