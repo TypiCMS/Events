@@ -1,12 +1,12 @@
 @extends('core::admin.master')
 
-@section('title', __('events::global.New'))
+@section('title', __('New event'))
 
 @section('content')
 
     @include('core::admin._button-back', ['module' => 'events'])
     <h1>
-        @lang('events::global.New')
+        @lang('New event')
     </h1>
 
     {!! BootForm::open()->action(route('admin::index-events'))->multipart()->role('form') !!}

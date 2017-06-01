@@ -1,6 +1,6 @@
 @extends('core::public.master')
 
-@section('title', $model->title.' – '.__('events::global.name').' – '.$websiteTitle)
+@section('title', $model->title.' – '.__('Events').' – '.$websiteTitle)
 @section('ogTitle', $model->title)
 @section('description', $model->summary)
 @section('image', $model->present()->thumbUrl())
