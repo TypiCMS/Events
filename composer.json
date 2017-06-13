@@ -17,13 +17,6 @@
             "TypiCMS\\Modules\\Events\\": "src/"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "TypiCMS\\Modules\\Events\\Providers\\ModuleProvider"
-            ]
-        }
-    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
