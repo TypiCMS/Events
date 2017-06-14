@@ -8,9 +8,7 @@
 
     @include('files::public._files', ['model' => $page])
 
-    @if ($models->count())
-    @include('events::public._list', ['items' => $models])
-    @endif
+    @includeWhen($models->count() > 0, 'events::public._list', ['items' => $models])
 
     {!! $models->appends(Request::except('page'))->links() !!}
 
