@@ -70,7 +70,7 @@ class ModulePresenter extends Presenter
         $dateFormat = '%e %B %Y';
         $sDateFormat = $dateFormat;
         if ($sDate->format('Ymd') == $eDate->format('Ymd')) {
-            return ucfirst(__('on')).
+            return ucfirst(__('on')).' '.
                 '<time datetime="'.$sDate->toIso8601String().'">'.
                 $sDate->formatLocalized($dateFormat).
                 '</time>';
