@@ -2,35 +2,26 @@
 
 namespace TypiCMS\Modules\Events\Models;
 
-use Dimsav\Translatable\Translatable;
 use Laracasts\Presenter\PresentableTrait;
+use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
+use TypiCMS\Modules\Events\Presenters\ModulePresenter;
+use TypiCMS\Modules\Files\Models\File;
 use TypiCMS\Modules\History\Traits\Historable;
 
 class Event extends Base
 {
+    use HasTranslations;
     use Historable;
-    use Translatable;
     use PresentableTrait;
 
-    protected $presenter = 'TypiCMS\Modules\Events\Presenters\ModulePresenter';
+    protected $presenter = ModulePresenter::class;
 
     protected $dates = ['start_date', 'end_date'];
 
-    protected $fillable = [
-        'start_date',
-        'end_date',
-        'start_time',
-        'end_time',
-        'image',
-    ];
+    protected $guarded = ['id', 'exit'];
 
-    /**
-     * Translatable model configs.
-     *
-     * @var array
-     */
-    public $translatedAttributes = [
+    public $translatable = [
         'title',
         'slug',
         'status',
@@ -40,35 +31,40 @@ class Event extends Base
         'body',
     ];
 
-    protected $appends = ['status', 'title', 'thumb'];
+    protected $appends = ['image', 'thumb', 'title_translated', 'status_translated'];
 
     /**
-     * Columns that are file.
-     *
-     * @var array
-     */
-    public $attachments = [
-        'image',
-    ];
-
-    /**
-     * Append status attribute from translation table.
+     * Append title_translated attribute.
      *
      * @return string
      */
-    public function getStatusAttribute($value)
+    public function getTitleTranslatedAttribute()
     {
-        return $value;
+        $locale = config('app.locale');
+
+        return $this->translate('title', config('typicms.content_locale', $locale));
     }
 
     /**
-     * Append title attribute from translation table.
+     * Append status_translated attribute.
      *
-     * @return string title
+     * @return string
      */
-    public function getTitleAttribute($value)
+    public function getStatusTranslatedAttribute()
     {
-        return $value;
+        $locale = config('app.locale');
+
+        return $this->translate('status', config('typicms.content_locale', $locale));
+    }
+
+    /**
+     * Append image attribute.
+     *
+     * @return string
+     */
+    public function getImageAttribute()
+    {
+        return $this->files->first();
     }
 
     /**
@@ -79,5 +75,16 @@ class Event extends Base
     public function getThumbAttribute()
     {
         return $this->present()->thumbSrc(null, 22);
+    }
+
+    /**
+     * A news can have many files.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function files()
+    {
+        return $this->morphToMany(File::class, 'model', 'model_has_files', 'model_id', 'file_id')
+            ->orderBy('model_has_files.position');
     }
 }

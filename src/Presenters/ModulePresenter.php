@@ -67,26 +67,26 @@ class ModulePresenter extends Presenter
     {
         $sDate = $this->entity->start_date;
         $eDate = $this->entity->end_date;
-        $dateFormat = '%d %B %Y';
+        $dateFormat = '%e %B %Y';
         $sDateFormat = $dateFormat;
         if ($sDate->format('Ymd') == $eDate->format('Ymd')) {
-            return ucfirst(trans('events::global.on')).
+            return ucfirst(__('on')).' '.
                 '<time datetime="'.$sDate->toIso8601String().'">'.
                 $sDate->formatLocalized($dateFormat).
                 '</time>';
         }
         if ($sDate->format('Y') == $eDate->format('Y')) {
-            $sDateFormat = '%d %B';
+            $sDateFormat = '%e %B';
             if ($sDate->format('m') == $eDate->format('m')) {
-                $sDateFormat = '%d';
+                $sDateFormat = '%e';
             }
         }
 
-        $dateFromTo = ucfirst(trans('events::global.from'));
+        $dateFromTo = ucfirst(__('from'));
         $dateFromTo .= '<time datetime="'.$sDate->toIso8601String().'">';
         $dateFromTo .= $sDate->formatLocalized($sDateFormat);
         $dateFromTo .= '</time>';
-        $dateFromTo .= trans('events::global.to');
+        $dateFromTo .= __('to');
         $dateFromTo .= '<time datetime="'.$eDate->toIso8601String().'">';
         $dateFromTo .= $eDate->formatLocalized($dateFormat);
         $dateFromTo .= '</time>';

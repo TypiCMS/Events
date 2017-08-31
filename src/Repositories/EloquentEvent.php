@@ -3,34 +3,33 @@
 namespace TypiCMS\Modules\Events\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Core\Repositories\EloquentRepository;
+use TypiCMS\Modules\Events\Models\Event;
 
-class EloquentEvent extends RepositoriesAbstract implements EventInterface
+class EloquentEvent extends EloquentRepository
 {
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
+    protected $repositoryId = 'events';
+
+    protected $model = Event::class;
 
     /**
      * Get incomings events.
      *
-     * @param int   $number number of items to take
-     * @param array $with   array of related items
+     * @param int $number number of items to take
      *
      * @return Collection
      */
-    public function incoming($number = null, array $with = ['translations'])
+    public function upcoming($number = null)
     {
-        $query = $this->make($with);
-        $query->where('end_date', '>=', date('Y-m-d'))
-            ->online()
-            ->orderBy('start_date');
-        if ($number) {
-            $query->take($number);
-        }
+        return $this->published()->executeCallback(get_called_class(), __FUNCTION__, func_get_args(), function () use ($number) {
+            $query = $this->prepareQuery($this->createModel())
+                ->where('end_date', '>=', date('Y-m-d'))
+                ->orderBy('start_date');
+            if ($number) {
+                $query->take($number);
+            }
 
-        return $query->get();
+            return $query->get();
+        });
     }
 }

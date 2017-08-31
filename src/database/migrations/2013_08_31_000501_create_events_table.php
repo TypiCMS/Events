@@ -8,7 +8,7 @@ class CreateEventsTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
+     * @return null
      */
     public function up()
     {
@@ -17,37 +17,25 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->datetime('start_date');
             $table->datetime('end_date')->nullable();
-            $table->string('image')->nullable();
+            $table->integer('image_id')->unsigned()->nullable();
+            $table->json('status');
+            $table->json('title');
+            $table->json('slug');
+            $table->json('venue');
+            $table->json('address');
+            $table->json('summary');
+            $table->json('body');
             $table->timestamps();
-        });
-
-        Schema::create('event_translations', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->integer('event_id')->unsigned();
-            $table->string('locale');
-            $table->boolean('status')->default(0);
-            $table->string('title');
-            $table->string('slug')->nullable();
-            $table->string('venue')->nullable();
-            $table->text('address');
-            $table->text('summary');
-            $table->text('body');
-            $table->timestamps();
-            $table->unique(['event_id', 'locale']);
-            $table->unique(['locale', 'slug']);
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
      *
-     * @return void
+     * @return null
      */
     public function down()
     {
-        Schema::drop('event_translations');
         Schema::drop('events');
     }
 }

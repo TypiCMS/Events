@@ -2,18 +2,16 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use Illuminate\Support\Facades\Request;
 use TypiCMS;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
-use TypiCMS\Modules\Events\Repositories\EventInterface;
+use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
 
 class PublicController extends BasePublicController
 {
     protected $calendar;
 
-    public function __construct(EventInterface $event, Calendar $calendar)
+    public function __construct(EloquentEvent $event, Calendar $calendar)
     {
         parent::__construct($event);
         $this->calendar = $calendar;
@@ -26,10 +24,9 @@ class PublicController extends BasePublicController
      */
     public function index()
     {
-        $page = Request::input('page');
+        $page = request('page');
         $perPage = config('typicms.events.per_page');
-        $data = $this->repository->byPage($page, $perPage, ['translations']);
-        $models = new Paginator($data->items, $data->totalItems, $perPage, null, ['path' => Paginator::resolveCurrentPath()]);
+        $models = $this->repository->published()->paginate($perPage, ['*'], 'page', $page);
 
         return view('events::public.index')
             ->with(compact('models'));
@@ -42,7 +39,7 @@ class PublicController extends BasePublicController
      */
     public function show($slug)
     {
-        $model = $this->repository->bySlug($slug);
+        $model = $this->repository->published()->bySlug($slug);
 
         return view('events::public.show')
             ->with(compact('model'));
@@ -55,7 +52,7 @@ class PublicController extends BasePublicController
      */
     public function ics($slug)
     {
-        $event = $this->repository->bySlug($slug);
+        $event = $this->repository->published()->bySlug($slug);
 
         $this->calendar->add($event);
 

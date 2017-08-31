@@ -5,11 +5,11 @@ namespace TypiCMS\Modules\Events\Http\Controllers;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
 use TypiCMS\Modules\Events\Models\Event;
-use TypiCMS\Modules\Events\Repositories\EventInterface;
+use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(EventInterface $event)
+    public function __construct(EloquentEvent $event)
     {
         parent::__construct($event);
     }
@@ -21,7 +21,7 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $models = $this->repository->all([], true);
+        $models = $this->repository->with('files')->findAll();
         app('JavaScript')->put('models', $models);
 
         return view('events::admin.index');
@@ -34,7 +34,8 @@ class AdminController extends BaseAdminController
      */
     public function create()
     {
-        $model = $this->repository->getModel();
+        $model = $this->repository->createModel();
+        app('JavaScript')->put('model', $model);
 
         return view('events::admin.create')
             ->with(compact('model'));
@@ -49,6 +50,8 @@ class AdminController extends BaseAdminController
      */
     public function edit(Event $event)
     {
+        app('JavaScript')->put('model', $event);
+
         return view('events::admin.edit')
             ->with(['model' => $event]);
     }
@@ -77,8 +80,38 @@ class AdminController extends BaseAdminController
      */
     public function update(Event $event, FormRequest $request)
     {
-        $this->repository->update($request->all());
+        $this->repository->update($request->id, $request->all());
 
         return $this->redirect($request, $event);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Events\Models\Event $event
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Event $event)
+    {
+        $deleted = $this->repository->delete($event);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
+    }
+
+    /**
+     * List models.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function files(Event $event)
+    {
+        $data = [
+            'models' => $event->files,
+        ];
+
+        return response()->json($data, 200);
     }
 }

@@ -2,7 +2,7 @@
 
 return [
     'per_page' => 50,
-    'order'    => [
+    'order' => [
         'end_date' => 'desc',
     ],
     'sidebar' => [
