@@ -28,7 +28,7 @@ class PublicController extends BasePublicController
     {
         $page = Request::input('page');
         $perPage = config('typicms.events.per_page');
-        $data = $this->repository->byPage($page, $perPage, ['translations']);
+        $data = $this->repository->with('files')->byPage($page, $perPage, ['translations']);
         $models = new Paginator($data->items, $data->totalItems, $perPage, null, ['path' => Paginator::resolveCurrentPath()]);
 
         return view('events::public.index')
@@ -55,7 +55,7 @@ class PublicController extends BasePublicController
      */
     public function ics($slug)
     {
-        $event = $this->repository->bySlug($slug);
+        $event = $this->repository->with('files')->bySlug($slug);
 
         $this->calendar->add($event);
 
