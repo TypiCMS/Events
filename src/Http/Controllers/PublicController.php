@@ -39,7 +39,7 @@ class PublicController extends BasePublicController
      */
     public function show($slug)
     {
-        $model = $this->repository->published()->bySlug($slug);
+        $model = $this->repository->bySlug($slug);
 
         return view('events::public.show')
             ->with(compact('model'));
@@ -52,7 +52,7 @@ class PublicController extends BasePublicController
      */
     public function ics($slug)
     {
-        $event = $this->repository->published()->bySlug($slug);
+        $event = $this->repository->bySlug($slug);
 
         $this->calendar->add($event);
 
