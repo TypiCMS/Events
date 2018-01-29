@@ -26,7 +26,7 @@ class PublicController extends BasePublicController
     {
         $page = request('page');
         $perPage = config('typicms.events.per_page');
-        $models = $this->repository->published()->paginate($perPage, ['*'], 'page', $page);
+        $models = $this->repository->paginate($perPage, ['*'], 'page', $page);
 
         return view('events::public.index')
             ->with(compact('models'));
