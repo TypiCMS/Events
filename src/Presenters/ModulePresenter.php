@@ -82,11 +82,11 @@ class ModulePresenter extends Presenter
             }
         }
 
-        $dateFromTo = ucfirst(__('from')) . ' ';
+        $dateFromTo = ucfirst(__('from')).' ';
         $dateFromTo .= '<time datetime="'.$sDate->toIso8601String().'">';
         $dateFromTo .= $sDate->formatLocalized($sDateFormat);
         $dateFromTo .= '</time>';
-        $dateFromTo .= ' ' . __('to') . ' ';
+        $dateFromTo .= ' '.__('to').' ';
         $dateFromTo .= '<time datetime="'.$eDate->toIso8601String().'">';
         $dateFromTo .= $eDate->formatLocalized($dateFormat);
         $dateFromTo .= '</time>';
