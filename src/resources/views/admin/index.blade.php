@@ -18,7 +18,7 @@
 
     <div class="table-responsive">
 
-        <table st-persist="eventsTable" st-table="displayedModels" st-safe-src="models" st-order st-filter class="table table-condensed table-main">
+        <table st-persist="eventsTable" st-table="displayedModels" st-safe-src="models" st-order st-filter class="table table-main">
             <thead>
                 <tr>
                     <th class="delete"></th>
