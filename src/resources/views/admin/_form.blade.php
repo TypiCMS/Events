@@ -10,8 +10,10 @@
 @include('files::admin._files-selector')
 
 @include('core::form._title-and-slug')
-{!! TranslatableBootForm::hidden('status')->value(0) !!}
-{!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
+<div class="form-group">
+    {!! TranslatableBootForm::hidden('status')->value(0) !!}
+    {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
+</div>
 
 <div class="row">
     <div class="col-sm-6">

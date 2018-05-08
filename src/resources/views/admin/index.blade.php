@@ -32,7 +32,7 @@
                 <tr>
                     <td colspan="6"></td>
                     <td>
-                        <input st-search="title_translated" class="form-control input-sm" placeholder="@lang('Filter')…" type="text">
+                        <input st-search="title_translated" class="form-control form-control-sm" placeholder="@lang('Filter')…" type="text">
                     </td>
                 </tr>
             </thead>
