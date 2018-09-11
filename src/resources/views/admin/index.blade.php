@@ -4,65 +4,42 @@
 
 @section('content')
 
-<div ng-cloak ng-controller="ListController">
+<item-list
+    url-base="{{ route('api::index-events') }}"
+    locale="{{ config('typicms.content_locale') }}"
+    url-parameters="fields[events]=id,start_date,end_date"
+    title="events"
+    :searchable="['start_date']"
+    :sorting="['-end_date']">
 
-    @include('core::admin._button-create', ['module' => 'events'])
+    <template slot="add-button">
+        @include('core::admin._button-create', ['module' => 'events'])
+    </template>
 
-    <h1>@lang('Events')</h1>
-
-    <div class="btn-toolbar">
-        @include('core::admin._button-select')
-        @include('core::admin._button-actions')
+    <template slot="buttons">
         @include('core::admin._lang-switcher-for-list')
-    </div>
+    </template>
 
-    <div class="table-responsive">
+    <template slot="columns" slot-scope="{ sortArray }">
+        <item-list-column-header name="checkbox"></item-list-column-header>
+        <item-list-column-header name="edit"></item-list-column-header>
+        <item-list-column-header name="status_translated" sortable :sort-array="sortArray" :label="$t('Status')"></item-list-column-header>
+        <item-list-column-header name="image" :label="$t('Image')"></item-list-column-header>
+        <item-list-column-header name="start_date" sortable :sort-array="sortArray" :label="$t('Start date')"></item-list-column-header>
+        <item-list-column-header name="end_date" sortable :sort-array="sortArray" :label="$t('End date')"></item-list-column-header>
+        <item-list-column-header name="title_translated" sortable :sort-array="sortArray" :label="$t('Title')"></item-list-column-header>
+    </template>
 
-        <table st-persist="eventsTable" st-table="displayedModels" st-safe-src="models" st-order st-filter class="table table-main">
-            <thead>
-                <tr>
-                    <th class="delete"></th>
-                    <th class="edit"></th>
-                    <th st-sort="status_translated" class="status st-sort">{{ __('Status') }}</th>
-                    <th st-sort="image" class="image st-sort">{{ __('Image') }}</th>
-                    <th st-sort="start_date" st-sort-default="reverse" class="date st-sort">{{ __('Start date') }}</th>
-                    <th st-sort="end_date" st-sort-default="reverse" class="date st-sort">{{ __('End date') }}</th>
-                    <th st-sort="title_translated" class="title_translated st-sort">{{ __('Title') }}</th>
-                </tr>
-                <tr>
-                    <td colspan="6"></td>
-                    <td>
-                        <input st-search="title_translated" class="form-control form-control-sm" placeholder="@lang('Filter')…" type="text">
-                    </td>
-                </tr>
-            </thead>
+    <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
+        <td class="checkbox"><item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox></td>
+        <td>@include('core::admin._button-edit', ['module' => 'events'])</td>
+        <td><item-list-status-button :model="model"></item-list-status-button></td>
+        <td><img :src="model.thumb" alt=""></td>
+        <td>@{{ model.start_date | date }}</td>
+        <td>@{{ model.end_date | date }}</td>
+        <td>@{{ model.title_translated }}</td>
+    </template>
 
-            <tbody>
-                <tr ng-repeat="model in displayedModels">
-                    <td>
-                        <input type="checkbox" checklist-model="checked.models" checklist-value="model">
-                    </td>
-                    <td>
-                        @include('core::admin._button-edit', ['module' => 'events'])
-                    </td>
-                    <td typi-btn-status action="toggleStatus(model)" model="model"></td>
-                    <td>
-                        <img ng-src="@{{ model.thumb }}" alt="">
-                    </td>
-                    <td>@{{ model.start_date | dateFromMySQL:'short' }}</td>
-                    <td>@{{ model.end_date | dateFromMySQL:'short' }}</td>
-                    <td>@{{ model.title_translated }}</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7" typi-pagination></td>
-                </tr>
-            </tfoot>
-        </table>
-
-    </div>
-
-</div>
+</item-list>
 
 @endsection
