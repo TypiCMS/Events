@@ -59,9 +59,11 @@ class RouteServiceProvider extends ServiceProvider
              * API routes
              */
             $router->middleware('api')->prefix('api')->group(function (Router $router) {
-                $router->get('events', 'ApiController@index')->name('api::index-events');
-                $router->patch('events/{event}', 'ApiController@update')->name('api::update-event');
-                $router->delete('events/{event}', 'ApiController@destroy')->name('api::destroy-event');
+                $router->middleware('auth:api')->group(function (Router $router) {
+                    $router->get('events', 'ApiController@index')->name('api::index-events');
+                    $router->patch('events/{event}', 'ApiController@update')->name('api::update-event');
+                    $router->delete('events/{event}', 'ApiController@destroy')->name('api::destroy-event');
+                });
             });
         });
     }
