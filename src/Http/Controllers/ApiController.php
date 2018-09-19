@@ -19,14 +19,14 @@ class ApiController extends BaseApiController
     {
         $models = QueryBuilder::for(Event::class)
             ->allowedFilters('start_date')
-            ->translated(['title', 'status'])
+            ->translated($request->input('translatable_fields'))
             ->with('files')
             ->paginate($request->input('per_page'));
 
         return $models;
     }
 
-    protected function update(Event $event, Request $request)
+    protected function updatePartial(Event $event, Request $request)
     {
         $data = [];
         foreach ($request->all() as $column => $content) {

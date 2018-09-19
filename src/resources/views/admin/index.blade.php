@@ -7,7 +7,9 @@
 <item-list
     url-base="{{ route('api::index-events') }}"
     locale="{{ config('typicms.content_locale') }}"
-    url-parameters="fields[events]=id,start_date,end_date"
+    fields="id,start_date,end_date"
+    translatable-fields="status,title"
+    table="events"
     title="events"
     :searchable="['start_date']"
     :sorting="['-end_date']">
