@@ -83,18 +83,4 @@ class AdminController extends BaseAdminController
 
         return $this->redirect($request, $event);
     }
-
-    /**
-     * List models.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function files(Event $event)
-    {
-        $data = [
-            'models' => $event->files,
-        ];
-
-        return response()->json($data, 200);
-    }
 }

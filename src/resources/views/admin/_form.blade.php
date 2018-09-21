@@ -7,7 +7,8 @@
 
 {!! BootForm::hidden('id') !!}
 
-{{-- @include('files::admin._files-selector') --}}
+<filepicker related-table="{{ $model->getTable() }}" :related-id="{{ $model->id ?? 0 }}"></filepicker>
+<files related-table="{{ $model->getTable() }}" :related-id="{{ $model->id ?? 0 }}"></files>
 
 @include('core::form._title-and-slug')
 <div class="form-group">

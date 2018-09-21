@@ -60,9 +60,13 @@ class RouteServiceProvider extends ServiceProvider
              */
             $router->middleware('api')->prefix('api')->group(function (Router $router) {
                 $router->middleware('auth:api')->group(function (Router $router) {
-                    $router->get('events', 'ApiController@index')->name('api::index-events')->middleware('can:see-all-events');
-                    $router->patch('events/{event}', 'ApiController@updatePartial')->name('api::update-event')->middleware('can:update-event');
-                    $router->delete('events/{event}', 'ApiController@destroy')->name('api::destroy-event')->middleware('can:delete-event');
+                    $router->get('events', 'ApiController@index')->middleware('can:see-all-events');
+                    $router->patch('events/{event}', 'ApiController@updatePartial')->middleware('can:update-event');
+                    $router->delete('events/{event}', 'ApiController@destroy')->middleware('can:delete-event');
+
+                    $router->get('events/{event}/files', 'ApiController@files')->middleware('can:update-event');
+                    $router->post('events/{event}/files', 'ApiController@attachFiles')->middleware('can:update-event');
+                    $router->delete('events/{event}/files/{file}', 'ApiController@detachFile')->middleware('can:update-event');
                 });
             });
         });

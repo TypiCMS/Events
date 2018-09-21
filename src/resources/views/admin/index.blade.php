@@ -5,7 +5,7 @@
 @section('content')
 
 <item-list
-    url-base="{{ route('api::index-events') }}"
+    url-base="/api/events"
     locale="{{ config('typicms.content_locale') }}"
     fields="id,start_date,end_date"
     translatable-fields="status,title"
