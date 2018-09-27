@@ -7,6 +7,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
+use TypiCMS\Modules\Files\Models\File;
 
 class ApiController extends BaseApiController
 {
@@ -58,5 +59,20 @@ class ApiController extends BaseApiController
         return response()->json([
             'error' => !$deleted,
         ]);
+    }
+
+    public function files(Event $event)
+    {
+        return $event->files;
+    }
+
+    public function attachFiles(Event $event, Request $request)
+    {
+        return $this->repository->attachFiles($event, $request);
+    }
+
+    public function detachFile(Event $event, File $file)
+    {
+        return $this->repository->detachFile($event, $file);
     }
 }
