@@ -27,6 +27,8 @@
         </a>
         <div class="event-body">{!! $model->present()->body !!}</div>
         {!! $model->present()->thumb() !!}
+        @include('files::public._documents')
+        @include('files::public._images')
     </article>
 
 @endsection

@@ -6,7 +6,8 @@
 
     {!! $page->present()->body !!}
 
-    @include('files::public._files', ['model' => $page])
+    @include('files::public._documents', ['model' => $page])
+    @include('files::public._images', ['model' => $page])
 
     @includeWhen($models->count() > 0, 'events::public._list', ['items' => $models])
 
