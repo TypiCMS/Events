@@ -32,7 +32,7 @@ class ModuleProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => base_path('resources/views/vendor/events'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/events'),
         ], 'typicms-views');
 
         AliasLoader::getInstance()->alias('Events', Events::class);
