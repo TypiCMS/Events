@@ -24,7 +24,7 @@ class ApiController extends BaseApiController
             ->allowedFilters([
                 Filter::custom('start_date,end_date,title', FilterOr::class),
             ])
-            ->allowedIncludes('files','images')
+            ->allowedIncludes('files', 'images')
             ->translated($request->input('translatable_fields'))
             ->paginate($request->input('per_page'));
 
