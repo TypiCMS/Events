@@ -3,7 +3,9 @@
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\Filter;
 use Spatie\QueryBuilder\QueryBuilder;
+use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Repositories\EloquentEvent;
@@ -19,9 +21,11 @@ class ApiController extends BaseApiController
     public function index(Request $request)
     {
         $data = QueryBuilder::for(Event::class)
-            ->allowedFilters('start_date')
+            ->allowedFilters([
+                Filter::custom('start_date,end_date,title', FilterOr::class),
+            ])
+            ->allowedIncludes('files','images')
             ->translated($request->input('translatable_fields'))
-            ->with('files')
             ->paginate($request->input('per_page'));
 
         return $data;

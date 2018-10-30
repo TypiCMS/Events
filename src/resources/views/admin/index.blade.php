@@ -11,7 +11,8 @@
     translatable-fields="status,title"
     table="events"
     title="events"
-    :searchable="['start_date']"
+    include="images"
+    :searchable="['start_date,end_date,title']"
     :sorting="['-end_date']">
 
     <template slot="add-button">
