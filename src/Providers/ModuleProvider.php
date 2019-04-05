@@ -35,6 +35,10 @@ class ModuleProvider extends ServiceProvider
             __DIR__.'/../resources/views' => resource_path('views/vendor/events'),
         ], 'views');
 
+        $this->publishes([
+            __DIR__.'/../resources/scss' => resource_path('scss'),
+        ], 'resources');
+
         AliasLoader::getInstance()->alias('Events', Events::class);
 
         // Observers
