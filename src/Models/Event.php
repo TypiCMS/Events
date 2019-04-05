@@ -6,6 +6,7 @@ use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\Events\Presenters\ModulePresenter;
+use TypiCMS\Modules\Files\Models\File;
 use TypiCMS\Modules\Files\Traits\HasFiles;
 use TypiCMS\Modules\History\Traits\Historable;
 
@@ -22,6 +23,8 @@ class Event extends Base
 
     protected $guarded = ['id', 'exit'];
 
+    protected $appends = ['thumb'];
+
     public $translatable = [
         'title',
         'slug',
@@ -32,18 +35,6 @@ class Event extends Base
         'body',
     ];
 
-    protected $appends = ['image', 'thumb'];
-
-    /**
-     * Append image attribute.
-     *
-     * @return string
-     */
-    public function getImageAttribute()
-    {
-        return $this->images->first();
-    }
-
     /**
      * Append thumb attribute.
      *
@@ -51,6 +42,16 @@ class Event extends Base
      */
     public function getThumbAttribute()
     {
-        return $this->present()->thumbSrc(null, 22);
+        return $this->present()->thumbSrc(null, 44);
+    }
+
+    /**
+     * This model belongs to one image.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function image()
+    {
+        return $this->belongsTo(File::class, 'image_id');
     }
 }

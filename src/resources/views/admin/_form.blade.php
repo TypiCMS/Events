@@ -8,6 +8,7 @@
 {!! BootForm::hidden('id') !!}
 
 <filepicker related-table="{{ $model->getTable() }}" :related-id="{{ $model->id ?? 0 }}"></filepicker>
+<file-field type="image" field="image_id" data="{{ $model->image }}"></file-field>
 <files related-table="{{ $model->getTable() }}" :related-id="{{ $model->id ?? 0 }}"></files>
 
 @include('core::form._title-and-slug')

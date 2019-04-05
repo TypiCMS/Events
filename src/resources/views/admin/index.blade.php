@@ -7,11 +7,11 @@
 <item-list
     url-base="/api/events"
     locale="{{ config('typicms.content_locale') }}"
-    fields="id,start_date,end_date"
+    fields="id,image_id,start_date,end_date"
     translatable-fields="status,title"
     table="events"
     title="events"
-    include="images"
+    include="image"
     :searchable="['start_date,end_date,title']"
     :sorting="['-end_date']">
 
