@@ -2,9 +2,9 @@
     <a class="event-list-item-link" href="{{ $event->uri() }}" itemprop="url">
         <meta itemprop="startDate" content="{{ $event->start_date->toIso8601String() }}">
         <meta itemprop="endDate" content="{{ $event->end_date->toIso8601String() }}">
-        <meta itemprop="image" content="{{ $event->present()->thumbUrl() }}">
+        <meta itemprop="image" content="{{ $event->present()->image() }}">
         <div class="event-list-item-image">
-            {!! $event->present()->thumb(540, 400) !!}
+            <img src="{!! $event->present()->image(540, 400) !!}" alt="">
         </div>
         <div class="event-list-item-info">
             <div class="event-list-item-date">{!! $event->present()->dateFromTo !!}</div>

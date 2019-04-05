@@ -3,7 +3,7 @@
 @section('title', $model->title.' – '.__('Events').' – '.$websiteTitle)
 @section('ogTitle', $model->title)
 @section('description', $model->summary)
-@section('image', $model->present()->thumbUrl())
+@section('image', $model->present()->image())
 @section('bodyClass', 'body-events body-event-'.$model->id.' body-page body-page-'.$page->id)
 
 @section('content')
@@ -14,7 +14,7 @@
         <link itemprop="url" href="{{ route($lang.'::event', $model->slug) }}">
         <meta itemprop="startDate" content="{{ $model->start_date->toIso8601String() }}">
         <meta itemprop="endDate" content="{{ $model->end_date->toIso8601String() }}">
-        <meta itemprop="image" content="{{ $model->present()->thumbUrl() }}">
+        <meta itemprop="image" content="{{ $model->present()->image() }}">
         <h1 class="event-title" itemprop="name">{{ $model->title }}</h1>
         <div class="event-date">{!! $model->present()->dateFromTo !!} <br>{!! $model->present()->timeFromTo !!}</div>
         <div class="event-location" itemprop="location">
@@ -26,7 +26,7 @@
             <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
         </a>
         <div class="event-body">{!! $model->present()->body !!}</div>
-        {!! $model->present()->thumb() !!}
+        <img src="{!! $model->present()->image(2000) !!}" alt="">
         @include('files::public._documents')
         @include('files::public._images')
     </article>
