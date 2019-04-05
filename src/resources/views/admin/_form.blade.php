@@ -19,10 +19,10 @@
 
 <div class="row">
     <div class="col-sm-6">
-        {!! BootForm::text(__('Start date'), 'start_date')->value(old('start_date') ? : $model->present()->datetimeOrNow('start_date'))->addClass('datetimepicker')->required() !!}
+        {!! BootForm::date(__('Start date'), 'start_date')->type('datetime-local')->value(old('start_date') ? : $model->present()->datetimeOrNow('start_date'))->required() !!}
     </div>
     <div class="col-sm-6">
-        {!! BootForm::text(__('End date'), 'end_date')->value(old('end_date') ? : $model->present()->datetimeOrNow('end_date'))->addClass('datetimepicker')->required() !!}
+        {!! BootForm::date(__('End date'), 'end_date')->type('datetime-local')->value(old('end_date') ? : $model->present()->datetimeOrNow('end_date'))->required() !!}
     </div>
 </div>
 

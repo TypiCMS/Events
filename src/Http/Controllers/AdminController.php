@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
+use Illuminate\Support\Carbon;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
 use TypiCMS\Modules\Events\Models\Event;
@@ -61,7 +62,10 @@ class AdminController extends BaseAdminController
      */
     public function store(FormRequest $request)
     {
-        $event = $this->repository->create($request->all());
+        $data = $request->all();
+        $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
+        $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
+        $event = $this->repository->create($data);
 
         return $this->redirect($request, $event);
     }
@@ -76,7 +80,10 @@ class AdminController extends BaseAdminController
      */
     public function update(Event $event, FormRequest $request)
     {
-        $this->repository->update($request->id, $request->all());
+        $data = $request->all();
+        $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
+        $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
+        $this->repository->update($request->id, $data);
 
         return $this->redirect($request, $event);
     }
