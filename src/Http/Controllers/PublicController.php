@@ -24,9 +24,22 @@ class PublicController extends BasePublicController
      */
     public function index()
     {
-        $models = $this->repository->paginate(config('typicms.events.per_page'));
+        $models = $this->repository->paginateUpcomingEvents(config('typicms.events.per_page'));
 
         return view('events::public.index')
+            ->with(compact('models'));
+    }
+
+    /**
+     * Display past events paginated.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function past()
+    {
+        $models = $this->repository->paginatePastEvents(config('typicms.events.per_page'));
+
+        return view('events::public.past')
             ->with(compact('models'));
     }
 
