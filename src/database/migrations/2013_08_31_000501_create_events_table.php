@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->datetime('start_date');
-            $table->datetime('end_date')->nullable();
+            $table->datetime('end_date');
             $table->integer('image_id')->unsigned()->nullable();
             $table->json('status');
             $table->json('title');
