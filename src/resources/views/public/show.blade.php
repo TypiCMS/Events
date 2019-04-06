@@ -10,6 +10,8 @@
 
     @include('core::public._btn-prev-next', ['module' => 'Events', 'model' => $model])
 
+    @include('events::public._json-ld', ['event' => $model])
+
     <article class="event">
         <h1 class="event-title">{{ $model->title }}</h1>
         <div class="event-date">{!! $model->present()->dateFromTo !!} <br>{!! $model->present()->timeFromTo !!}</div>

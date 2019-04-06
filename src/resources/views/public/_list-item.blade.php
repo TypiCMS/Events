@@ -1,3 +1,4 @@
+@include('events::public._json-ld')
 <li class="event-list-item">
     <a class="event-list-item-link" href="{{ $event->uri() }}">
         <div class="event-list-item-image-wrapper">
