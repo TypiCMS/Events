@@ -43,7 +43,7 @@ class EloquentEvent extends EloquentRepository
 
         return $this->executeCallback(static::class, __FUNCTION__, array_merge(func_get_args(), compact('page')), function () use ($perPage, $attributes, $pageName, $page) {
             return $this->prepareQuery($this->createModel())
-                ->order()
+                ->orderBy('start_date')
                 ->where('end_date', '>=', date('Y-m-d'))
                 ->paginate($perPage, $attributes, $pageName, $page);
         });
