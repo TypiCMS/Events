@@ -27,6 +27,7 @@
 </div>
 
 {!! TranslatableBootForm::text(__('Venue'), 'venue') !!}
-{!! TranslatableBootForm::textarea(__('Address'), 'address')->rows(4) !!}
+{!! TranslatableBootForm::textarea(__('Address'), 'address')->rows(3) !!}
+{!! TranslatableBootForm::text(__('URL'), 'url')->type('url') !!}
 {!! TranslatableBootForm::textarea(__('Summary'), 'summary')->rows(4) !!}
 {!! TranslatableBootForm::textarea(__('Body'), 'body')->addClass('ckeditor') !!}

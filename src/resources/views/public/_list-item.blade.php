@@ -11,7 +11,12 @@
                 <span class="event-list-item-venue">{{ $event->venue }}</span>
                 <div class="event-list-item-address">{!! nl2br($event->address) !!}</div>
             </div>
+            @if ($event->summary !== null)
             <div class="event-list-item-summary">{{ $event->summary }}</div>
+            @endif
+            @if ($event->url !== null)
+            <div class="event-list-item-url"><a href="{{ $event->url }}" target="_blank" rel="noopener noreferrer">{{ parse_url($event->url, PHP_URL_HOST) }}</a></div>
+            @endif
         </div>
     </a>
 </li>

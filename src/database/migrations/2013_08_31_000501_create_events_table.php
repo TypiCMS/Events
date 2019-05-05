@@ -25,6 +25,7 @@ class CreateEventsTable extends Migration
             $table->json('address');
             $table->json('summary');
             $table->json('body');
+            $table->json('url');
             $table->timestamps();
         });
     }

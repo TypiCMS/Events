@@ -20,6 +20,9 @@
             <div class="event-address">{!! nl2br($model->address) !!}</div>
         </div>
         <p class="event-summary">{!! nl2br($model->summary) !!}</p>
+        @if ($model->url !== null)
+        <div class="event-url"><a href="{{ $event->url }}" target="_blank" rel="noopener noreferrer">{{ parse_url($event->url, PHP_URL_HOST) }}</a></div>
+        @endif
         <a class="btn btn-light btn-xs" href="{{ route($lang.'::event-ics', $model->slug) }}">
             <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
         </a>

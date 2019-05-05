@@ -33,6 +33,7 @@ class Event extends Base
         'address',
         'summary',
         'body',
+        'url',
     ];
 
     /**
