@@ -9,7 +9,7 @@
             <div class="event-list-item-title">{{ $event->title }}</div>
             <div class="event-list-item-location">
                 <span class="event-list-item-venue">{{ $event->venue }}</span>
-                <div class="event-list-item-address">{{ nl2br($event->address) }}</div>
+                <div class="event-list-item-address">{!! nl2br($event->address) !!}</div>
             </div>
             <div class="event-list-item-summary">{{ $event->summary }}</div>
         </div>
