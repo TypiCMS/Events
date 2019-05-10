@@ -33,7 +33,7 @@
         <td class="checkbox"><item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox></td>
         <td>@include('core::admin._button-edit', ['module' => 'events'])</td>
         <td><item-list-status-button :model="model"></item-list-status-button></td>
-        <td><img :src="model.thumb" alt="" height="22"></td>
+        <td><img :src="model.thumb" alt="" height="27"></td>
         <td>@{{ model.start_date | date }}</td>
         <td>@{{ model.end_date | date }}</td>
         <td>@{{ model.title_translated }}</td>
