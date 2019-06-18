@@ -14,7 +14,7 @@ class EloquentEvent extends EloquentRepository
     protected $model = Event::class;
 
     /**
-     * Get incomings events.
+     * Get upcoming events.
      *
      * @param int $number number of items to take
      *
@@ -26,6 +26,27 @@ class EloquentEvent extends EloquentRepository
             $query = $this->prepareQuery($this->createModel())
                 ->where('end_date', '>=', date('Y-m-d'))
                 ->orderBy('start_date');
+            if ($number) {
+                $query->take($number);
+            }
+
+            return $query->get();
+        });
+    }
+
+    /**
+     * Get past events.
+     *
+     * @param int $number number of items to take
+     *
+     * @return Collection
+     */
+    public function past($number = null)
+    {
+        return $this->published()->executeCallback(static::class, __FUNCTION__, func_get_args(), function () use ($number) {
+            $query = $this->prepareQuery($this->createModel())
+                ->where('end_date', '<', date('Y-m-d'))
+                ->order();
             if ($number) {
                 $query->take($number);
             }
@@ -67,7 +88,11 @@ class EloquentEvent extends EloquentRepository
     public function adjacent($direction, $model, $category_id = null, array $with = [], $all = false)
     {
         $currentModel = $model;
-        $models = $this->upcoming();
+        if ($currentModel->end_date < date('Y-m-d')) {
+            $models = $this->past();
+        } else {
+            $models = $this->upcoming();
+        }
         foreach ($models as $key => $model) {
             if ($currentModel->id === $model->id) {
                 $adjacentKey = $key + $direction;
