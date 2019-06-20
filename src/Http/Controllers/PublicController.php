@@ -24,7 +24,9 @@ class PublicController extends BasePublicController
      */
     public function index()
     {
-        $models = $this->repository->paginateUpcomingEvents(config('typicms.events.per_page'));
+        $models = $this->repository
+            ->with('image')
+            ->paginateUpcomingEvents(config('typicms.events.per_page'));
 
         return view('events::public.index')
             ->with(compact('models'));
@@ -37,7 +39,9 @@ class PublicController extends BasePublicController
      */
     public function past()
     {
-        $models = $this->repository->paginatePastEvents(config('typicms.events.per_page'));
+        $models = $this->repository
+            ->with('image')
+            ->paginatePastEvents(config('typicms.events.per_page'));
 
         return view('events::public.past')
             ->with(compact('models'));
@@ -50,7 +54,13 @@ class PublicController extends BasePublicController
      */
     public function show($slug)
     {
-        $model = $this->repository->bySlug($slug);
+        $model = $this->repository
+            ->with([
+                'image',
+                'images',
+                'documents',
+            ])
+            ->bySlug($slug);
 
         return view('events::public.show')
             ->with(compact('model'));
