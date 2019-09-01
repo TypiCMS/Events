@@ -4,7 +4,6 @@ namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use TypiCMS;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
-use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
 
 class PublicController extends BasePublicController
@@ -73,7 +72,7 @@ class PublicController extends BasePublicController
      */
     public function ics($slug)
     {
-        $event = $this->repository->bySlug($slug);
+        $event = $this->model->bySlug($slug);
 
         $this->calendar->add($event);
 

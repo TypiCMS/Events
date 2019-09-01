@@ -8,16 +8,10 @@ use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Events\Models\Event;
-use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 use TypiCMS\Modules\Files\Models\File;
 
 class ApiController extends BaseApiController
 {
-    public function __construct(EloquentEvent $event)
-    {
-        parent::__construct($event);
-    }
-
     public function index(Request $request)
     {
         $data = QueryBuilder::for(Event::class)
@@ -49,7 +43,7 @@ class ApiController extends BaseApiController
         }
         $saved = $event->save();
 
-        $this->repository->forgetCache();
+        $this->model->forgetCache();
 
         return response()->json([
             'error' => !$saved,
@@ -58,7 +52,7 @@ class ApiController extends BaseApiController
 
     public function destroy(Event $event)
     {
-        $deleted = $this->repository->delete($event);
+        $deleted = $event->delete();
 
         return response()->json([
             'error' => !$deleted,
@@ -72,11 +66,11 @@ class ApiController extends BaseApiController
 
     public function attachFiles(Event $event, Request $request)
     {
-        return $this->repository->attachFiles($event, $request);
+        return $this->model->attachFiles($event, $request);
     }
 
     public function detachFile(Event $event, File $file)
     {
-        return $this->repository->detachFile($event, $file);
+        return $this->model->detachFile($event, $file);
     }
 }

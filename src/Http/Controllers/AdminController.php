@@ -6,15 +6,9 @@ use Illuminate\Support\Carbon;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
 use TypiCMS\Modules\Events\Models\Event;
-use TypiCMS\Modules\Events\Repositories\EloquentEvent;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(EloquentEvent $event)
-    {
-        parent::__construct($event);
-    }
-
     /**
      * List models.
      *
@@ -22,7 +16,7 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $models = $this->repository->with('files')->findAll();
+        $models = $this->model->with('files')->findAll();
 
         return view('events::admin.index');
     }
@@ -34,7 +28,7 @@ class AdminController extends BaseAdminController
      */
     public function create()
     {
-        $model = $this->repository->createModel();
+        $model = new;
 
         return view('events::admin.create')
             ->with(compact('model'));
@@ -65,7 +59,7 @@ class AdminController extends BaseAdminController
         $data = $request->all();
         $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
         $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
-        $event = $this->repository->create($data);
+        $event = ::create($data);
 
         return $this->redirect($request, $event);
     }
@@ -83,7 +77,7 @@ class AdminController extends BaseAdminController
         $data = $request->all();
         $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
         $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
-        $this->repository->update($request->id, $data);
+        ::update($request->id, $data);
 
         return $this->redirect($request, $event);
     }
