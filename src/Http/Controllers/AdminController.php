@@ -18,7 +18,7 @@ class AdminController extends BaseAdminController
 
     public function create(): View
     {
-        $model = new Event;
+        $model = new Event();
 
         return view('events::admin.create')
             ->with(compact('model'));
