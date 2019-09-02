@@ -2,82 +2,50 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
 use TypiCMS\Modules\Events\Models\Event;
 
 class AdminController extends BaseAdminController
 {
-    /**
-     * List models.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index()
+    public function index(): View
     {
-        $models = $this->model->with('files')->findAll();
-
         return view('events::admin.index');
     }
 
-    /**
-     * Create form for a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
+    public function create(): View
     {
-        $model = new;
+        $model = new Event;
 
         return view('events::admin.create')
             ->with(compact('model'));
     }
 
-    /**
-     * Edit form for the specified resource.
-     *
-     * @param \TypiCMS\Modules\Events\Models\Event $event
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit(Event $event)
+    public function edit(Event $event): View
     {
         return view('events::admin.edit')
             ->with(['model' => $event]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \TypiCMS\Modules\Events\Http\Requests\FormRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(FormRequest $request)
+    public function store(FormRequest $request): RedirectResponse
     {
         $data = $request->all();
         $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
         $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
-        $event = ::create($data);
+        $event = Event::create($data);
 
         return $this->redirect($request, $event);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \TypiCMS\Modules\Events\Models\Event              $event
-     * @param \TypiCMS\Modules\Events\Http\Requests\FormRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Event $event, FormRequest $request)
+    public function update(Event $event, FormRequest $request): RedirectResponse
     {
         $data = $request->all();
         $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
         $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
-        ::update($request->id, $data);
+        $event->update($data);
 
         return $this->redirect($request, $event);
     }

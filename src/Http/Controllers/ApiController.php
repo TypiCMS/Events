@@ -2,7 +2,10 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\Filter;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
@@ -12,7 +15,7 @@ use TypiCMS\Modules\Files\Models\File;
 
 class ApiController extends BaseApiController
 {
-    public function index(Request $request)
+    public function index(Request $request): LengthAwarePaginator
     {
         $data = QueryBuilder::for(Event::class)
             ->allowedFilters([
@@ -25,7 +28,7 @@ class ApiController extends BaseApiController
         return $data;
     }
 
-    protected function updatePartial(Event $event, Request $request)
+    protected function updatePartial(Event $event, Request $request): JsonResponse
     {
         $data = [];
         foreach ($request->all() as $column => $content) {
@@ -43,14 +46,12 @@ class ApiController extends BaseApiController
         }
         $saved = $event->save();
 
-        $this->model->forgetCache();
-
         return response()->json([
             'error' => !$saved,
         ]);
     }
 
-    public function destroy(Event $event)
+    public function destroy(Event $event): JsonResponse
     {
         $deleted = $event->delete();
 
@@ -59,18 +60,18 @@ class ApiController extends BaseApiController
         ]);
     }
 
-    public function files(Event $event)
+    public function files(Event $event): Collection
     {
         return $event->files;
     }
 
-    public function attachFiles(Event $event, Request $request)
+    public function attachFiles(Event $event, Request $request): JsonResponse
     {
-        return $this->model->attachFiles($event, $request);
+        return $event->attachFiles($request);
     }
 
-    public function detachFile(Event $event, File $file)
+    public function detachFile(Event $event, File $file): array
     {
-        return $this->model->detachFile($event, $file);
+        return $event->detachFile($file);
     }
 }
