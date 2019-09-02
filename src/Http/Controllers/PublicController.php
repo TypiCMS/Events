@@ -20,8 +20,13 @@ class PublicController extends BasePublicController
 
     public function index(): View
     {
-        $models = Event::with('image')
-            ->paginateUpcomingEvents(config('typicms.events.per_page'));
+        $query = Event::with('image');
+        if (!request('preview')) {
+            $query->published();
+        }
+        $models = $query->orderBy('start_date')
+            ->where('end_date', '>=', date('Y-m-d'))
+            ->paginate(config('typicms.events.per_page'));
 
         return view('events::public.index')
             ->with(compact('models'));
@@ -29,8 +34,13 @@ class PublicController extends BasePublicController
 
     public function past(): View
     {
-        $models = Event::with('image')
-            ->paginatePastEvents(config('typicms.events.per_page'));
+        $query = Event::with('image');
+        if (!request('preview')) {
+            $query->published();
+        }
+        $models = $query->order()
+            ->where('end_date', '<', date('Y-m-d'))
+            ->paginate(config('typicms.events.per_page'));
 
         return view('events::public.past')
             ->with(compact('models'));
@@ -43,7 +53,7 @@ class PublicController extends BasePublicController
                 'images',
                 'documents',
             ])
-            ->where(column('slug'), $slug)->firstOrFails();
+            ->where(column('slug'), $slug)->firstOrFail();
 
         return view('events::public.show')
             ->with(compact('model'));
@@ -51,7 +61,7 @@ class PublicController extends BasePublicController
 
     public function ics($slug): Response
     {
-        $event = Event::where('slug', $slug)->firstOrFails();
+        $event = Event::where('slug', $slug)->firstOrFail();
 
         $this->calendar->add($event);
 

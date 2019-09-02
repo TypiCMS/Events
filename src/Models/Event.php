@@ -59,30 +59,6 @@ class Event extends Base
         return $query->get();
     }
 
-    public function paginateUpcomingEvents($perPage = null, $attributes = ['*'], $pageName = 'page', $page = null)
-    {
-        $page = $page ?: Paginator::resolveCurrentPage($pageName);
-        if (!request('preview')) {
-            $this->published();
-        }
-
-        return $this->orderBy('start_date')
-            ->where('end_date', '>=', date('Y-m-d'))
-            ->paginate($perPage, $attributes, $pageName, $page);
-    }
-
-    public function paginatePastEvents($perPage = null, $attributes = ['*'], $pageName = 'page', $page = null)
-    {
-        $page = $page ?: Paginator::resolveCurrentPage($pageName);
-        if (!request('preview')) {
-            $this->published();
-        }
-
-        return $this->order()
-            ->where('end_date', '<', date('Y-m-d'))
-            ->paginate($perPage, $attributes, $pageName, $page);
-    }
-
     public function adjacent($direction, $model, $category_id = null, array $with = [], $all = false)
     {
         $currentModel = $model;
