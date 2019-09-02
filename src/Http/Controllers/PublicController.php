@@ -2,77 +2,56 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 use TypiCMS;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
+use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Services\Calendar;
 
 class PublicController extends BasePublicController
 {
     protected $calendar;
 
-    public function __construct(EloquentEvent $event, Calendar $calendar)
+    public function __construct(Calendar $calendar)
     {
-        parent::__construct($event);
         $this->calendar = $calendar;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index()
+    public function index(): View
     {
-        $models = $this->repository
-            ->with('image')
+        $models = Event::with('image')
             ->paginateUpcomingEvents(config('typicms.events.per_page'));
 
         return view('events::public.index')
             ->with(compact('models'));
     }
 
-    /**
-     * Display past events paginated.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function past()
+    public function past(): View
     {
-        $models = $this->repository
-            ->with('image')
+        $models = Event::with('image')
             ->paginatePastEvents(config('typicms.events.per_page'));
 
         return view('events::public.past')
             ->with(compact('models'));
     }
 
-    /**
-     * Show event.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show($slug)
+    public function show($slug): View
     {
-        $model = $this->repository
-            ->with([
+        $model = Event::with([
                 'image',
                 'images',
                 'documents',
             ])
-            ->bySlug($slug);
+            ->where(column('slug'), $slug)->firstOrFails();
 
         return view('events::public.show')
             ->with(compact('model'));
     }
 
-    /**
-     * Show event.
-     *
-     * @return \Illuminate\Support\Facades\Response
-     */
-    public function ics($slug)
+    public function ics($slug): Response
     {
-        $event = $this->model->bySlug($slug);
+        $event = Event::where('slug', $slug)->firstOrFails();
 
         $this->calendar->add($event);
 
