@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Events\Models;
 
+use Illuminate\Pagination\Paginator;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
@@ -35,6 +36,69 @@ class Event extends Base
         'body',
         'url',
     ];
+
+    public function upcoming($number = null)
+    {
+        $query = $this->where('end_date', '>=', date('Y-m-d'))
+            ->orderBy('start_date');
+        if ($number) {
+            $query->take($number);
+        }
+
+        return $query->get();
+    }
+
+    public function past($number = null)
+    {
+        $query = $this->where('end_date', '<', date('Y-m-d'))
+            ->order();
+        if ($number) {
+            $query->take($number);
+        }
+
+        return $query->get();
+    }
+
+    public function paginateUpcomingEvents($perPage = null, $attributes = ['*'], $pageName = 'page', $page = null)
+    {
+        $page = $page ?: Paginator::resolveCurrentPage($pageName);
+        if (!request('preview')) {
+            $this->published();
+        }
+
+        return $this->orderBy('start_date')
+            ->where('end_date', '>=', date('Y-m-d'))
+            ->paginate($perPage, $attributes, $pageName, $page);
+    }
+
+    public function paginatePastEvents($perPage = null, $attributes = ['*'], $pageName = 'page', $page = null)
+    {
+        $page = $page ?: Paginator::resolveCurrentPage($pageName);
+        if (!request('preview')) {
+            $this->published();
+        }
+
+        return $this->order()
+            ->where('end_date', '<', date('Y-m-d'))
+            ->paginate($perPage, $attributes, $pageName, $page);
+    }
+
+    public function adjacent($direction, $model, $category_id = null, array $with = [], $all = false)
+    {
+        $currentModel = $model;
+        if ($currentModel->end_date < date('Y-m-d')) {
+            $models = $this->past();
+        } else {
+            $models = $this->upcoming();
+        }
+        foreach ($models as $key => $model) {
+            if ($currentModel->id === $model->id) {
+                $adjacentKey = $key + $direction;
+
+                return isset($models[$adjacentKey]) ? $models[$adjacentKey] : null;
+            }
+        }
+    }
 
     /**
      * Append thumb attribute.
