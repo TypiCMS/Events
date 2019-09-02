@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Events\Models;
 
-use Illuminate\Pagination\Paginator;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
