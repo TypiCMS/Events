@@ -2,6 +2,10 @@
 
 namespace TypiCMS\Modules\Events\Models;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Pagination\Paginator;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
@@ -36,7 +40,7 @@ class Event extends Base
         'url',
     ];
 
-    public function upcoming($number = null)
+    public function upcoming($number = null): Collection
     {
         $query = $this->where('end_date', '>=', date('Y-m-d'))
             ->orderBy('start_date');
@@ -47,7 +51,7 @@ class Event extends Base
         return $query->get();
     }
 
-    public function past($number = null)
+    public function past($number = null): Collection
     {
         $query = $this->where('end_date', '<', date('Y-m-d'))
             ->order();
@@ -58,7 +62,7 @@ class Event extends Base
         return $query->get();
     }
 
-    public function adjacent($direction, $model, $category_id = null, array $with = [], $all = false)
+    public function adjacent($direction, $model, $category_id = null, array $with = [], $all = false): ?Model
     {
         $currentModel = $model;
         if ($currentModel->end_date < date('Y-m-d')) {
@@ -75,22 +79,12 @@ class Event extends Base
         }
     }
 
-    /**
-     * Append thumb attribute.
-     *
-     * @return string
-     */
-    public function getThumbAttribute()
+    public function getThumbAttribute(): string
     {
         return $this->present()->image(null, 54);
     }
 
-    /**
-     * This model belongs to one image.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function image()
+    public function image(): BelongsTo
     {
         return $this->belongsTo(File::class, 'image_id');
     }
