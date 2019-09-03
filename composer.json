@@ -9,8 +9,8 @@
         }
     ],
     "require": {
-        "eluceo/ical": "~0.8",
-        "laravel/framework": "~5.8.0"
+        "eluceo/ical": "^0.15.1",
+        "laravel/framework": "~6.0"
     },
     "autoload": {
         "psr-4": {
