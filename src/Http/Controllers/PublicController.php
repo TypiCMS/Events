@@ -20,7 +20,7 @@ class PublicController extends BasePublicController
 
     public function index(): View
     {
-        $query = Event::with('image');
+        $query = Event::published()->with('image');
         if (!request('preview')) {
             $query->published();
         }
@@ -34,7 +34,7 @@ class PublicController extends BasePublicController
 
     public function past(): View
     {
-        $query = Event::with('image');
+        $query = Event::published()->with('image');
         if (!request('preview')) {
             $query->published();
         }
@@ -48,12 +48,14 @@ class PublicController extends BasePublicController
 
     public function show($slug): View
     {
-        $model = Event::with([
+        $model = Event::published()
+            ->with([
                 'image',
                 'images',
                 'documents',
             ])
-            ->where(column('slug'), $slug)->firstOrFail();
+            ->bySlug($slug)
+            ->firstOrFail();
 
         return view('events::public.show')
             ->with(compact('model'));
@@ -61,7 +63,9 @@ class PublicController extends BasePublicController
 
     public function ics($slug): Response
     {
-        $event = Event::where('slug', $slug)->firstOrFail();
+        $event = Event::published()
+            ->bySlug($slug)
+            ->firstOrFail();
 
         $this->calendar->add($event);
 
