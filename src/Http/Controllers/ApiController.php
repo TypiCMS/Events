@@ -70,8 +70,8 @@ class ApiController extends BaseApiController
         return $event->attachFiles($request);
     }
 
-    public function detachFile(Event $event, File $file): array
+    public function detachFile(Event $event, File $file): void
     {
-        return $event->detachFile($file);
+        $event->detachFile($file);
     }
 }
