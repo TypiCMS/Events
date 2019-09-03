@@ -54,7 +54,7 @@ class PublicController extends BasePublicController
                 'images',
                 'documents',
             ])
-            ->bySlug($slug)
+            ->whereSlugIs($slug)
             ->firstOrFail();
 
         return view('events::public.show')
@@ -64,7 +64,7 @@ class PublicController extends BasePublicController
     public function ics($slug): Response
     {
         $event = Event::published()
-            ->bySlug($slug)
+            ->whereSlugIs($slug)
             ->firstOrFail();
 
         $this->calendar->add($event);
