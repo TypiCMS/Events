@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Spatie\QueryBuilder\Filter;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
@@ -18,11 +18,12 @@ class ApiController extends BaseApiController
     public function index(Request $request): LengthAwarePaginator
     {
         $data = QueryBuilder::for(Event::class)
+            ->selectFields($request->input('fields.events'))
+            ->allowedSorts(['status_translated', 'start_date', 'end_date', 'title_translated'])
             ->allowedFilters([
-                Filter::custom('start_date,end_date,title', FilterOr::class),
+                AllowedFilter::custom('title', new FilterOr),
             ])
-            ->allowedIncludes('image')
-            ->translated($request->input('translatable_fields'))
+            ->allowedIncludes(['image'])
             ->paginate($request->input('per_page'));
 
         return $data;
