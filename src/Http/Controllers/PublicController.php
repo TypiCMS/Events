@@ -20,7 +20,9 @@ class PublicController extends BasePublicController
 
     public function index(): View
     {
-        $query = Event::published()->with('image');
+        $query = Event::published()
+            ->order()
+            ->with('image');
         if (!request('preview')) {
             $query->published();
         }
