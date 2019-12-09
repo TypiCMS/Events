@@ -4,7 +4,7 @@
 
 @section('content')
 
-    {!! $page->present()->body !!}
+    <div class="rich-content">{!! $page->present()->body !!}</div>
 
     @include('files::public._documents', ['model' => $page])
     @include('files::public._images', ['model' => $page])
