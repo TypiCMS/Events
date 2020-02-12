@@ -27,7 +27,9 @@
             <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
         </a>
         <div class="event-body">{!! $model->present()->body !!}</div>
-        <img class="event-image" src="{!! $model->present()->image(2000) !!}" alt="">
+        @isset($model->image)
+        <img class="event-image" src="{!! $model->present()->image(null, 1000) !!}" alt="">
+        @endisset
         @include('files::public._documents')
         @include('files::public._images')
     </article>
