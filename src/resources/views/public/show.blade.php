@@ -19,21 +19,21 @@
             <span class="event-venue">{{ $model->venue }}</span>
             <div class="event-address">{!! nl2br($model->address) !!}</div>
         </div>
-        @isset($model->summary)
+        @empty(!$model->summary)
         <p class="event-summary">{!! nl2br($model->summary) !!}</p>
-        @endisset
-        @isset($model->url)
+        @endempty
+        @empty(!$model->url)
         <div class="event-url"><a href="{{ $model->url }}" target="_blank" rel="noopener noreferrer">{{ parse_url($model->url, PHP_URL_HOST) }}</a></div>
-        @endisset
+        @endempty
         <a class="btn btn-light btn-xs" href="{{ route($lang.'::event-ics', $model->slug) }}">
             <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
         </a>
-        @isset($model->body)
+        @empty(!$model->body)
         <div class="event-body">{!! $model->present()->body !!}</div>
-        @endisset
-        @isset($model->image)
+        @endempty
+        @empty(!$model->image)
         <img class="event-image" src="{!! $model->present()->image(null, 1000) !!}" alt="">
-        @endisset
+        @endempty
         @include('files::public._documents')
         @include('files::public._images')
     </article>

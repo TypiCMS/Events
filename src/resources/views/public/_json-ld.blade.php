@@ -14,9 +14,9 @@
     "image": [
         "{{ $event->present()->image() }}"
     ],
-    @isset($event->url)
+    @empty(!$event->url)
     "url": "{{ $event->url }}",
-    @endisset
+    @endempty
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "{{ $event->uri() }}"
