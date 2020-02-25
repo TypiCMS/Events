@@ -19,8 +19,6 @@ class Calendar
 
     /**
      * add an event to the calendar.
-     *
-     * @param Event $model
      */
     public function add(Event $model)
     {

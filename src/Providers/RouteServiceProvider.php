@@ -26,7 +26,6 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         Route::namespace($this->namespace)->group(function (Router $router) {
-
             /*
              * Front office routes
              */
