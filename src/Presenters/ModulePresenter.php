@@ -7,6 +7,7 @@ use TypiCMS\Modules\Core\Presenters\Presenter;
 class ModulePresenter extends Presenter
 {
     private $dateFormat = 'd.m.Y';
+
     private $timeFormat = 'H:i';
 
     /**

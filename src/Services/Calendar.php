@@ -9,6 +9,7 @@ use TypiCMS\Modules\Events\Models\Event;
 class Calendar
 {
     protected $iCalendar;
+
     protected $iEvent;
 
     public function __construct(ElucleoCalendar $iCalendar, ElucleoEvent $iEvent)
