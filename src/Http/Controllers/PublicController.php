@@ -19,13 +19,9 @@ class PublicController extends BasePublicController
 
     public function index(): View
     {
-        $query = Event::published()
-            ->order()
-            ->with('image');
-        if (!request('preview')) {
-            $query->published();
-        }
-        $models = $query->orderBy('start_date')
+        $models = Event::published()
+            ->with('image')
+            ->orderBy('start_date')
             ->where('end_date', '>=', date('Y-m-d'))
             ->paginate(config('typicms.events.per_page'));
 
@@ -35,11 +31,9 @@ class PublicController extends BasePublicController
 
     public function past(): View
     {
-        $query = Event::published()->with('image');
-        if (!request('preview')) {
-            $query->published();
-        }
-        $models = $query->order()
+        $models = Event::published()
+            ->with('image')
+            ->orderBy('end_date', 'desc')
             ->where('end_date', '<', date('Y-m-d'))
             ->paginate(config('typicms.events.per_page'));
 
