@@ -39,7 +39,8 @@ class Event extends Base
 
     public function upcoming($number = null): Collection
     {
-        $query = $this->where('end_date', '>=', date('Y-m-d'))
+        $query = $this->published()
+            ->where('end_date', '>=', date('Y-m-d'))
             ->orderBy('start_date');
         if ($number) {
             $query->take($number);
@@ -50,7 +51,8 @@ class Event extends Base
 
     public function past($number = null): Collection
     {
-        $query = $this->where('end_date', '<', date('Y-m-d'))
+        $query = $this->published()
+            ->where('end_date', '<', date('Y-m-d'))
             ->order();
         if ($number) {
             $query->take($number);
