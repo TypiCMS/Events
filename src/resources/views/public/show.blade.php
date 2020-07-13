@@ -32,7 +32,12 @@
         <div class="event-body">{!! $model->present()->body !!}</div>
         @endempty
         @empty(!$model->image)
-        <img class="event-image" src="{!! $model->present()->image(null, 1000) !!}" alt="">
+        <picture class="event-picture">
+            <img class="event-picture-image" src="{!! $model->present()->image(2000, 1000) !!}" alt="">
+            @empty(!$model->image->description)
+            <legend class="event-picture-legend">{{ $model->image->description }}</legend>
+            @endempty
+        </picture>
         @endempty
         @include('files::public._documents')
         @include('files::public._images')
