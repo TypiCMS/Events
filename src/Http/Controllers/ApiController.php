@@ -61,16 +61,25 @@ class ApiController extends BaseApiController
         ]);
     }
 
+    /**
+     * @deprecated
+     */
     public function files(Event $event): Collection
     {
         return $event->files;
     }
 
+    /**
+     * @deprecated
+     */
     public function attachFiles(Event $event, Request $request): JsonResponse
     {
         return $event->attachFiles($request);
     }
 
+    /**
+     * @deprecated
+     */
     public function detachFile(Event $event, File $file): void
     {
         $event->detachFile($file);
