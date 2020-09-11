@@ -32,7 +32,7 @@ class AdminController extends BaseAdminController
 
     public function store(FormRequest $request): RedirectResponse
     {
-        $data = $request->except('file_ids');
+        $data = $request->validated();
         $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
         $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
         $event = Event::create($data);
@@ -42,7 +42,7 @@ class AdminController extends BaseAdminController
 
     public function update(Event $event, FormRequest $request): RedirectResponse
     {
-        $data = $request->except('file_ids');
+        $data = $request->validated();
         $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
         $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
         $event->update($data);

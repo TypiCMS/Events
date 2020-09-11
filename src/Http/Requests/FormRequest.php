@@ -15,6 +15,11 @@ class FormRequest extends AbstractFormRequest
             'title.*' => 'nullable|max:255',
             'slug.*' => 'nullable|alpha_dash|max:255|required_if:status.*,1|required_with:title.*',
             'venue.*' => 'nullable|max:255',
+            'address.*' => 'nullable',
+            'url.*' => 'nullable|url',
+            'status.*' => 'boolean',
+            'summary.*' => 'nullable',
+            'body.*' => 'nullable',
         ];
     }
 }
