@@ -29,7 +29,7 @@ class ApiController extends BaseApiController
         return $data;
     }
 
-    protected function updatePartial(Event $event, Request $request): JsonResponse
+    protected function updatePartial(Event $event, Request $request)
     {
         $data = [];
         foreach ($request->all() as $column => $content) {
@@ -43,22 +43,14 @@ class ApiController extends BaseApiController
         }
 
         foreach ($data as $key => $value) {
-            $event->$key = $value;
+            $event->{$key} = $value;
         }
-        $saved = $event->save();
-
-        return response()->json([
-            'error' => !$saved,
-        ]);
+        $event->save();
     }
 
-    public function destroy(Event $event): JsonResponse
+    public function destroy(Event $event)
     {
-        $deleted = $event->delete();
-
-        return response()->json([
-            'error' => !$deleted,
-        ]);
+        $event->delete();
     }
 
     /**
