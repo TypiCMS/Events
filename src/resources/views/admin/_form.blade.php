@@ -6,8 +6,6 @@
 @component('core::admin._buttons-form', ['model' => $model])
 @endcomponent
 
-{!! BootForm::hidden('id') !!}
-
 <file-manager related-table="{{ $model->getTable() }}" :related-id="{{ $model->id ?? 0 }}"></file-manager>
 <file-field type="image" field="image_id" data="{{ $model->image }}"></file-field>
 <files-field :init-files="{{ $model->files }}"></files-field>
