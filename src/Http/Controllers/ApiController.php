@@ -31,20 +31,16 @@ class ApiController extends BaseApiController
 
     protected function updatePartial(Event $event, Request $request)
     {
-        $data = [];
-        foreach ($request->all() as $column => $content) {
-            if (is_array($content)) {
-                foreach ($content as $key => $value) {
-                    $data[$column.'->'.$key] = $value;
+        foreach ($request->only('status') as $key => $content) {
+            if ($event->isTranslatableAttribute($key)) {
+                foreach ($content as $lang => $value) {
+                    $event->setTranslation($key, $lang, $value);
                 }
             } else {
-                $data[$column] = $content;
+                $event->{$key} = $content;
             }
         }
 
-        foreach ($data as $key => $value) {
-            $event->{$key} = $value;
-        }
         $event->save();
     }
 
