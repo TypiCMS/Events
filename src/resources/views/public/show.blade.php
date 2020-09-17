@@ -12,7 +12,7 @@
     <header class="place-header">
         <div class="place-header-container">
             <div class="place-header-navigator">
-                @include('core::public._btn-prev-next', ['module' => 'Events', 'model' => $model])
+                @include('core::public._items-navigator', ['module' => 'Events', 'model' => $model])
             </div>
             <h1 class="event-title">{{ $model->title }}</h1>
             <div class="event-date">{!! $model->present()->dateFromTo !!} <br>{!! $model->present()->timeFromTo !!}</div>
