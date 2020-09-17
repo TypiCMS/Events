@@ -45,12 +45,12 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->middleware('admin')->prefix('admin')->group(function (Router $router) {
-                $router->get('events', 'AdminController@index')->name('admin::index-events')->middleware('can:see-all-events');
-                $router->get('events/create', 'AdminController@create')->name('admin::create-event')->middleware('can:create-event');
-                $router->get('events/{event}/edit', 'AdminController@edit')->name('admin::edit-event')->middleware('can:update-event');
-                $router->get('events/{event}/files', 'AdminController@files')->name('admin::edit-event-files')->middleware('can:update-event');
-                $router->post('events', 'AdminController@store')->name('admin::store-event')->middleware('can:create-event');
-                $router->put('events/{event}', 'AdminController@update')->name('admin::update-event')->middleware('can:update-event');
+                $router->get('events', 'AdminController@index')->name('admin::index-events')->middleware('can:read events');
+                $router->get('events/create', 'AdminController@create')->name('admin::create-event')->middleware('can:create events');
+                $router->get('events/{event}/edit', 'AdminController@edit')->name('admin::edit-event')->middleware('can:update events');
+                $router->get('events/{event}/files', 'AdminController@files')->name('admin::edit-event-files')->middleware('can:update events');
+                $router->post('events', 'AdminController@store')->name('admin::store-event')->middleware('can:create events');
+                $router->put('events/{event}', 'AdminController@update')->name('admin::update-event')->middleware('can:update events');
             });
 
             /*
@@ -58,13 +58,13 @@ class RouteServiceProvider extends ServiceProvider
              */
             $router->middleware('api')->prefix('api')->group(function (Router $router) {
                 $router->middleware('auth:api')->group(function (Router $router) {
-                    $router->get('events', 'ApiController@index')->middleware('can:see-all-events');
-                    $router->patch('events/{event}', 'ApiController@updatePartial')->middleware('can:update-event');
-                    $router->delete('events/{event}', 'ApiController@destroy')->middleware('can:delete-event');
+                    $router->get('events', 'ApiController@index')->middleware('can:read events');
+                    $router->patch('events/{event}', 'ApiController@updatePartial')->middleware('can:update events');
+                    $router->delete('events/{event}', 'ApiController@destroy')->middleware('can:delete events');
 
-                    $router->get('events/{event}/files', 'ApiController@files')->middleware('can:update-event');
-                    $router->post('events/{event}/files', 'ApiController@attachFiles')->middleware('can:update-event');
-                    $router->delete('events/{event}/files/{file}', 'ApiController@detachFile')->middleware('can:update-event');
+                    $router->get('events/{event}/files', 'ApiController@files')->middleware('can:update events');
+                    $router->post('events/{event}/files', 'ApiController@attachFiles')->middleware('can:update events');
+                    $router->delete('events/{event}/files/{file}', 'ApiController@detachFile')->middleware('can:update events');
                 });
             });
         });
