@@ -8,29 +8,32 @@
 
 @section('content')
 
-    @include('core::public._btn-prev-next', ['module' => 'Events', 'model' => $model])
-
-    @include('events::public._json-ld', ['event' => $model])
-
-    <article class="event">
-        <h1 class="event-title">{{ $model->title }}</h1>
-        <div class="event-date">{!! $model->present()->dateFromTo !!} <br>{!! $model->present()->timeFromTo !!}</div>
-        <div class="event-location">
-            <span class="event-venue">{{ $model->venue }}</span>
-            <div class="event-address">{!! nl2br($model->address) !!}</div>
+<article class="place">
+    <header class="place-header">
+        <div class="place-header-container">
+            <div class="place-header-navigator">
+                @include('core::public._btn-prev-next', ['module' => 'Events', 'model' => $model])
+            </div>
+            <h1 class="event-title">{{ $model->title }}</h1>
+            <div class="event-date">{!! $model->present()->dateFromTo !!} <br>{!! $model->present()->timeFromTo !!}</div>
+            <a class="btn btn-light btn-xs" href="{{ route($lang.'::event-ics', $model->slug) }}">
+                <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
+            </a>
+            <div class="event-location">
+                <span class="event-venue">{{ $model->venue }}</span>
+                <div class="event-address">{!! nl2br($model->address) !!}</div>
+            </div>
+            @empty(!$model->url)
+            <div class="event-url"><a href="{{ $model->url }}" target="_blank" rel="noopener noreferrer">{{ parse_url($model->url, PHP_URL_HOST) }}</a></div>
+            @endempty
         </div>
+    </header>
+    <div class="event-body">
+        @include('events::public._json-ld', ['event' => $model])
         @empty(!$model->summary)
         <p class="event-summary">{!! nl2br($model->summary) !!}</p>
         @endempty
-        @empty(!$model->url)
-        <div class="event-url"><a href="{{ $model->url }}" target="_blank" rel="noopener noreferrer">{{ parse_url($model->url, PHP_URL_HOST) }}</a></div>
-        @endempty
-        <a class="btn btn-light btn-xs" href="{{ route($lang.'::event-ics', $model->slug) }}">
-            <span class="fa fa-calendar"></span> @lang('db.Add to calendar')
-        </a>
-        @empty(!$model->body)
-        <div class="event-body">{!! $model->present()->body !!}</div>
-        @endempty
+        @include('events::public._social-links')
         @empty(!$model->image)
         <picture class="event-picture">
             <img class="event-picture-image" src="{!! $model->present()->image(2000, 1000) !!}" alt="">
@@ -39,8 +42,12 @@
             @endempty
         </picture>
         @endempty
+        @empty(!$model->body)
+        <div class="rich-content">{!! $model->present()->body !!}</div>
+        @endempty
         @include('files::public._documents')
         @include('files::public._images')
-    </article>
+    </div>
+</article>
 
 @endsection
