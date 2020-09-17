@@ -2,8 +2,6 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -11,7 +9,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Events\Models\Event;
-use TypiCMS\Modules\Files\Models\File;
 
 class ApiController extends BaseApiController
 {
@@ -47,29 +44,5 @@ class ApiController extends BaseApiController
     public function destroy(Event $event)
     {
         $event->delete();
-    }
-
-    /**
-     * @deprecated
-     */
-    public function files(Event $event): Collection
-    {
-        return $event->files;
-    }
-
-    /**
-     * @deprecated
-     */
-    public function attachFiles(Event $event, Request $request): JsonResponse
-    {
-        return $event->attachFiles($request);
-    }
-
-    /**
-     * @deprecated
-     */
-    public function detachFile(Event $event, File $file): void
-    {
-        $event->detachFile($file);
     }
 }

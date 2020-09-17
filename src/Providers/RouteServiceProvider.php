@@ -6,18 +6,12 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
+use TypiCMS\Modules\Events\Http\Controllers\AdminController;
+use TypiCMS\Modules\Events\Http\Controllers\ApiController;
+use TypiCMS\Modules\Events\Http\Controllers\PublicController;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to the controller routes in your routes file.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'TypiCMS\Modules\Events\Http\Controllers';
-
     /**
      * Define the routes for the application.
      */
@@ -32,10 +26,10 @@ class RouteServiceProvider extends ServiceProvider
                     $options = $page->private ? ['middleware' => 'auth'] : [];
                     foreach (locales() as $lang) {
                         if ($page->translate('status', $lang) && $uri = $page->uri($lang)) {
-                            $router->get($uri, $options + ['uses' => 'PublicController@index'])->name($lang.'::index-events');
-                            $router->get($uri.'/past', $options + ['uses' => 'PublicController@past'])->name($lang.'::past-events');
-                            $router->get($uri.'/{slug}', $options + ['uses' => 'PublicController@show'])->name($lang.'::event');
-                            $router->get($uri.'/{slug}/ics', $options + ['uses' => 'PublicController@ics'])->name($lang.'::event-ics');
+                            $router->get($uri, $options + ['uses' => [PublicController::class, 'index']])->name($lang.'::index-events');
+                            $router->get($uri.'/past', $options + ['uses' => [PublicController::class, 'past']])->name($lang.'::past-events');
+                            $router->get($uri.'/{slug}', $options + ['uses' => [PublicController::class, 'show']])->name($lang.'::event');
+                            $router->get($uri.'/{slug}/ics', $options + ['uses' => [PublicController::class, 'ics']])->name($lang.'::event-ics');
                         }
                     }
                 });
@@ -45,12 +39,12 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->middleware('admin')->prefix('admin')->group(function (Router $router) {
-                $router->get('events', 'AdminController@index')->name('admin::index-events')->middleware('can:read events');
-                $router->get('events/create', 'AdminController@create')->name('admin::create-event')->middleware('can:create events');
-                $router->get('events/{event}/edit', 'AdminController@edit')->name('admin::edit-event')->middleware('can:update events');
-                $router->get('events/{event}/files', 'AdminController@files')->name('admin::edit-event-files')->middleware('can:update events');
-                $router->post('events', 'AdminController@store')->name('admin::store-event')->middleware('can:create events');
-                $router->put('events/{event}', 'AdminController@update')->name('admin::update-event')->middleware('can:update events');
+                $router->get('events', [AdminController::class, 'index'])->name('admin::index-events')->middleware('can:read events');
+                $router->get('events/create', [AdminController::class, 'create'])->name('admin::create-event')->middleware('can:create events');
+                $router->get('events/{event}/edit', [AdminController::class, 'edit'])->name('admin::edit-event')->middleware('can:update events');
+                $router->get('events/{event}/files', [AdminController::class, 'files'])->name('admin::edit-event-files')->middleware('can:update events');
+                $router->post('events', [AdminController::class, 'store'])->name('admin::store-event')->middleware('can:create events');
+                $router->put('events/{event}', [AdminController::class, 'update'])->name('admin::update-event')->middleware('can:update events');
             });
 
             /*
@@ -58,13 +52,9 @@ class RouteServiceProvider extends ServiceProvider
              */
             $router->middleware('api')->prefix('api')->group(function (Router $router) {
                 $router->middleware('auth:api')->group(function (Router $router) {
-                    $router->get('events', 'ApiController@index')->middleware('can:read events');
-                    $router->patch('events/{event}', 'ApiController@updatePartial')->middleware('can:update events');
-                    $router->delete('events/{event}', 'ApiController@destroy')->middleware('can:delete events');
-
-                    $router->get('events/{event}/files', 'ApiController@files')->middleware('can:update events');
-                    $router->post('events/{event}/files', 'ApiController@attachFiles')->middleware('can:update events');
-                    $router->delete('events/{event}/files/{file}', 'ApiController@detachFile')->middleware('can:update events');
+                    $router->get('events', [ApiController::class, 'index'])->middleware('can:read events');
+                    $router->patch('events/{event}', [ApiController::class, 'updatePartial'])->middleware('can:update events');
+                    $router->delete('events/{event}', [ApiController::class, 'destroy'])->middleware('can:delete events');
                 });
             });
         });
