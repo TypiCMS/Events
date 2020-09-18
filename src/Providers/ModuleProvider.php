@@ -24,7 +24,10 @@ class ModuleProvider extends ServiceProvider
         $this->app['config']->set('typicms.modules', array_merge(['events' => ['linkable_to_page']], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'events');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/create_events_table.php.stub' => getMigrationFileName('create_events_table'),
+        ], 'migrations');
 
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/events'),
