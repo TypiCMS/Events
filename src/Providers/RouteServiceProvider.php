@@ -22,14 +22,14 @@ class RouteServiceProvider extends ServiceProvider
              * Front office routes
              */
             if ($page = TypiCMS::getPageLinkedToModule('events')) {
-                $router->middleware('public')->group(function (Router $router) use ($page) {
-                    $options = $page->private ? ['middleware' => 'auth'] : [];
+                $middleware = $page->private ? ['public', 'auth'] : ['public'];
+                $router->middleware($middleware)->group(function (Router $router) use ($page) {
                     foreach (locales() as $lang) {
                         if ($page->translate('status', $lang) && $uri = $page->uri($lang)) {
-                            $router->get($uri, $options + ['uses' => [PublicController::class, 'index']])->name($lang.'::index-events');
-                            $router->get($uri.'/past', $options + ['uses' => [PublicController::class, 'past']])->name($lang.'::past-events');
-                            $router->get($uri.'/{slug}', $options + ['uses' => [PublicController::class, 'show']])->name($lang.'::event');
-                            $router->get($uri.'/{slug}/ics', $options + ['uses' => [PublicController::class, 'ics']])->name($lang.'::event-ics');
+                            $router->get($uri, [PublicController::class, 'index'])->name($lang.'::index-events');
+                            $router->get($uri.'/past', [PublicController::class, 'past'])->name($lang.'::past-events');
+                            $router->get($uri.'/{slug}', [PublicController::class, 'show'])->name($lang.'::event');
+                            $router->get($uri.'/{slug}/ics', [PublicController::class, 'ics'])->name($lang.'::event-ics');
                         }
                     }
                 });
