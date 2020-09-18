@@ -13,7 +13,7 @@ use TypiCMS\Modules\Events\Facades\Events;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Services\Calendar;
 
-class ModuleProvider extends ServiceProvider
+class ModuleServiceProvider extends ServiceProvider
 {
     public function boot()
     {
