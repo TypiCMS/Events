@@ -41,7 +41,7 @@ class RouteServiceProvider extends ServiceProvider
             $router->middleware('admin')->prefix('admin')->group(function (Router $router) {
                 $router->get('events', [AdminController::class, 'index'])->name('admin::index-events')->middleware('can:read events');
                 $router->get('events/create', [AdminController::class, 'create'])->name('admin::create-event')->middleware('can:create events');
-                $router->get('events/{event}/edit', [AdminController::class, 'edit'])->name('admin::edit-event')->middleware('can:update events');
+                $router->get('events/{event}/edit', [AdminController::class, 'edit'])->name('admin::edit-event')->middleware('can:read events');
                 $router->get('events/{event}/files', [AdminController::class, 'files'])->name('admin::edit-event-files')->middleware('can:update events');
                 $router->post('events', [AdminController::class, 'store'])->name('admin::store-event')->middleware('can:create events');
                 $router->put('events/{event}', [AdminController::class, 'update'])->name('admin::update-event')->middleware('can:update events');

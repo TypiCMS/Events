@@ -4,7 +4,7 @@ return [
     'events' => [
         'read events' => 'Read',
         'create events' => 'Create',
-        'update events' => 'Edit',
+        'update events' => 'Update',
         'delete events' => 'Delete',
     ],
 ];
