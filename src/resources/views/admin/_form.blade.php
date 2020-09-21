@@ -18,17 +18,17 @@
     {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
 </div>
 
-<div class="row">
+<div class="form-row">
     <div class="col-sm-6">
-        {!! BootForm::date(__('Start date'), 'start_date')->type('datetime-local')->value(old('start_date') ? : $model->present()->datetimeOrNow('start_date'))->required() !!}
+        {!! BootForm::date(__('Start date'), 'start_date')->value(old('start_date') ? : $model->present()->dateOrNow('start_date'))->required() !!}
     </div>
     <div class="col-sm-6">
-        {!! BootForm::date(__('End date'), 'end_date')->type('datetime-local')->value(old('end_date') ? : $model->present()->datetimeOrNow('end_date'))->required() !!}
+        {!! BootForm::date(__('End date'), 'end_date')->value(old('end_date') ? : $model->present()->dateOrNow('end_date'))->required() !!}
     </div>
 </div>
 
 {!! TranslatableBootForm::text(__('Venue'), 'venue') !!}
 {!! TranslatableBootForm::textarea(__('Address'), 'address')->rows(3) !!}
-{!! TranslatableBootForm::text(__('URL'), 'url')->type('url') !!}
+{!! TranslatableBootForm::text(__('Website'), 'website')->type('url')->placeholder('https://') !!}
 {!! TranslatableBootForm::textarea(__('Summary'), 'summary')->rows(4) !!}
 {!! TranslatableBootForm::textarea(__('Body'), 'body')->addClass('ckeditor-full') !!}

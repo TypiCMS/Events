@@ -34,8 +34,8 @@
         <td v-if="$can('update events')">@include('core::admin._button-edit', ['module' => 'events'])</td>
         <td><item-list-status-button :model="model"></item-list-status-button></td>
         <td><img :src="model.thumb" alt="" height="27"></td>
-        <td>@{{ model.start_date | datetime }}</td>
-        <td>@{{ model.end_date | datetime }}</td>
+        <td>@{{ model.start_date | date }}</td>
+        <td>@{{ model.end_date | date }}</td>
         <td>@{{ model.title_translated }}</td>
     </template>
 

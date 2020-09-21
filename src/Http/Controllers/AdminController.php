@@ -3,7 +3,6 @@
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
@@ -33,8 +32,6 @@ class AdminController extends BaseAdminController
     public function store(FormRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
-        $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
         $event = Event::create($data);
 
         return $this->redirect($request, $event);
@@ -43,8 +40,6 @@ class AdminController extends BaseAdminController
     public function update(Event $event, FormRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['start_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->start_date);
-        $data['end_date'] = Carbon::createFromFormat('Y-m-d\TH:i', $request->end_date);
         $event->update($data);
 
         return $this->redirect($request, $event);

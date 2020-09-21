@@ -34,7 +34,7 @@ class Event extends Base
         'address',
         'summary',
         'body',
-        'url',
+        'website',
     ];
 
     public function upcoming($number = null): Collection
