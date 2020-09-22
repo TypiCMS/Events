@@ -33,7 +33,7 @@
         @empty(!$model->summary)
         <p class="event-summary">{!! nl2br($model->summary) !!}</p>
         @endempty
-        @include('events::public._social-links')
+        @include('core::public._social-links')
         @empty(!$model->image)
         <picture class="event-picture">
             <img class="event-picture-image" src="{!! $model->present()->image(2000, 1000) !!}" alt="">
