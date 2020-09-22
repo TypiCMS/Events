@@ -17,7 +17,7 @@
             <h1 class="event-title">{{ $model->title }}</h1>
             <div class="event-date">{{ $model->present()->dateFromTo }}</div>
             <a class="btn btn-light btn-xs" href="{{ route($lang.'::event-ics', $model->slug) }}">
-                <span class="fa fa-calendar"></span> @lang('Add to calendar')
+                @lang('Add to calendar')
             </a>
             <div class="event-location">
                 <span class="event-venue">{{ $model->venue }}</span>
