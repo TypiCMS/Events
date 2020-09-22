@@ -15,7 +15,7 @@
                 @include('core::public._items-navigator', ['module' => 'Events', 'model' => $model])
             </div>
             <h1 class="event-title">{{ $model->title }}</h1>
-            <div class="event-date">{!! $model->present()->dateFromTo !!}</div>
+            <div class="event-date">{{ $model->present()->dateFromTo }}</div>
             <a class="btn btn-light btn-xs" href="{{ route($lang.'::event-ics', $model->slug) }}">
                 <span class="fa fa-calendar"></span> @lang('Add to calendar')
             </a>
