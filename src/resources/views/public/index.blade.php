@@ -2,21 +2,29 @@
 
 @section('bodyClass', 'body-events body-events-index body-page body-page-'.$page->id)
 
-@section('content')
+@section('page')
 
-    <div class="rich-content">{!! $page->present()->body !!}</div>
+<div class="page-body">
 
-    @include('files::public._documents', ['model' => $page])
-    @include('files::public._images', ['model' => $page])
+    <div class="page-body-container">
 
-    @include('events::public._itemlist-json-ld', ['items' => $models])
+        <div class="rich-content">{!! $page->present()->body !!}</div>
 
-    @includeWhen($models->count() > 0, 'events::public._list', ['items' => $models])
+        @include('files::public._documents', ['model' => $page])
+        @include('files::public._images', ['model' => $page])
 
-    {!! $models->appends(Request::except('page'))->links() !!}
+        @include('events::public._itemlist-json-ld', ['items' => $models])
 
-    <div class="text-center">
-        <a href="{{ route($lang.'::past-events') }}" class="btn btn-light">@lang('Past events')</a>
+        @includeWhen($models->count() > 0, 'events::public._list', ['items' => $models])
+
+        {!! $models->appends(Request::except('page'))->links() !!}
+
+        <div class="text-center">
+            <a href="{{ route($lang.'::past-events') }}" class="btn btn-light">@lang('Past events')</a>
+        </div>
+
     </div>
+
+</div>
 
 @endsection
