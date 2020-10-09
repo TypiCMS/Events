@@ -21,7 +21,6 @@ class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, Wi
     public function __construct($request)
     {
         $this->collection = QueryBuilder::for(Event::class)
-            ->selectFields('created_at,updated_at,status,start_date,end_date,venue,address,website,title,summary,body')
             ->allowedSorts(['status_translated', 'start_date', 'end_date', 'title_translated'])
             ->allowedFilters([
                 AllowedFilter::custom('title', new FilterOr()),
