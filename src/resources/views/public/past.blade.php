@@ -1,12 +1,23 @@
-@extends('core::public.master')
+@extends('pages::public.master')
 
 @section('bodyClass', 'body-events body-events-index body-page body-page-'.$page->id)
 
-@section('content')
+@section('page-header')
+@endsection
 
-    <div class="container-fluid">
+@section('page')
 
+<header class="page-header">
+
+    <div class="page-header-container">
         <h1>@lang('Past events')</h1>
+    </div>
+
+</header>
+
+<div class="page-body">
+
+    <div class="page-body-container">
 
         @includeWhen($models->count() > 0, 'events::public._list', ['items' => $models])
 
@@ -17,5 +28,7 @@
         </div>
 
     </div>
+
+</div>
 
 @endsection

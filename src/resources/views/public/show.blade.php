@@ -8,10 +8,10 @@
 
 @section('content')
 
-<article class="place">
-    <header class="place-header">
-        <div class="place-header-container">
-            <div class="place-header-navigator">
+<article class="event">
+    <header class="event-header">
+        <div class="event-header-container">
+            <div class="event-header-navigator">
                 @include('core::public._items-navigator', ['module' => 'Events', 'model' => $model])
             </div>
             <h1 class="event-title">{{ $model->title }}</h1>
