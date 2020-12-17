@@ -1,7 +1,7 @@
 <li class="event-list-item">
     <a class="event-list-item-link" href="{{ $event->uri() }}">
         <div class="event-list-item-image-wrapper">
-            <img class="event-list-item-image" src="{{ $event->present()->image(540, 400) }}" alt="">
+            <img class="event-list-item-image" src="{{ $event->present()->image(540, 400) }}" width="{{ $event->image->width }}" height="{{ $event->image->height }}" alt="">
         </div>
         <div class="event-list-item-info">
             <div class="event-list-item-date">{{ $event->present()->dateFromTo }}</div>
