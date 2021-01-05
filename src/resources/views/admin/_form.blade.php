@@ -13,12 +13,12 @@
 <files-field :init-files="{{ $model->files }}"></files-field>
 
 @include('core::form._title-and-slug')
-<div class="form-group">
+<div class="mb-3">
     {!! TranslatableBootForm::hidden('status')->value(0) !!}
     {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
 </div>
 
-<div class="form-row">
+<div class="row gx-3">
     <div class="col-sm-6">
         {!! BootForm::date(__('Start date'), 'start_date')->value(old('start_date') ? : $model->present()->dateOrNow('start_date'))->required() !!}
     </div>
