@@ -21,7 +21,6 @@ class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, Wi
     public function __construct($request)
     {
         $this->collection = QueryBuilder::for(Event::class)
-            ->selectFields($request->input('fields.events'))
             ->allowedSorts(['status_translated', 'start_date', 'end_date', 'title_translated'])
             ->allowedFilters([
                 AllowedFilter::custom('title', new FilterOr()),
@@ -34,32 +33,32 @@ class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, Wi
         return [
             Date::dateTimeToExcel($model->created_at),
             Date::dateTimeToExcel($model->updated_at),
-            $model->status_translated,
+            $model->status,
             Date::dateTimeToExcel($model->start_date),
             Date::dateTimeToExcel($model->end_date),
-            $model->venue_translated,
-            $model->address_translated,
-            $model->website_translated,
-            $model->title_translated,
-            $model->summary_translated,
-            $model->body_translated,
+            $model->venue,
+            $model->address,
+            $model->website,
+            $model->title,
+            $model->summary,
+            $model->body,
         ];
     }
 
     public function headings(): array
     {
         return [
-            'Created at',
-            'Updated at',
-            'Published',
-            'Start date',
-            'End date',
-            'Venue',
-            'Address',
-            'Website',
-            'Title',
-            'Summary',
-            'Body',
+            __('Created at'),
+            __('Updated at'),
+            __('Published'),
+            __('Start date'),
+            __('End date'),
+            __('Venue'),
+            __('Address'),
+            __('Website'),
+            __('Title'),
+            __('Summary'),
+            __('Body'),
         ];
     }
 
