@@ -2,26 +2,38 @@
 
 namespace TypiCMS\Modules\Events\Providers;
 
-use Eluceo\iCal\Component\Calendar as EluceoCalendar;
-use Eluceo\iCal\Component\Event as EluceoEvent;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Core\Observers\SlugObserver;
 use TypiCMS\Modules\Events\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Events\Facades\Events;
 use TypiCMS\Modules\Events\Models\Event;
-use TypiCMS\Modules\Events\Services\Calendar;
 
 class ModuleServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        Collection::macro('plans', function () {
+            $data = [];
+            if (isset($this->items['name'], $this->items['fee'])) {
+                foreach ($this->items['name'] as $key => $name) {
+                    $data[] = [
+                        'name' => $name,
+                        'fee' => $this->items['fee'][$key],
+                    ];
+                }
+            }
+
+            return $data;
+        });
+
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'typicms.events');
         $this->mergeConfigFrom(__DIR__.'/../config/permissions.php', 'typicms.permissions');
 
         $modules = $this->app['config']['typicms']['modules'];
-        $this->app['config']->set('typicms.modules', array_merge(['events' => ['linkable_to_page']], $modules));
+        $this->app['config']->set('typicms.modules', array_merge(['events' => ['linkable_to_page', 'has_taxonomies']], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'events');
 
@@ -65,15 +77,5 @@ class ModuleServiceProvider extends ServiceProvider
         $app->register(RouteServiceProvider::class);
 
         $app->bind('Events', Event::class);
-
-        /*
-         * Calendar service
-         */
-        $app->bind('TypiCMS\Modules\Events\Services\Calendar', function () {
-            return new Calendar(
-                new EluceoCalendar('TypiCMS'),
-                new EluceoEvent()
-            );
-        });
     }
 }

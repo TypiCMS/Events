@@ -2,59 +2,62 @@
 
 namespace TypiCMS\Modules\Events\Services;
 
-use Eluceo\iCal\Component\Calendar as ElucleoCalendar;
-use Eluceo\iCal\Component\Event as ElucleoEvent;
+use Eluceo\iCal\Domain\Entity\Calendar as ICalendar;
+use Eluceo\iCal\Domain\Entity\Event as IEvent;
+use Eluceo\iCal\Domain\Entity\TimeZone;
+use Eluceo\iCal\Domain\ValueObject\Date;
+use Eluceo\iCal\Domain\ValueObject\DateTime;
+use Eluceo\iCal\Domain\ValueObject\Location;
+use Eluceo\iCal\Domain\ValueObject\MultiDay;
+use Eluceo\iCal\Domain\ValueObject\SingleDay;
+use Eluceo\iCal\Domain\ValueObject\TimeSpan;
+use Eluceo\iCal\Presentation\Factory\CalendarFactory;
+use Illuminate\Support\Carbon;
 use TypiCMS\Modules\Events\Models\Event;
+use DateTimeZone as PhpDateTimeZone;
 
 class Calendar
 {
     protected $iCalendar;
 
-    protected $iEvent;
-
-    public function __construct(ElucleoCalendar $iCalendar, ElucleoEvent $iEvent)
+    public function __construct(ICalendar $iCalendar)
     {
         $this->iCalendar = $iCalendar;
-        $this->iEvent = $iEvent;
     }
 
     /**
-     * add an event to the calendar.
+     * Add an event to the calendar.
      */
     public function add(Event $model)
     {
-        $this->iEvent->setNoTime(true);
-
-        $start_date = $model->start_date;
-        $end_date = $model->end_date;
-        if ($model->start_time) {
-            $time = explode(':', $model->start_time);
-            $start_date = $start_date->setTime($time[0], $time[1]);
-            $this->iEvent->setNoTime(false);
-        }
-        if ($model->end_time) {
-            $time = explode(':', $model->end_time);
-            $end_date = $end_date->setTime($time[0], $time[1]);
-            $this->iEvent->setNoTime(false);
+        if (!empty($model->start_time) && !empty($model->end_time)) {
+            $start = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->start_date.' '.$model->start_time.':00'), false);
+            $end = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->end_date.' '.$model->end_time.':00'), false);
+            $occurrence = new TimeSpan($start, $end);
+        } elseif ($model->start_date === $model->end_date) {
+            $date = new Date(Carbon::createFromFormat('Y-m-d', $model->start_date));
+            $occurrence = new SingleDay($date);
+        } else {
+            $firstDay = new Date($model->start_date);
+            $lastDay = new Date($model->end_date);
+            $occurrence = new MultiDay($firstDay, $lastDay);
         }
         // fill event
-        $this->iEvent->setDtStart($start_date);
-        $this->iEvent->setDtEnd($end_date);
-        $this->iEvent->setSummary($model->title);
-        $this->iEvent->setUseTimezone(true);
-        $this->iEvent->setUrl(url($model->uri()));
-        $this->iEvent->setLocation($model->address, $model->venue);
+        $iEvent = new IEvent();
+        $iEvent->setOccurrence($occurrence)
+            ->setSummary($model->title)
+            ->setDescription(url($model->uri()))
+            ->setLocation(new Location($model->address, $model->venue));
         // add it to the calendar
-        $this->iCalendar->addComponent($this->iEvent);
+        $this->iCalendar->addEvent($iEvent);
+        // $this->iCalendar->addTimeZone(TimeZone::createFromPhpDateTimeZone(new PhpDateTimeZone(config('app.timezone'))));
     }
 
     /**
-     * Render .ics calendar.
-     *
-     * @param $model
+     * Render .ics content.
      */
-    public function render()
+    public function render(): string
     {
-        return $this->iCalendar->render();
+        return (new CalendarFactory())->createCalendar($this->iCalendar);
     }
 }
