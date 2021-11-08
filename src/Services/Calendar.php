@@ -50,8 +50,6 @@ class Calendar
 
     /**
      * Render .ics calendar.
-     *
-     * @param $model
      */
     public function render()
     {

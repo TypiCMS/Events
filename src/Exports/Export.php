@@ -16,11 +16,9 @@ use TypiCMS\Modules\Events\Models\Event;
 
 class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, WithHeadings, WithMapping
 {
-    protected $collection;
-
-    public function __construct($request)
+    public function collection()
     {
-        $this->collection = QueryBuilder::for(Event::class)
+        return QueryBuilder::for(Event::class)
             ->allowedSorts(['status_translated', 'start_date', 'end_date', 'title_translated'])
             ->allowedFilters([
                 AllowedFilter::custom('title', new FilterOr()),
@@ -70,10 +68,5 @@ class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, Wi
             'D' => NumberFormat::FORMAT_DATE_DMYSLASH,
             'E' => NumberFormat::FORMAT_DATE_DMYSLASH,
         ];
-    }
-
-    public function collection()
-    {
-        return $this->collection;
     }
 }

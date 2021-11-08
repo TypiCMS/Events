@@ -22,7 +22,7 @@ class AdminController extends BaseAdminController
     {
         $filename = date('Y-m-d').' '.config('app.name').' events.xlsx';
 
-        return Excel::download(new Export($request), $filename);
+        return Excel::download(new Export(), $filename);
     }
 
     public function create(): View
