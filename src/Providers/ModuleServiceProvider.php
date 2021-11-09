@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Events\Providers;
 use Eluceo\iCal\Component\Calendar as EluceoCalendar;
 use Eluceo\iCal\Component\Event as EluceoEvent;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Core\Observers\SlugObserver;
@@ -15,13 +16,13 @@ use TypiCMS\Modules\Events\Services\Calendar;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'typicms.events');
         $this->mergeConfigFrom(__DIR__.'/../config/permissions.php', 'typicms.permissions');
 
-        $modules = $this->app['config']['typicms']['modules'];
-        $this->app['config']->set('typicms.modules', array_merge(['events' => ['linkable_to_page']], $modules));
+        config(['typicms.modules.events' => ['linkable_to_page']]);
+        config(['typicms.modules.events' => ['linkable_to_page']]);
 
         $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'events');
 
@@ -42,34 +43,26 @@ class ModuleServiceProvider extends ServiceProvider
         // Observers
         Event::observe(new SlugObserver());
 
-        /*
-         * Sidebar view composer
-         */
-        $this->app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
+        View::composer('core::admin._sidebar', SidebarViewComposer::class);
 
         /*
          * Add the page in the view.
          */
-        $this->app->view->composer('events::public.*', function ($view) {
+        View::composer('events::public.*', function ($view) {
             $view->page = TypiCMS::getPageLinkedToModule('events');
         });
     }
 
-    public function register()
+    public function register(): void
     {
-        $app = $this->app;
+        $this->app->register(RouteServiceProvider::class);
 
-        /*
-         * Register route service provider
-         */
-        $app->register(RouteServiceProvider::class);
-
-        $app->bind('Events', Event::class);
+        $this->app->bind('Events', Event::class);
 
         /*
          * Calendar service
          */
-        $app->bind('TypiCMS\Modules\Events\Services\Calendar', function () {
+        $this->app->bind('TypiCMS\Modules\Events\Services\Calendar', function () {
             return new Calendar(
                 new EluceoCalendar('TypiCMS'),
                 new EluceoEvent()
