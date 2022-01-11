@@ -76,6 +76,7 @@ class Event extends Base
                 return isset($models[$adjacentKey]) ? $models[$adjacentKey] : null;
             }
         }
+        return null;
     }
 
     public function getThumbAttribute(): string
