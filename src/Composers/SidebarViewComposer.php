@@ -19,8 +19,8 @@ class SidebarViewComposer
             $group->weight = 30;
             $group->addItem(__('Events'), function (SidebarItem $item) {
                 $item->id = 'events';
-                $item->icon = config('typicms.events.sidebar.icon');
-                $item->weight = config('typicms.events.sidebar.weight');
+                $item->icon = config('typicms.modules.events.sidebar.icon');
+                $item->weight = config('typicms.modules.events.sidebar.weight');
                 $item->route('admin::index-events');
                 $item->append('admin::create-event');
             });
