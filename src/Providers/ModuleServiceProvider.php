@@ -18,20 +18,6 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'typicms.modules.events');
 
-        Collection::macro('plans', function () {
-            $data = [];
-            if (isset($this->items['name'], $this->items['fee'])) {
-                foreach ($this->items['name'] as $key => $name) {
-                    $data[] = [
-                        'name' => $name,
-                        'fee' => $this->items['fee'][$key],
-                    ];
-                }
-            }
-
-            return $data;
-        });
-
         $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'events');
 
         $this->publishes([__DIR__.'/../../database/migrations/create_events_table.php.stub' => getMigrationFileName('create_events_table')], 'typicms-migrations');
@@ -50,6 +36,20 @@ class ModuleServiceProvider extends ServiceProvider
          */
         View::composer('events::public.*', function ($view) {
             $view->page = TypiCMS::getPageLinkedToModule('events');
+        });
+
+        Collection::macro('plans', function () {
+            $data = [];
+            if (isset($this->items['name'], $this->items['fee'])) {
+                foreach ($this->items['name'] as $key => $name) {
+                    $data[] = [
+                        'name' => $name,
+                        'fee' => $this->items['fee'][$key],
+                    ];
+                }
+            }
+
+            return $data;
         });
     }
 
