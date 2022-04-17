@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "eluceo/ical": "^0.16",
+        "eluceo/ical": "^2.5",
         "laravel/framework": "~9.0"
     },
     "autoload": {
