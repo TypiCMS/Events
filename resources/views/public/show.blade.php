@@ -36,7 +36,7 @@
         @include('core::public._share-links')
         @empty(!$model->image)
         <picture class="event-picture">
-            <img class="event-picture-image" src="{{ $model->present()->image(2000, 1000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="">
+            <img class="event-picture-image" src="{{ $model->present()->image(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="">
             @empty(!$model->image->description)
             <legend class="event-picture-legend">{{ $model->image->description }}</legend>
             @endempty
