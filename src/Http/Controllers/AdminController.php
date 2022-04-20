@@ -41,17 +41,17 @@ class AdminController extends BaseAdminController
 
     public function store(FormRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-        $event = Event::create($data);
+        $event = Event::create($request->validated());
 
-        return $this->redirect($request, $event);
+        return $this->redirect($request, $event)
+            ->withMessage(__('Item successfully created.'));
     }
 
     public function update(Event $event, FormRequest $request): RedirectResponse
     {
-        $data = $request->validated();
-        $event->update($data);
+        $event->update($request->validated());
 
-        return $this->redirect($request, $event);
+        return $this->redirect($request, $event)
+            ->withMessage(__('Item successfully updated.'));
     }
 }
