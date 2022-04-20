@@ -11,7 +11,6 @@
     table="events"
     title="events"
     include="image"
-    appends="thumb"
     :exportable="true"
     :searchable="['title']"
     :sorting="['-end_date']">

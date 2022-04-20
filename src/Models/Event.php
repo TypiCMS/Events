@@ -2,16 +2,16 @@
 
 namespace TypiCMS\Modules\Events\Models;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
-use TypiCMS\Modules\Core\Traits\Historable;
-use TypiCMS\Modules\Events\Presenters\ModulePresenter;
 use TypiCMS\Modules\Core\Models\File;
 use TypiCMS\Modules\Core\Traits\HasFiles;
+use TypiCMS\Modules\Core\Traits\Historable;
+use TypiCMS\Modules\Events\Presenters\ModulePresenter;
 
 class Event extends Base
 {
@@ -26,6 +26,8 @@ class Event extends Base
 
     protected $guarded = [];
 
+    protected $appends = ['thumb'];
+
     public $translatable = [
         'title',
         'slug',
@@ -37,7 +39,7 @@ class Event extends Base
         'website',
     ];
 
-    public function upcoming($number = null): Collection
+    public function upcoming($number = null)
     {
         $query = $this->published()
             ->where('end_date', '>=', date('Y-m-d'))
@@ -49,7 +51,7 @@ class Event extends Base
         return $query->get();
     }
 
-    public function past($number = null): Collection
+    public function past($number = null)
     {
         $query = $this->published()
             ->where('end_date', '<', date('Y-m-d'))
@@ -80,9 +82,11 @@ class Event extends Base
         return null;
     }
 
-    public function getThumbAttribute(): string
+    protected function thumb(): Attribute
     {
-        return $this->present()->image(null, 54);
+        return new Attribute(
+            get: fn () => $this->present()->image(null, 54),
+        );
     }
 
     public function image(): BelongsTo
