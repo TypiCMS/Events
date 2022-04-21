@@ -3,9 +3,14 @@
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
+use TypiCMS\Modules\Events\Http\Requests\RegistrationFormRequest;
 use TypiCMS\Modules\Events\Models\Event;
+use TypiCMS\Modules\Events\Models\Registration;
+use TypiCMS\Modules\Events\Notifications\NewRegistrationToAnEvent;
+use TypiCMS\Modules\Events\Notifications\RegisteredToEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
 
 class PublicController extends BasePublicController
@@ -54,6 +59,61 @@ class PublicController extends BasePublicController
 
         return view('events::public.show')
             ->with(compact('model'));
+    }
+
+    public function showRegistrationForm($slug)
+    {
+        $event = Event::published()
+            ->whereSlugIs($slug)
+            ->firstOrFail();
+        if (!$event->registration_form || $event->end_date < date('Y-m-d')) {
+            abort(404);
+        }
+
+        return view('events::public.registration')
+            ->with(compact('event'));
+    }
+
+    public function register($slug, RegistrationFormRequest $request)
+    {
+        $event = Event::published()
+            ->whereSlugIs($slug)
+            ->firstOrFail();
+        if (!$event->registration_form || $event->end_date < date('Y-m-d')) {
+            abort(404);
+        }
+        $user = auth()->user();
+        $data = $request->validated();
+        $data['user_id'] = $user->id;
+        $data['event_id'] = $event->id;
+        $data['first_name'] = $user->first_name;
+        $data['last_name'] = $user->last_name;
+        $data['email'] = $user->email;
+        $data['locale'] = $user->locale;
+
+        $registration = Registration::create($data);
+        (new Event())->flushCache();
+
+        Notification::route('mail', config('typicms.webmaster_email'))
+            ->notify(new NewRegistrationToAnEvent($event, $registration));
+
+        Notification::route('mail', $data['email'])
+            ->notify(new RegisteredToEvent($event, $registration));
+
+        return redirect()->route(config('app.locale').'::event-registered', $event->slug)
+            ->with('success', true);
+    }
+
+    public function registered($slug)
+    {
+        $event = Event::published()
+            ->whereSlugIs($slug)
+            ->firstOrFail();
+        if (session('success')) {
+            return view('events::public.registered')->with(compact('event'));
+        }
+
+        return redirect(url('/'));
     }
 
     public function ics($slug): Response

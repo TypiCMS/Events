@@ -22,6 +22,7 @@
     <template slot="columns" slot-scope="{ sortArray }">
         <item-list-column-header name="checkbox" v-if="$can('update events')||$can('delete events')"></item-list-column-header>
         <item-list-column-header name="edit" v-if="$can('update events')"></item-list-column-header>
+        <item-list-column-header name="registrations" v-if="$can('read registrations')"></item-list-column-header>
         <item-list-column-header name="status_translated" sortable :sort-array="sortArray" :label="$t('Status')"></item-list-column-header>
         <item-list-column-header name="image" :label="$t('Image')"></item-list-column-header>
         <item-list-column-header name="start_date" sortable :sort-array="sortArray" :label="$t('Start date')"></item-list-column-header>
@@ -32,6 +33,7 @@
     <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
         <td class="checkbox" v-if="$can('update events')||$can('delete events')"><item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox></td>
         <td v-if="$can('update events')">@include('core::admin._button-edit', ['module' => 'events'])</td>
+        <td v-if="$can('read registrations')"><a class="ms-1 btn btn-xs btn-secondary text-nowrap" v-if="model.registration_count > 0" :href="'/admin/events/'+model.id+'/registrations'">@{{ $tc('# registrations', model.registration_count) }}</a></td>
         <td><item-list-status-button :model="model"></item-list-status-button></td>
         <td><img :src="model.thumb" alt="" height="27"></td>
         <td>@{{ model.start_date | date }}</td>

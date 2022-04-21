@@ -26,6 +26,11 @@
             @empty(!$model->url)
             <div class="event-url"><a href="{{ $model->url }}" target="_blank" rel="noopener noreferrer">{{ parse_url($model->url, PHP_URL_HOST) }}</a></div>
             @endempty
+            @if ($model->registration_form && $model->end_date >= date('Y-m-d'))
+                <div class="event-register">
+                    <a class="btn btn-sm btn-success" href="{{ Route::has($lang.'::event-registration') ? route($lang.'::event-registration', ['slug' => $model->slug]) : '/' }}">@lang('Register')</a>
+                </div>
+            @endif
         </div>
     </header>
     <div class="event-body">

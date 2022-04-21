@@ -3,7 +3,6 @@
 namespace TypiCMS\Modules\Events\Providers;
 
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Facades\TypiCMS;
@@ -21,6 +20,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'events');
 
         $this->publishes([__DIR__.'/../../database/migrations/create_events_table.php.stub' => getMigrationFileName('create_events_table')], 'typicms-migrations');
+        $this->publishes([__DIR__.'/../../database/migrations/create_registrations_table.php.stub' => getMigrationFileName('create_registrations_table')], 'typicms-migrations');
         $this->publishes([__DIR__.'/../../resources/views' => resource_path('views/vendor/events')], 'typicms-views');
         $this->publishes([__DIR__.'/../../resources/scss' => resource_path('scss')], 'typicms-resources');
 
@@ -36,20 +36,6 @@ class ModuleServiceProvider extends ServiceProvider
          */
         View::composer('events::public.*', function ($view) {
             $view->page = TypiCMS::getPageLinkedToModule('events');
-        });
-
-        Collection::macro('plans', function () {
-            $data = [];
-            if (isset($this->items['name'], $this->items['fee'])) {
-                foreach ($this->items['name'] as $key => $name) {
-                    $data[] = [
-                        'name' => $name,
-                        'fee' => $this->items['fee'][$key],
-                    ];
-                }
-            }
-
-            return $data;
         });
     }
 

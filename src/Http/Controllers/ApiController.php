@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
@@ -19,6 +20,9 @@ class ApiController extends BaseApiController
             ->allowedSorts(['status_translated', 'start_date', 'end_date', 'title_translated'])
             ->allowedFilters([
                 AllowedFilter::custom('title', new FilterOr()),
+            ])
+            ->addSelect([
+                'registration_count' => DB::table('registrations')->selectRaw('COUNT(*)')->whereColumn('events.id', 'registrations.event_id'),
             ])
             ->allowedIncludes(['image'])
             ->paginate($request->input('per_page'));

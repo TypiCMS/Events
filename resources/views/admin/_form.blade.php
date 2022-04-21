@@ -24,6 +24,8 @@
     <div class="mb-3">
         {!! TranslatableBootForm::hidden('status')->value(0) !!}
         {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
+        {!! BootForm::hidden('registration_form')->value(0) !!}
+        {!! BootForm::checkbox(__('Registration form'), 'registration_form') !!}
     </div>
 
     <div class="row gx-3">

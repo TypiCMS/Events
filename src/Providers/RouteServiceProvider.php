@@ -9,6 +9,8 @@ use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Events\Http\Controllers\AdminController;
 use TypiCMS\Modules\Events\Http\Controllers\ApiController;
 use TypiCMS\Modules\Events\Http\Controllers\PublicController;
+use TypiCMS\Modules\Events\Http\Controllers\RegistrationsAdminController;
+use TypiCMS\Modules\Events\Http\Controllers\RegistrationsApiController;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,11 @@ class RouteServiceProvider extends ServiceProvider
                         $router->get('past', [PublicController::class, 'past'])->name('past-events');
                         $router->get('{slug}', [PublicController::class, 'show'])->name('event');
                         $router->get('{slug}/ics', [PublicController::class, 'ics'])->name('event-ics');
+                        $router->middleware('auth')->group(function (Router $router) {
+                            $router->get('{slug}/registration', [PublicController::class, 'showRegistrationForm'])->name('event-registration');
+                            $router->post('{slug}/register', [PublicController::class, 'register'])->name('event-register');
+                            $router->get('{slug}/registered', [PublicController::class, 'registered'])->name('event-registered');
+                        });
                     });
                 }
             }
@@ -42,6 +49,11 @@ class RouteServiceProvider extends ServiceProvider
             $router->get('events/{event}/files', [AdminController::class, 'files'])->name('edit-event-files')->middleware('can:update events');
             $router->post('events', [AdminController::class, 'store'])->name('store-event')->middleware('can:create events');
             $router->put('events/{event}', [AdminController::class, 'update'])->name('update-event')->middleware('can:update events');
+
+            $router->get('events/{event}/registrations', [RegistrationsAdminController::class, 'index'])->name('index-registrations')->middleware('can:read registrations');
+            $router->get('events/{event}/registrations/export', [RegistrationsAdminController::class, 'export'])->name('export-registrations')->middleware('can:read registrations');
+            $router->get('events/{event}/registrations/{registration}/edit', [RegistrationsAdminController::class, 'edit'])->name('edit-registration')->middleware('can:update registrations');
+            $router->put('events/{event}/registrations/{registration}', [RegistrationsAdminController::class, 'update'])->name('update-registration')->middleware('can:update registrations');
         });
 
         /*
@@ -51,6 +63,9 @@ class RouteServiceProvider extends ServiceProvider
             $router->get('events', [ApiController::class, 'index'])->middleware('can:read events');
             $router->patch('events/{event}', [ApiController::class, 'updatePartial'])->middleware('can:update events');
             $router->delete('events/{event}', [ApiController::class, 'destroy'])->middleware('can:delete events');
+
+            $router->get('events/{event}/registrations', [RegistrationsApiController::class, 'index'])->middleware('can:read registrations');
+            $router->delete('events/{event}/registrations/{registration}', [RegistrationsApiController::class, 'destroy'])->middleware('can:delete registrations');
         });
     }
 }
