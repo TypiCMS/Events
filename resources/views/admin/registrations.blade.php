@@ -34,11 +34,7 @@
 
     <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
         <td class="checkbox"><item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox></td>
-        <td>
-            @can ('update-registration')
-            <a class="btn btn-secondary btn-xs" :href="'/admin/events/'+model.event_id+'/registrations/'+model.id+'/edit'">@lang('Edit')</a>
-            @endcan
-        </td>
+        <td v-if="$can('update-registration')"><item-list-edit-button :url="'/admin/events/'+model.event_id+'/registrations/'+model.id+'/edit'"></item-list-edit-button></td>
         <td><small class="text-muted text-norap">@{{ model.created_at | datetime }}</small></td>
         <td>@{{ model.number_of_people }}</td>
         <td>@{{ model.first_name }}</td>
