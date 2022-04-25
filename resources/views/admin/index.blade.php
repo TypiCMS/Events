@@ -6,7 +6,6 @@
 
 <item-list
     url-base="/api/events"
-    locale="{{ config('typicms.content_locale') }}"
     fields="id,image_id,start_date,end_date,status,title"
     table="events"
     title="events"
@@ -32,7 +31,7 @@
 
     <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
         <td class="checkbox" v-if="$can('update events')||$can('delete events')"><item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox></td>
-        <td v-if="$can('update events')">@include('core::admin._button-edit', ['module' => 'events'])</td>
+        <td v-if="$can('update events')"><item-list-edit-button :url="'/admin/events/'+model.id+'/edit'"></item-list-edit-button></td>
         <td v-if="$can('read registrations')"><a class="ms-1 btn btn-xs btn-secondary text-nowrap" v-if="model.registration_count > 0" :href="'/admin/events/'+model.id+'/registrations'">@{{ $tc('# registrations', model.registration_count) }}</a></td>
         <td><item-list-status-button :model="model"></item-list-status-button></td>
         <td><img :src="model.thumb" alt="" height="27"></td>

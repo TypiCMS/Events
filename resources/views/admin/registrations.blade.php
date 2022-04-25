@@ -6,7 +6,6 @@
 
 <item-list
     url-base="/api/events/{{ $event->id }}/registrations"
-    locale="{{ config('typicms.content_locale') }}"
     fields="id,event_id,created_at,first_name,last_name,email,locale,number_of_people,message"
     table="registrations"
     title="registrations"
