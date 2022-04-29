@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Exports\RegistrationsExport;
-use TypiCMS\Modules\Events\Http\Requests\FormRequest;
+use TypiCMS\Modules\Events\Http\Requests\RegistrationFormRequest;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Models\Registration;
 
@@ -34,7 +34,7 @@ class RegistrationsAdminController extends BaseAdminController
             ->with(['model' => $registration, 'event' => $event]);
     }
 
-    public function update(Event $event, Registration $registration, FormRequest $request)
+    public function update(Event $event, Registration $registration, RegistrationFormRequest $request)
     {
         $registration->update($request->validated());
 
