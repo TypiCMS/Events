@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -17,14 +18,14 @@ class CreateEventsTable extends Migration
             $table->date('end_date');
             $table->boolean('registration_form');
             $table->foreignId('image_id')->nullable();
-            $table->json('status');
-            $table->json('title');
-            $table->json('slug');
-            $table->json('venue');
-            $table->json('address');
-            $table->json('summary');
-            $table->json('body');
-            $table->json('website');
+            $table->json('status')->default(new Expression('(JSON_OBJECT())'));
+            $table->json('title')->default(new Expression('(JSON_OBJECT())'));
+            $table->json('slug')->default(new Expression('(JSON_OBJECT())'));
+            $table->json('venue')->default(new Expression('(JSON_OBJECT())'));
+            $table->json('address')->default(new Expression('(JSON_OBJECT())'));
+            $table->json('summary')->default(new Expression('(JSON_OBJECT())'));
+            $table->json('body')->default(new Expression('(JSON_OBJECT())'));
+            $table->json('website')->default(new Expression('(JSON_OBJECT())'));
             $table->timestamps();
         });
     }
