@@ -50,8 +50,8 @@
         @empty(!$model->body)
         <div class="rich-content">{!! $model->present()->body !!}</div>
         @endempty
-        @include('files::public._documents')
-        @include('files::public._images')
+        @include('files::public._document-list')
+        @include('files::public._image-list')
     </div>
 </article>
 
