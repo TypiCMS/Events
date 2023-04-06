@@ -23,7 +23,10 @@ class Event extends Base
 
     protected $presenter = ModulePresenter::class;
 
-    protected $dates = ['start_date', 'end_date'];
+    protected $casts = [
+        'start_date' => 'datetime:Y-m-d',
+        'end_date' => 'datetime:Y-m-d',
+    ];
 
     protected $guarded = [];
 
