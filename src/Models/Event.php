@@ -21,7 +21,7 @@ class Event extends Base
     use Historable;
     use PresentableTrait;
 
-    protected $presenter = ModulePresenter::class;
+    protected string $presenter = ModulePresenter::class;
 
     protected $casts = [
         'start_date' => 'datetime:Y-m-d',
@@ -32,7 +32,7 @@ class Event extends Base
 
     protected $appends = ['thumb'];
 
-    public $translatable = [
+    public array $translatable = [
         'title',
         'slug',
         'status',
