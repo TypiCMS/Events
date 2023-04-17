@@ -36,8 +36,11 @@
             <td v-if="$can('update events')">
                 <item-list-edit-button :url="'/admin/events/'+model.id+'/edit'"></item-list-edit-button>
             </td>
-            <td v-if="$can('read registrations')"><a class="ms-1 btn btn-xs btn-secondary text-nowrap" v-if="model.registration_count > 0" :href="'/admin/events/'+model.id+'/registrations'">@{{ $tc('#
-                    registrations', model.registration_count) }}</a></td>
+            <td v-if="$can('read registrations')">
+                <a class="btn btn-xs btn-secondary text-nowrap" v-if="model.registration_count > 0" :href="'/admin/events/'+model.id+'/registrations'">
+                    @{{ $tc('# registrations', model.registration_count) }}
+                </a>
+            </td>
             <td>
                 <item-list-status-button :model="model"></item-list-status-button>
             </td>
