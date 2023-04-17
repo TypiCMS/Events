@@ -34,7 +34,7 @@ class ModulePresenter extends Presenter
         $endDate = $this->entity->end_date;
         $startDateFormat = $this->dateFormat;
         if ($startDate->eq($endDate)) {
-            return ucfirst(__('on')).' '.
+            return ucfirst(__('on')) . ' ' .
                 $startDate->formatLocalized($startDateFormat);
         }
         if ($startDate->format('Y') === $endDate->format('Y')) {
@@ -44,9 +44,9 @@ class ModulePresenter extends Presenter
             }
         }
 
-        $dateFromTo = ucfirst(__('from')).' ';
+        $dateFromTo = ucfirst(__('from')) . ' ';
         $dateFromTo .= $startDate->formatLocalized($startDateFormat);
-        $dateFromTo .= ' '.__('to').' ';
+        $dateFromTo .= ' ' . __('to') . ' ';
         $dateFromTo .= $endDate->formatLocalized($this->dateFormat);
 
         return $dateFromTo;

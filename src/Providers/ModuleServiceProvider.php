@@ -15,14 +15,14 @@ class ModuleServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/events.php', 'typicms.modules.events');
+        $this->mergeConfigFrom(__DIR__ . '/../config/events.php', 'typicms.modules.events');
 
-        $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'events');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views/', 'events');
 
-        $this->publishes([__DIR__.'/../../database/migrations/create_events_table.php.stub' => getMigrationFileName('create_events_table')], 'typicms-migrations');
-        $this->publishes([__DIR__.'/../../database/migrations/create_registrations_table.php.stub' => getMigrationFileName('create_registrations_table')], 'typicms-migrations');
-        $this->publishes([__DIR__.'/../../resources/views' => resource_path('views/vendor/events')], 'typicms-views');
-        $this->publishes([__DIR__.'/../../resources/scss' => resource_path('scss')], 'typicms-resources');
+        $this->publishes([__DIR__ . '/../../database/migrations/create_events_table.php.stub' => getMigrationFileName('create_events_table')], 'typicms-migrations');
+        $this->publishes([__DIR__ . '/../../database/migrations/create_registrations_table.php.stub' => getMigrationFileName('create_registrations_table')], 'typicms-migrations');
+        $this->publishes([__DIR__ . '/../../resources/views' => resource_path('views/vendor/events')], 'typicms-views');
+        $this->publishes([__DIR__ . '/../../resources/scss' => resource_path('scss')], 'typicms-resources');
 
         AliasLoader::getInstance()->alias('Events', Events::class);
 

@@ -19,6 +19,6 @@ class RegistrationPresenter extends Presenter
      */
     public function title(): string
     {
-        return __('Reservation of').' '.$this->entity->first_name.' '.$this->entity->last_name;
+        return __('Reservation of') . ' ' . $this->entity->first_name . ' ' . $this->entity->last_name;
     }
 }

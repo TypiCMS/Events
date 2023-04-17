@@ -100,7 +100,7 @@ class PublicController extends BasePublicController
         Notification::route('mail', $data['email'])
             ->notify(new RegisteredToEvent($event, $registration));
 
-        return redirect()->route(config('app.locale').'::event-registered', $event->slug)
+        return redirect()->route(config('app.locale') . '::event-registered', $event->slug)
             ->with('success', true);
     }
 
@@ -126,7 +126,7 @@ class PublicController extends BasePublicController
 
         $response = response($this->calendar->render(), 200);
         $response->header('Content-Type', 'text/calendar; charset=utf-8');
-        $response->header('Content-Disposition', 'attachment; filename="'.$event->slug.'.ics"');
+        $response->header('Content-Disposition', 'attachment; filename="' . $event->slug . '.ics"');
 
         return $response;
     }

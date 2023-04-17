@@ -26,7 +26,7 @@ class Registration extends Base
 
     public function editUrl(): string
     {
-        $route = 'admin::edit-'.Str::singular($this->getTable());
+        $route = 'admin::edit-' . Str::singular($this->getTable());
         if (Route::has($route)) {
             return route($route, [$this->event_id, $this->id]);
         }
@@ -36,7 +36,7 @@ class Registration extends Base
 
     public function indexUrl(): string
     {
-        $route = 'admin::index-'.$this->getTable();
+        $route = 'admin::index-' . $this->getTable();
         if (Route::has($route)) {
             return route($route, $this->event_id);
         }

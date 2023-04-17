@@ -79,7 +79,7 @@ class Event extends Base
             if ($currentModel->id === $model->id) {
                 $adjacentKey = $key + $direction;
 
-                return isset($models[$adjacentKey]) ? $models[$adjacentKey] : null;
+                return $models[$adjacentKey] ?? null;
             }
         }
 

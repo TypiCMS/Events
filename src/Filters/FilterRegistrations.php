@@ -19,10 +19,10 @@ class FilterRegistrations implements Filter
             foreach ($columns as $column) {
                 if ($column === 'event_name') {
                     $query->orWhereHas('event', function ($query) use ($value) {
-                        $query->where('title', 'like', '%'.$value.'%');
+                        $query->where('title', 'like', '%' . $value . '%');
                     });
                 } else {
-                    $query->orWhere($column, 'like', '%'.$value.'%');
+                    $query->orWhere($column, 'like', '%' . $value . '%');
                 }
             }
         });

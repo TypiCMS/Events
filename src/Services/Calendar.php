@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Events\Services;
 
+use DateTimeZone as PhpDateTimeZone;
 use Eluceo\iCal\Domain\Entity\Calendar as ICalendar;
 use Eluceo\iCal\Domain\Entity\Event as IEvent;
 use Eluceo\iCal\Domain\Entity\TimeZone;
@@ -14,7 +15,6 @@ use Eluceo\iCal\Domain\ValueObject\TimeSpan;
 use Eluceo\iCal\Presentation\Factory\CalendarFactory;
 use Illuminate\Support\Carbon;
 use TypiCMS\Modules\Events\Models\Event;
-use DateTimeZone as PhpDateTimeZone;
 
 class Calendar
 {
@@ -31,8 +31,8 @@ class Calendar
     public function add(Event $model)
     {
         if (!empty($model->start_time) && !empty($model->end_time)) {
-            $start = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->start_date.' '.$model->start_time.':00'), false);
-            $end = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->end_date.' '.$model->end_time.':00'), false);
+            $start = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->start_date . ' ' . $model->start_time . ':00'), false);
+            $end = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->end_date . ' ' . $model->end_time . ':00'), false);
             $occurrence = new TimeSpan($start, $end);
         } elseif ($model->start_date === $model->end_date) {
             $date = new Date(Carbon::createFromFormat('Y-m-d', $model->start_date));
