@@ -15,7 +15,7 @@ class Registration extends Base
     use Historable;
     use PresentableTrait;
 
-    protected $presenter = RegistrationPresenter::class;
+    protected string $presenter = RegistrationPresenter::class;
 
     protected $guarded = ['id', 'exit', 'my_name', 'my_time'];
 
