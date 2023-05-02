@@ -41,12 +41,12 @@
             @endempty
             @include('core::public._share-links')
             @empty(!$model->image)
-                <picture class="event-picture">
+                <figure class="event-picture">
                     <img class="event-picture-image" src="{{ $model->present()->image(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="">
                     @empty(!$model->image->description)
-                        <legend class="event-picture-legend">{{ $model->image->description }}</legend>
+                        <figcaption class="event-picture-legend">{{ $model->image->description }}</figcaption>
                     @endempty
-                </picture>
+                </figure>
             @endempty
             @empty(!$model->body)
                 <div class="rich-content">{!! $model->present()->body !!}</div>
