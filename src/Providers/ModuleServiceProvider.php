@@ -17,6 +17,8 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/events.php', 'typicms.modules.events');
 
+        $this->loadRoutesFrom(__DIR__ . '/../routes/events.php');
+
         $this->loadViewsFrom(__DIR__ . '/../../resources/views/', 'events');
 
         $this->publishes([__DIR__ . '/../../database/migrations/create_events_table.php.stub' => getMigrationFileName('create_events_table')], 'typicms-migrations');
@@ -41,8 +43,6 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->register(RouteServiceProvider::class);
-
         $this->app->bind('Events', Event::class);
     }
 }
