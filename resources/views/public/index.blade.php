@@ -3,11 +3,8 @@
 @section('bodyClass', 'body-events body-events-index body-page body-page-'.$page->id)
 
 @section('page')
-
     <div class="page-body">
-
         <div class="page-body-container">
-
             <div class="rich-content">{!! $page->present()->body !!}</div>
 
             @include('files::public._document-list', ['model' => $page])
@@ -20,11 +17,8 @@
             {!! $models->appends(Request::except('page'))->links() !!}
 
             <div class="text-center">
-                <a href="{{ route($lang.'::past-events') }}" class="btn btn-light">@lang('Past events')</a>
+                <a href="{{ route($lang . '::past-events') }}" class="btn btn-light">@lang('Past events')</a>
             </div>
-
         </div>
-
     </div>
-
 @endsection
