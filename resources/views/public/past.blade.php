@@ -1,10 +1,7 @@
 @extends('pages::public.master')
 
 @section('bodyClass', 'body-events body-events-index body-page body-page-'.$page->id)
-
-@section('page-header')
-    
-@endsection
+@section('page-header', '')
 
 @section('page')
     <header class="page-header">
