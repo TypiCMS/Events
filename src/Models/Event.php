@@ -88,8 +88,8 @@ class Event extends Base
 
     protected function thumb(): Attribute
     {
-        return Attribute::make(
-            get: fn () => $this->present()->image(null, 54),
+        return new Attribute(
+            get: fn () => $this->present()->image(null, 54)
         );
     }
 
