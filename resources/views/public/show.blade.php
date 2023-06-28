@@ -32,10 +32,7 @@
 
                 @if ($model->registration_form && $model->end_date >= date('Y-m-d'))
                     <div class="event-register">
-                        <a
-                            class="btn btn-sm btn-success"
-                            href="{{ Route::has($lang . '::event-registration') ? route($lang . '::event-registration', ['slug' => $model->slug]) : '/' }}"
-                        >
+                        <a class="btn btn-sm btn-success" href="{{ Route::has($lang . '::event-registration') ? route($lang . '::event-registration', ['slug' => $model->slug]) : '/' }}">
                             @lang('Register')
                         </a>
                     </div>
@@ -51,13 +48,7 @@
             @include('core::public._share-links')
             @empty(! $model->image)
                 <figure class="event-picture">
-                    <img
-                        class="event-picture-image"
-                        src="{{ $model->present()->image(2000) }}"
-                        width="{{ $model->image->width }}"
-                        height="{{ $model->image->height }}"
-                        alt=""
-                    />
+                    <img class="event-picture-image" src="{{ $model->present()->image(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="" />
                     @empty(! $model->image->description)
                         <figcaption class="event-picture-legend">{{ $model->image->description }}</figcaption>
                     @endempty

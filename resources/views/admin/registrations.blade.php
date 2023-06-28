@@ -23,62 +23,21 @@
     <template slot="columns" slot-scope="{ sortArray }">
         <item-list-column-header name="checkbox"></item-list-column-header>
         <item-list-column-header name="edit"></item-list-column-header>
-        <item-list-column-header
-            name="created_at"
-            sortable
-            :sort-array="sortArray"
-            :label="$t('Date')"
-        ></item-list-column-header>
-        <item-list-column-header
-            name="number_of_people"
-            sortable
-            :sort-array="sortArray"
-            :label="$t('# people')"
-        ></item-list-column-header>
-        <item-list-column-header
-            name="first_name"
-            sortable
-            :sort-array="sortArray"
-            :label="$t('First name')"
-        ></item-list-column-header>
-        <item-list-column-header
-            name="last_name"
-            sortable
-            :sort-array="sortArray"
-            :label="$t('Last name')"
-        ></item-list-column-header>
-        <item-list-column-header
-            name="email"
-            sortable
-            :sort-array="sortArray"
-            :label="$t('Email')"
-        ></item-list-column-header>
-        <item-list-column-header
-            name="locale"
-            sortable
-            :sort-array="sortArray"
-            :label="$t('Lang')"
-        ></item-list-column-header>
-        <item-list-column-header
-            name="message"
-            sortable
-            :sort-array="sortArray"
-            :label="$t('Message')"
-        ></item-list-column-header>
+        <item-list-column-header name="created_at" sortable :sort-array="sortArray" :label="$t('Date')"></item-list-column-header>
+        <item-list-column-header name="number_of_people" sortable :sort-array="sortArray" :label="$t('# people')"></item-list-column-header>
+        <item-list-column-header name="first_name" sortable :sort-array="sortArray" :label="$t('First name')"></item-list-column-header>
+        <item-list-column-header name="last_name" sortable :sort-array="sortArray" :label="$t('Last name')"></item-list-column-header>
+        <item-list-column-header name="email" sortable :sort-array="sortArray" :label="$t('Email')"></item-list-column-header>
+        <item-list-column-header name="locale" sortable :sort-array="sortArray" :label="$t('Lang')"></item-list-column-header>
+        <item-list-column-header name="message" sortable :sort-array="sortArray" :label="$t('Message')"></item-list-column-header>
     </template>
 
     <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
         <td class="checkbox">
-            <item-list-checkbox
-                :model="model"
-                :checked-models-prop="checkedModels"
-                :loading="loading"
-            ></item-list-checkbox>
+            <item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox>
         </td>
         <td v-if="$can('update-registration')">
-            <item-list-edit-button
-                :url="'/admin/events/'+model.event_id+'/registrations/'+model.id+'/edit'"
-            ></item-list-edit-button>
+            <item-list-edit-button :url="'/admin/events/'+model.event_id+'/registrations/'+model.id+'/edit'"></item-list-edit-button>
         </td>
         <td><small class="text-muted text-norap">@{{ model.created_at | datetime }}</small></td>
         <td>@{{ model.number_of_people }}</td>

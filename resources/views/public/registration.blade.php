@@ -33,12 +33,7 @@
             <h2 class="text-danger">@lang('Registration')</h2>
             @if (! $errors->isEmpty())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <button
-                        class="btn-close"
-                        type="button"
-                        data-bs-dismiss="alert"
-                        aria-label="@lang('Close')"
-                    ></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="@lang('Close')"></button>
                     @lang('message when errors in form')
                     .
                     <ul class="mb-0">
