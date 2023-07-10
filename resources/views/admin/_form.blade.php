@@ -7,7 +7,6 @@
     @include('core::admin._button-back', ['url' => $model->indexUrl(), 'title' => __('Events')])
     @include('core::admin._title', ['default' => __('New event')])
     @component('core::admin._buttons-form', ['model' => $model])
-        
     @endcomponent
 </div>
 

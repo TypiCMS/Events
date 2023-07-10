@@ -1,6 +1,6 @@
 @extends('pages::public.master')
 
-@section('bodyClass', 'body-registrations body-registration-sent body-page body-page-'.$page->id)
+@section('bodyClass', 'body-registrations body-registration-sent body-page body-page-' . $page->id)
 
 @section('page')
     <article class="event">

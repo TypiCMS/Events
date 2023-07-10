@@ -1,6 +1,6 @@
 @extends('pages::public.master')
 
-@section('bodyClass', 'body-registrations body-registrations-form body-page body-page-'.$page->id)
+@section('bodyClass', 'body-registrations body-registrations-form body-page body-page-' . $page->id)
 
 @section('page')
     <article class="event">
@@ -31,7 +31,7 @@
 
         <div class="event-body">
             <h2 class="text-danger">@lang('Registration')</h2>
-            @if (! $errors->isEmpty())
+            @if (!$errors->isEmpty())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="@lang('Close')"></button>
                     @lang('message when errors in form')

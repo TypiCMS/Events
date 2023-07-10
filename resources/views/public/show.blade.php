@@ -1,10 +1,10 @@
 @extends('core::public.master')
 
-@section('title', $model->title.' – '.__('Events').' – '.$websiteTitle)
+@section('title', $model->title . ' – ' . __('Events') . ' – ' . $websiteTitle)
 @section('ogTitle', $model->title)
 @section('description', $model->summary)
 @section('ogImage', $model->present()->image(1200, 630))
-@section('bodyClass', 'body-events body-event-'.$model->id.' body-page body-page-'.$page->id)
+@section('bodyClass', 'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id)
 
 @section('content')
     <article class="event">
@@ -22,7 +22,7 @@
                     <span class="event-venue">{{ $model->venue }}</span>
                     <div class="event-address">{!! nl2br($model->address) !!}</div>
                 </div>
-                @empty(! $model->url)
+                @empty(!$model->url)
                     <div class="event-url">
                         <a href="{{ $model->url }}" target="_blank" rel="noopener noreferrer">
                             {{ parse_url($model->url, PHP_URL_HOST) }}
@@ -41,21 +41,21 @@
         </header>
         <div class="event-body">
             @include('events::public._json-ld', ['event' => $model])
-            @empty(! $model->summary)
+            @empty(!$model->summary)
                 <p class="event-summary">{!! nl2br($model->summary) !!}</p>
             @endempty
 
             @include('core::public._share-links')
-            @empty(! $model->image)
+            @empty(!$model->image)
                 <figure class="event-picture">
                     <img class="event-picture-image" src="{{ $model->present()->image(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="" />
-                    @empty(! $model->image->description)
+                    @empty(!$model->image->description)
                         <figcaption class="event-picture-legend">{{ $model->image->description }}</figcaption>
                     @endempty
                 </figure>
             @endempty
 
-            @empty(! $model->body)
+            @empty(!$model->body)
                 <div class="rich-content">{!! $model->present()->body !!}</div>
             @endempty
 
