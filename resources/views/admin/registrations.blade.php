@@ -3,9 +3,7 @@
 @section('title', 'Registrations > ' . $event->title)
 
 @section('content')
-    <item-list url-base="/api/events/{{ $event->id }}/registrations" fields="id,event_id,created_at,first_name,last_name,email,locale,number_of_people,message" table="registrations"
-        title="registrations" :show-title="false" :exportable="true" :publishable="false" :multilingual="false"
-        :searchable="['created_at,first_name,last_name,email,locale,number_of_people,message']" :sorting="['-created_at']">
+    <item-list url-base="/api/events/{{ $event->id }}/registrations" fields="id,event_id,created_at,first_name,last_name,email,locale,number_of_people,message" table="registrations" title="registrations" :show-title="false" :exportable="true" :publishable="false" :multilingual="false" :searchable="['created_at,first_name,last_name,email,locale,number_of_people,message']" :sorting="['-created_at']">
         <template slot="back-button">
             @include('core::admin._button-back', ['url' => $event->indexUrl(), 'title' => __('Events')])
         </template>
