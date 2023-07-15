@@ -3,7 +3,7 @@
 @section('title', $model->title . ' – ' . __('Events') . ' – ' . $websiteTitle)
 @section('ogTitle', $model->title)
 @section('description', $model->summary)
-@section('ogImage', $model->present()->image(1200, 630))
+@section('ogImage', $model->present()->ogImage())
 @section('bodyClass', 'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id)
 
 @section('content')
