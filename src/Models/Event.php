@@ -102,4 +102,9 @@ class Event extends Base
     {
         return $this->hasMany(Registration::class);
     }
+
+    public function ogImage(): BelongsTo
+    {
+        return $this->belongsTo(File::class, 'og_image_id');
+    }
 }

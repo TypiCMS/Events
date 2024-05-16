@@ -17,6 +17,7 @@ return new class() extends Migration {
             $table->date('end_date');
             $table->boolean('registration_form');
             $table->foreignId('image_id')->nullable()->constrained('files')->nullOnDelete();
+            $table->foreignId('og_image_id')->nullable()->constrained('files')->nullOnDelete();
             $table->json('status')->default(new Expression('(JSON_OBJECT())'));
             $table->json('title')->default(new Expression('(JSON_OBJECT())'));
             $table->json('slug')->default(new Expression('(JSON_OBJECT())'));
