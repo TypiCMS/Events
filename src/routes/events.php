@@ -2,7 +2,6 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Events\Http\Controllers\AdminController;
 use TypiCMS\Modules\Events\Http\Controllers\ApiController;
 use TypiCMS\Modules\Events\Http\Controllers\PublicController;
@@ -12,7 +11,7 @@ use TypiCMS\Modules\Events\Http\Controllers\RegistrationsApiController;
 /*
  * Front office routes
  */
-if ($page = TypiCMS::getPageLinkedToModule('events')) {
+if ($page = getPageLinkedToModule('events')) {
     $middleware = $page->private ? ['public', 'auth'] : ['public'];
     foreach (locales() as $lang) {
         if ($page->isPublished($lang) && $uri = $page->uri($lang)) {

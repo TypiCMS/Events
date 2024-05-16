@@ -5,7 +5,6 @@ namespace TypiCMS\Modules\Events\Providers;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Core\Facades\TypiCMS;
 use TypiCMS\Modules\Core\Observers\SlugObserver;
 use TypiCMS\Modules\Events\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Events\Facades\Events;
@@ -37,7 +36,7 @@ class ModuleServiceProvider extends ServiceProvider
          * Add the page in the view.
          */
         View::composer('events::public.*', function ($view) {
-            $view->page = TypiCMS::getPageLinkedToModule('events');
+            $view->page = getPageLinkedToModule('events');
         });
     }
 
