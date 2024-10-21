@@ -30,7 +30,7 @@
         </header>
 
         <div class="event-body">
-            <p class="alert alert-success">@lang('message when registered to event')</p>
+            <p class="alert alert-success">@lang('event registration message')</p>
             <a class="btn btn-sm btn-primary" href="{{ url($event->uri()) }}">
                 ←
                 @lang('Back')

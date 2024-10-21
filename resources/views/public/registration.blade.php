@@ -34,8 +34,7 @@
             @if (!$errors->isEmpty())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="@lang('Close')"></button>
-                    @lang('message when errors in form')
-                    .
+                    @lang('message on form error')
                     <ul class="mb-0">
                         @foreach ($errors->all() as $message)
                             <li>{{ $message }}</li>
