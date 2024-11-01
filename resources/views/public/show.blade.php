@@ -22,13 +22,13 @@
                     <span class="event-venue">{{ $model->venue }}</span>
                     <div class="event-address">{!! nl2br($model->address) !!}</div>
                 </div>
-                @empty(!$model->url)
+                @if(!empty($model->url))
                     <div class="event-url">
                         <a href="{{ $model->url }}" target="_blank" rel="noopener noreferrer">
                             {{ parse_url($model->url, PHP_URL_HOST) }}
                         </a>
                     </div>
-                @endempty
+                @endif
 
                 @if ($model->registration_form && $model->end_date >= date('Y-m-d'))
                     <div class="event-register">
@@ -41,23 +41,23 @@
         </header>
         <div class="event-body">
             @include('events::public._json-ld', ['event' => $model])
-            @empty(!$model->summary)
+            @if(!empty($model->summary))
                 <p class="event-summary">{!! nl2br($model->summary) !!}</p>
-            @endempty
+            @endif
 
             @include('core::public._share-links')
-            @empty(!$model->image)
+            @if(!empty($model->image))
                 <figure class="event-picture">
                     <img class="event-picture-image" src="{{ $model->present()->image(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="" />
-                    @empty(!$model->image->description)
+                    @if(!empty($model->image->description))
                         <figcaption class="event-picture-legend">{{ $model->image->description }}</figcaption>
-                    @endempty
+                    @endif
                 </figure>
-            @endempty
+            @endif
 
-            @empty(!$model->body)
+            @if(!empty($model->body))
                 <div class="rich-content">{!! $model->present()->body !!}</div>
-            @endempty
+            @endif
 
             @include('files::public._document-list')
             @include('files::public._image-list')

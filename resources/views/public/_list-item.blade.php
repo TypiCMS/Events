@@ -10,17 +10,17 @@
                 <span class="event-list-item-venue">{{ $event->venue }}</span>
                 <div class="event-list-item-address">{!! nl2br($event->address) !!}</div>
             </div>
-            @empty(!$event->summary)
+            @if(!empty($event->summary))
                 <div class="event-list-item-summary">{{ $event->summary }}</div>
-            @endempty
+            @endif
 
-            @empty(!$event->url)
+            @if(!empty($event->url))
                 <div class="event-list-item-url">
                     <a href="{{ $event->url }}" target="_blank" rel="noopener noreferrer">
                         {{ parse_url($event->url, PHP_URL_HOST) }}
                     </a>
                 </div>
-            @endempty
+            @endif
         </div>
     </a>
 </li>
