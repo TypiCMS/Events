@@ -46,7 +46,7 @@ class Calendar
         $iEvent = new IEvent();
         $iEvent->setOccurrence($occurrence)
             ->setSummary($model->title)
-            ->setDescription(url($model->uri()))
+            ->setDescription($model->summary)
             ->setLocation(new Location($model->address, $model->venue));
         // add it to the calendar
         $this->iCalendar->addEvent($iEvent);
