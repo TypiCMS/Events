@@ -8,7 +8,7 @@
             <div class="event-header-container">
                 <div class="event-header-navigator">
                     <div class="items-navigator">
-                        <a class="items-navigator-back" href="{{ url($event->uri()) }}">
+                        <a class="items-navigator-back" href="{{ $event->url() }}">
                             ←
                             @lang('Back')
                         </a>

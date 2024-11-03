@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Route;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
@@ -42,6 +43,15 @@ class Event extends Base
         'body',
         'website',
     ];
+
+    public function url($locale = null): string
+    {
+        $locale = $locale ?: app()->getLocale();
+        $route = $locale . '::event';
+        $slug = $this->translate('slug', $locale) ?: null;
+
+        return Route::has($route) && $slug ? url(route($route, $slug)) : url('/');
+    }
 
     public function upcoming($number = null)
     {

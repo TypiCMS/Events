@@ -22,10 +22,10 @@
                     <span class="event-venue">{{ $model->venue }}</span>
                     <div class="event-address">{!! nl2br($model->address) !!}</div>
                 </div>
-                @if(!empty($model->url))
+                @if(!empty($model->website))
                     <div class="event-url">
-                        <a href="{{ $model->url }}" target="_blank" rel="noopener noreferrer">
-                            {{ parse_url($model->url, PHP_URL_HOST) }}
+                        <a href="{{ $model->website }}" target="_blank" rel="noopener noreferrer">
+                            {{ parse_url($model->website, PHP_URL_HOST) }}
                         </a>
                     </div>
                 @endif

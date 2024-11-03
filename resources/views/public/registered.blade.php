@@ -8,7 +8,7 @@
             <div class="event-header-container">
                 <div class="event-header-navigator">
                     <div class="items-navigator">
-                        <a class="items-navigator-back" href="{{ url($event->uri()) }}">
+                        <a class="items-navigator-back" href="{{ $event->url() }}">
                             ←
                             @lang('Back')
                         </a>
@@ -31,7 +31,7 @@
 
         <div class="event-body">
             <p class="alert alert-success">@lang('event registration message')</p>
-            <a class="btn btn-sm btn-primary" href="{{ url($event->uri()) }}">
+            <a class="btn btn-sm btn-primary" href="{{ $event->url() }}">
                 ←
                 @lang('Back')
             </a>

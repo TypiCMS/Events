@@ -19,11 +19,6 @@ class Registration extends Base
 
     protected $guarded = ['id', 'exit', 'my_name', 'my_time'];
 
-    public function uri($locale = null): string
-    {
-        return url('/');
-    }
-
     public function editUrl(): string
     {
         $route = 'admin::edit-' . Str::singular($this->getTable());

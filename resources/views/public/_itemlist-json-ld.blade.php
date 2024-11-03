@@ -7,7 +7,7 @@
         {
             "@type":"ListItem",
             "position":{{ $loop->index+1 }},
-            "url":"{{ $item->uri() }}"
+            "url":"{{ $item->url() }}"
         }@if (!$loop->last),@endif
         @endforeach
     ]

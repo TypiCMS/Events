@@ -14,8 +14,8 @@ use TypiCMS\Modules\Events\Http\Controllers\RegistrationsApiController;
 if ($page = getPageLinkedToModule('events')) {
     $middleware = $page->private ? ['public', 'auth'] : ['public'];
     foreach (locales() as $lang) {
-        if ($page->isPublished($lang) && $uri = $page->uri($lang)) {
-            Route::middleware($middleware)->prefix($uri)->name($lang . '::')->group(function (Router $router) {
+        if ($page->isPublished($lang) && $path = $page->path($lang)) {
+            Route::middleware($middleware)->prefix($path)->name($lang . '::')->group(function (Router $router) {
                 $router->get('/', [PublicController::class, 'index'])->name('index-events');
                 $router->get('past', [PublicController::class, 'past'])->name('past-events');
                 $router->get('{slug}', [PublicController::class, 'show'])->name('event');

@@ -14,12 +14,12 @@
     "image": [
         "{{ $event->present()->image() }}"
     ],
-    @if(!empty($event->url))
-        "url": "{{ $event->url }}",
+    @if(!empty($event->website))
+        "url": "{{ $event->website }}",
     @endif
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "{{ $event->uri() }}"
+        "@id": "{{ $event->url() }}"
     }
 }
 </script>
