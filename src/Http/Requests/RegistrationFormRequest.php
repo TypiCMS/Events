@@ -10,7 +10,7 @@ class RegistrationFormRequest extends AbstractFormRequest
     {
         return [
             'number_of_people' => 'required|integer|min:1',
-            'message' => 'nullable',
+            'message' => 'nullable|max:5000',
             'my_name' => 'honeypot',
             'my_time' => 'required|honeytime:5',
         ];
