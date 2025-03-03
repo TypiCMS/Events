@@ -12,14 +12,14 @@ use TypiCMS\Modules\Events\Filters\FilterRegistrations;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Models\Registration;
 
-class RegistrationsExport implements ShouldAutoSize, FromCollection, WithHeadings, WithMapping
+class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
 {
     protected $collection;
 
     public function __construct($request)
     {
         $this->collection = QueryBuilder::for(Registration::class)
-            ->selectFields($request->input('fields.registrations'))
+            ->selectFields()
             ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
             ->where('event_id', $request->route()->parameter('event')->id)
             ->allowedFilters([

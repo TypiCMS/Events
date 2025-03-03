@@ -15,7 +15,7 @@ class RegistrationsApiController extends BaseApiController
     public function index(Request $request, Event $event)
     {
         $data = QueryBuilder::for(Registration::class)
-            ->selectFields($request->input('fields.registrations'))
+            ->selectFields()
             ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
             ->where('event_id', $event->id)
             ->allowedFilters([
