@@ -14,26 +14,22 @@ class ModulePresenter extends Presenter
     {
         $startDate = $this->entity->start_date;
         $endDate = $this->entity->end_date;
-        $showYear = false;
-        if ($startDate->format('Y') !== date('Y') || $endDate->format('Y') !== date('Y')) {
-            $showYear = true;
-        }
-        $startDateFormat = $format . ($showYear ? ' YYYY' : '');
-        $endDateFormat = $format . ($showYear ? ' YYYY' : '');
+
         if ($startDate->eq($endDate)) {
-            return $startDate->isoFormat($startDateFormat);
+            return $startDate->isoFormat($format . ' YYYY');
         }
+
+        $showYear = $startDate->format('Y') !== date('Y') || $endDate->format('Y') !== date('Y');
+        $startFormat = $format . ($showYear ? ' YYYY' : '');
+        $endFormat = $format . ' YYYY';
+
         if ($startDate->format('Y') === $endDate->format('Y')) {
-            $startDateFormat = $format;
+            $startFormat = $format;
             if ($startDate->format('m') === $endDate->format('m')) {
-                $startDateFormat = 'D';
+                $startFormat = 'D';
             }
         }
 
-        $dateFromTo = $startDate->isoFormat($startDateFormat);
-        $dateFromTo .= ' → ';
-        $dateFromTo .= $endDate->isoFormat($endDateFormat);
-
-        return $dateFromTo;
+        return $startDate->isoFormat($startFormat) . ' → ' . $endDate->isoFormat($endFormat);
     }
 }
