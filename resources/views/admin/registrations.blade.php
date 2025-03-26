@@ -4,11 +4,11 @@
 
 @section('content')
     <item-list url-base="/api/events/{{ $event->id }}/registrations" fields="id,event_id,created_at,first_name,last_name,email,locale,number_of_people,message" table="registrations" title="registrations" :show-title="false" :exportable="true" :publishable="false" :multilingual="false" :searchable="['created_at,first_name,last_name,email,locale,number_of_people,message']" :sorting="['-created_at']">
-        <template slot="back-button">
+        <template #back-button>
             @include('core::admin._button-back', ['url' => $event->indexUrl(), 'title' => __('Events')])
         </template>
 
-        <template slot="columns" slot-scope="{ sortArray }">
+        <template #columns="{ sortArray }">
             <item-list-column-header name="checkbox"></item-list-column-header>
             <item-list-column-header name="edit"></item-list-column-header>
             <item-list-column-header name="created_at" sortable :sort-array="sortArray" :label="$t('Date')"></item-list-column-header>
@@ -20,14 +20,14 @@
             <item-list-column-header name="message" sortable :sort-array="sortArray" :label="$t('Message')"></item-list-column-header>
         </template>
 
-        <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
+        <template #table-row="{ model, checkedModels, loading }">
             <td class="checkbox">
                 <item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox>
             </td>
             <td v-if="$can('update-registration')">
                 <item-list-edit-button :url="'/admin/events/' + model.event_id + '/registrations/' + model.id + '/edit'"></item-list-edit-button>
             </td>
-            <td><small class="text-muted text-norap">@{{ model.created_at | datetime }}</small></td>
+            <td><small class="text-muted text-norap">@{{ formatDateTime(model.created_at) }}</small></td>
             <td>@{{ model.number_of_people }}</td>
             <td>@{{ model.first_name }}</td>
             <td>@{{ model.last_name }}</td>
