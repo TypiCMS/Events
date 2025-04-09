@@ -24,7 +24,8 @@ class PublicController extends BasePublicController
 
     public function index(): View
     {
-        $models = Event::published()
+        $models = Event::query()
+            ->published()
             ->with('image')
             ->orderBy('start_date')
             ->where('end_date', '>=', date('Y-m-d'))
@@ -36,7 +37,8 @@ class PublicController extends BasePublicController
 
     public function past(): View
     {
-        $models = Event::published()
+        $models = Event::query()
+            ->published()
             ->with('image')
             ->orderBy('end_date', 'desc')
             ->where('end_date', '<', date('Y-m-d'))
@@ -48,7 +50,8 @@ class PublicController extends BasePublicController
 
     public function show($slug): View
     {
-        $model = Event::published()
+        $model = Event::query()
+            ->published()
             ->with([
                 'image',
                 'images',
@@ -63,7 +66,8 @@ class PublicController extends BasePublicController
 
     public function showRegistrationForm($slug)
     {
-        $event = Event::published()
+        $event = Event::query()
+            ->published()
             ->whereSlugIs($slug)
             ->firstOrFail();
         if (!$event->registration_form || $event->end_date < date('Y-m-d')) {
@@ -76,7 +80,8 @@ class PublicController extends BasePublicController
 
     public function register($slug, RegistrationFormRequest $request)
     {
-        $event = Event::published()
+        $event = Event::query()
+            ->published()
             ->whereSlugIs($slug)
             ->firstOrFail();
         if (!$event->registration_form || $event->end_date < date('Y-m-d')) {
@@ -106,7 +111,8 @@ class PublicController extends BasePublicController
 
     public function registered($slug)
     {
-        $event = Event::published()
+        $event = Event::query()
+            ->published()
             ->whereSlugIs($slug)
             ->firstOrFail();
         if (session('success')) {
@@ -118,7 +124,8 @@ class PublicController extends BasePublicController
 
     public function ics($slug): Response
     {
-        $event = Event::published()
+        $event = Event::query()
+            ->published()
             ->whereSlugIs($slug)
             ->firstOrFail();
 
