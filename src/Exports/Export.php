@@ -14,7 +14,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Events\Models\Event;
 
-class Export implements WithColumnFormatting, ShouldAutoSize, FromCollection, WithHeadings, WithMapping
+class Export implements FromCollection, ShouldAutoSize, WithColumnFormatting, WithHeadings, WithMapping
 {
     public function collection()
     {
