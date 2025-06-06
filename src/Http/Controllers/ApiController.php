@@ -25,7 +25,7 @@ class ApiController extends BaseApiController
                 'registration_count' => DB::table('registrations')->selectRaw('COUNT(*)')->whereColumn('events.id', 'registrations.event_id'),
             ])
             ->allowedIncludes(['image'])
-            ->paginate($request->input('per_page'));
+            ->paginate($request->integer('per_page'));
 
         return $data;
     }
