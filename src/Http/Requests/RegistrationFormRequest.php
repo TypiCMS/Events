@@ -6,7 +6,7 @@ use TypiCMS\Modules\Core\Http\Requests\AbstractFormRequest;
 
 class RegistrationFormRequest extends AbstractFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'number_of_people' => 'required|integer|min:1',
