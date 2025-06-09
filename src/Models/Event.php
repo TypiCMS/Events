@@ -25,14 +25,14 @@ use TypiCMS\Modules\Events\Presenters\ModulePresenter;
  * @property int $registration_form
  * @property int|null $og_image_id
  * @property int|null $image_id
- * @property array<array-key, mixed> $status
- * @property array<array-key, mixed> $title
- * @property array<array-key, mixed> $slug
- * @property array<array-key, mixed> $venue
- * @property array<array-key, mixed> $address
- * @property array<array-key, mixed> $summary
- * @property array<array-key, mixed> $body
- * @property array<array-key, mixed> $website
+ * @property string $status
+ * @property string $title
+ * @property string $slug
+ * @property string $venue
+ * @property string $address
+ * @property string $summary
+ * @property string $body
+ * @property string $website
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, File> $audios
