@@ -14,10 +14,10 @@ class RegistrationsApiController extends BaseApiController
 {
     public function index(Request $request, Event $event)
     {
-        $data = QueryBuilder::for(Registration::class)
-            ->selectFields()
+        $query = Registration::query()->selectFields()
+            ->where('event_id', $event->id);
+        $data = QueryBuilder::for($query)
             ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
-            ->where('event_id', $event->id)
             ->allowedFilters([
                 AllowedFilter::custom('created_at,first_name,last_name,email,locale,number_of_people,message', new FilterRegistrations()),
             ])
