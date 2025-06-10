@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Events\Exports;
 
+use Illuminate\Database\Eloquent\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -14,21 +15,22 @@ use TypiCMS\Modules\Events\Models\Registration;
 
 class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
 {
-    protected $collection;
+    protected Collection $collection;
 
     public function __construct($request)
     {
-        $this->collection = QueryBuilder::for(Registration::class)
+        $query = Registration::query()
             ->selectFields()
-            ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
             ->where('event_id', $request->route()->parameter('event')->id)
-            ->allowedFilters([
-                AllowedFilter::custom('created_at,first_name,last_name,email,locale,number_of_people,message', new FilterRegistrations()),
-            ])
             ->addSelect([
                 'event_name' => Event::select(column('title'))
                     ->whereColumn('event_id', 'events.id')
                     ->limit(1),
+            ]);
+        $this->collection = QueryBuilder::for($query)
+            ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
+            ->allowedFilters([
+                AllowedFilter::custom('created_at,first_name,last_name,email,locale,number_of_people,message', new FilterRegistrations()),
             ])
             ->get();
     }

@@ -82,7 +82,7 @@ class Event extends Base
         'website',
     ];
 
-    public function url($locale = null): string
+    public function url(?string $locale = null): string
     {
         $locale = $locale ?: app()->getLocale();
         $route = $locale . '::event';
@@ -91,9 +91,10 @@ class Event extends Base
         return Route::has($route) && $slug ? url(route($route, $slug)) : url('/');
     }
 
-    public function upcoming($number = null)
+    public function upcoming(?int $number = null): Collection
     {
-        $query = $this->published()
+        $query = self::query()
+            ->published()
             ->where('end_date', '>=', date('Y-m-d'))
             ->orderBy('start_date');
         if ($number) {
@@ -103,9 +104,10 @@ class Event extends Base
         return $query->get();
     }
 
-    public function past($number = null)
+    public function past(?int $number = null)
     {
-        $query = $this->published()
+        $query = self::query()
+            ->published()
             ->where('end_date', '<', date('Y-m-d'))
             ->order();
         if ($number) {
@@ -115,7 +117,7 @@ class Event extends Base
         return $query->get();
     }
 
-    public function adjacent($direction, $model, $category_id = null, array $with = [], $all = false): ?Model
+    public function adjacent(int $direction, $model, ?int $category_id = null): ?Model
     {
         $currentModel = $model;
         if ($currentModel->end_date < date('Y-m-d')) {
@@ -134,6 +136,9 @@ class Event extends Base
         return null;
     }
 
+    /**
+     * @return Attribute<string, null>
+     */
     protected function thumb(): Attribute
     {
         return Attribute::make(

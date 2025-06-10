@@ -15,14 +15,16 @@ class ApiController extends BaseApiController
 {
     public function index(Request $request): LengthAwarePaginator
     {
-        $query = Event::query()->selectFields();
+        $query = Event::query()
+            ->selectFields()
+            ->addSelect([
+                'registration_count' => DB::table('registrations')->selectRaw('COUNT(*)')->whereColumn('events.id', 'registrations.event_id'),
+            ]);
+
         $data = QueryBuilder::for($query)
             ->allowedSorts(['status_translated', 'start_date', 'end_date', 'title_translated'])
             ->allowedFilters([
                 AllowedFilter::custom('title', new FilterOr()),
-            ])
-            ->addSelect([
-                'registration_count' => DB::table('registrations')->selectRaw('COUNT(*)')->whereColumn('events.id', 'registrations.event_id'),
             ])
             ->allowedIncludes(['image'])
             ->paginate($request->integer('per_page'));
