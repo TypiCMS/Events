@@ -3,6 +3,8 @@
 namespace TypiCMS\Modules\Events\Exports;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -13,15 +15,19 @@ use TypiCMS\Modules\Events\Filters\FilterRegistrations;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Models\Registration;
 
+/**
+ * @implements WithMapping<mixed>
+ */
 class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
 {
+    /** @var Collection<int, Model> */
     protected Collection $collection;
 
-    public function __construct($request)
+    public function __construct(Request $request)
     {
         $query = Registration::query()
             ->selectFields()
-            ->where('event_id', $request->route()->parameter('event')->id)
+            ->where('event_id', $request->route()->originalParameter('event'))
             ->addSelect([
                 'event_name' => Event::select(column('title'))
                     ->whereColumn('event_id', 'events.id')
@@ -35,20 +41,22 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeading
             ->get();
     }
 
-    public function map($registration): array
+    /** @return string[] */
+    public function map(mixed $row): array
     {
         return [
-            $registration->created_at,
-            $registration->event_name,
-            $registration->number_of_people,
-            $registration->first_name,
-            $registration->last_name,
-            $registration->email,
-            $registration->locale,
-            $registration->message,
+            $row->created_at,
+            $row->event_name,
+            $row->number_of_people,
+            $row->first_name,
+            $row->last_name,
+            $row->email,
+            $row->locale,
+            $row->message,
         ];
     }
 
+    /** @return string[] */
     public function headings(): array
     {
         return [
@@ -63,7 +71,8 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeading
         ];
     }
 
-    public function collection()
+    /** @return Collection<int, Model> */
+    public function collection(): Collection
     {
         return $this->collection;
     }

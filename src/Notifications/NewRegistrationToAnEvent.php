@@ -10,55 +10,18 @@ class NewRegistrationToAnEvent extends Notification
 {
     use Queueable;
 
-    private $event;
+    public function __construct(private readonly mixed $event, private readonly mixed $registration) {}
 
-    private $registration;
-
-    /**
-     * Create a new notification instance.
-     *
-     * @param mixed $event
-     * @param mixed $registration
-     */
-    public function __construct($event, $registration)
-    {
-        $this->event = $event;
-        $this->registration = $registration;
-    }
-
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param mixed $notifiable
-     * @return array
-     */
-    public function via($notifiable)
+    /** @return string[] */
+    public function via(): array
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param mixed $notifiable
-     * @return MailMessage
-     */
-    public function toMail($notifiable)
+    public function toMail(): MailMessage
     {
         return (new MailMessage())
             ->subject('New registration to “' . $this->event->title . '”.')
             ->markdown('events::mail.new-registration-to-event', ['event' => $this->event, 'registration' => $this->registration]);
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param mixed $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-        ];
     }
 }

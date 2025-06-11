@@ -18,16 +18,8 @@ use TypiCMS\Modules\Events\Models\Event;
 
 class Calendar
 {
-    protected $iCalendar;
+    public function __construct(protected ICalendar $iCalendar) {}
 
-    public function __construct(ICalendar $iCalendar)
-    {
-        $this->iCalendar = $iCalendar;
-    }
-
-    /**
-     * Add an event to the calendar.
-     */
     public function add(Event $model): void
     {
         if (!empty($model->start_time) && !empty($model->end_time)) {
@@ -53,9 +45,6 @@ class Calendar
         // $this->iCalendar->addTimeZone(TimeZone::createFromPhpDateTimeZone(new PhpDateTimeZone(config('app.timezone'))));
     }
 
-    /**
-     * Render .ics content.
-     */
     public function render(): string
     {
         return (new CalendarFactory())->createCalendar($this->iCalendar);

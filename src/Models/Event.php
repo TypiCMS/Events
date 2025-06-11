@@ -90,6 +90,7 @@ class Event extends Base
         return Route::has($route) && $slug ? url(route($route, $slug)) : url('/');
     }
 
+    /** @return Collection<int, $this> */
     public function upcoming(?int $number = null): Collection
     {
         $query = self::query()
@@ -103,6 +104,7 @@ class Event extends Base
         return $query->get();
     }
 
+    /** @return Collection<int, $this> */
     public function past(?int $number = null): Collection
     {
         $query = self::query()
@@ -116,7 +118,7 @@ class Event extends Base
         return $query->get();
     }
 
-    public function adjacent(int $direction, $model, ?int $category_id = null): ?Model
+    public function adjacent(int $direction, mixed $model, ?int $category_id = null): ?Model
     {
         $currentModel = $model;
         if ($currentModel->end_date < date('Y-m-d')) {

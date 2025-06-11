@@ -14,6 +14,7 @@ use TypiCMS\Modules\Events\Models\Event;
 
 class ApiController extends BaseApiController
 {
+    /** @return LengthAwarePaginator<int, mixed> */
     public function index(Request $request): LengthAwarePaginator
     {
         $query = Event::query()

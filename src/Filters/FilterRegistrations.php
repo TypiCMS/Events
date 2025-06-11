@@ -3,11 +3,16 @@
 namespace TypiCMS\Modules\Events\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\Filters\Filter;
 
+/**
+ * @implements Filter<Model>
+ */
 class FilterRegistrations implements Filter
 {
-    public function __invoke(Builder $query, $value, string $property): Builder
+    /** @return Builder<Model> */
+    public function __invoke(Builder $query, mixed $value, string $property): Builder
     {
         if (is_array($value)) {
             $value = implode(',', $value);

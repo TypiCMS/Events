@@ -16,12 +16,7 @@ use TypiCMS\Modules\Events\Services\Calendar;
 
 class PublicController extends BasePublicController
 {
-    protected $calendar;
-
-    public function __construct(Calendar $calendar)
-    {
-        $this->calendar = $calendar;
-    }
+    public function __construct(protected Calendar $calendar) {}
 
     public function index(): View
     {
@@ -97,7 +92,7 @@ class PublicController extends BasePublicController
         $data['email'] = $user->email;
         $data['locale'] = $user->locale;
 
-        $registration = Registration::create($data);
+        $registration = Registration::query()->create($data);
         (new Event())->flushCache();
 
         Notification::route('mail', config('typicms.webmaster_email'))
@@ -110,7 +105,7 @@ class PublicController extends BasePublicController
             ->with('success', true);
     }
 
-    public function registered(string $slug): RedirectResponse
+    public function registered(string $slug): RedirectResponse|View
     {
         $event = Event::query()
             ->published()

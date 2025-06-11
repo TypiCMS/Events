@@ -2,6 +2,8 @@
 
 namespace TypiCMS\Modules\Events\Exports;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -14,9 +16,13 @@ use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Events\Models\Event;
 
+/**
+ * @implements WithMapping<mixed>
+ */
 class Export implements FromCollection, ShouldAutoSize, WithColumnFormatting, WithHeadings, WithMapping
 {
-    public function collection()
+    /** @return Collection<int, Model> */
+    public function collection(): Collection
     {
         return QueryBuilder::for(Event::class)
             ->allowedSorts(['status_translated', 'start_date', 'end_date', 'title_translated'])
@@ -26,23 +32,25 @@ class Export implements FromCollection, ShouldAutoSize, WithColumnFormatting, Wi
             ->get();
     }
 
-    public function map($model): array
+    /** @return array<int, mixed> */
+    public function map(mixed $row): array
     {
         return [
-            Date::dateTimeToExcel($model->created_at),
-            Date::dateTimeToExcel($model->updated_at),
-            $model->status,
-            Date::dateTimeToExcel($model->start_date),
-            Date::dateTimeToExcel($model->end_date),
-            $model->venue,
-            $model->address,
-            $model->website,
-            $model->title,
-            $model->summary,
-            $model->body,
+            Date::dateTimeToExcel($row->created_at),
+            Date::dateTimeToExcel($row->updated_at),
+            $row->status,
+            Date::dateTimeToExcel($row->start_date),
+            Date::dateTimeToExcel($row->end_date),
+            $row->venue,
+            $row->address,
+            $row->website,
+            $row->title,
+            $row->summary,
+            $row->body,
         ];
     }
 
+    /** @return string[] */
     public function headings(): array
     {
         return [
@@ -60,6 +68,7 @@ class Export implements FromCollection, ShouldAutoSize, WithColumnFormatting, Wi
         ];
     }
 
+    /** @return array<string, string> */
     public function columnFormats(): array
     {
         return [
