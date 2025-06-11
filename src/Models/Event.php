@@ -56,9 +56,7 @@ class Event extends Base
 
     protected string $presenter = ModulePresenter::class;
 
-    /**
-     * @return array<string, string>
-     */
+    /** @return array<string, string> */
     protected function casts(): array
     {
         return [
@@ -71,6 +69,7 @@ class Event extends Base
 
     protected $appends = ['thumb'];
 
+    /** @var array<string> */
     public array $translatable = [
         'title',
         'slug',
@@ -104,7 +103,7 @@ class Event extends Base
         return $query->get();
     }
 
-    public function past(?int $number = null)
+    public function past(?int $number = null): Collection
     {
         $query = self::query()
             ->published()
@@ -136,9 +135,7 @@ class Event extends Base
         return null;
     }
 
-    /**
-     * @return Attribute<string, null>
-     */
+    /** @return Attribute<string, null> */
     protected function thumb(): Attribute
     {
         return Attribute::make(

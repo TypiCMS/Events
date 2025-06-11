@@ -2,7 +2,9 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
@@ -12,7 +14,7 @@ use TypiCMS\Modules\Events\Models\Registration;
 
 class RegistrationsApiController extends BaseApiController
 {
-    public function index(Request $request, Event $event)
+    public function index(Request $request, Event $event): LengthAwarePaginator
     {
         $query = Registration::query()->selectFields()
             ->where('event_id', $event->id);
@@ -26,9 +28,11 @@ class RegistrationsApiController extends BaseApiController
         return $data;
     }
 
-    public function destroy(Event $event, Registration $registration)
+    public function destroy(Event $event, Registration $registration): JsonResponse
     {
         $registration->delete();
         (new Event())->flushCache();
+
+        return response()->json(status: 204);
     }
 }

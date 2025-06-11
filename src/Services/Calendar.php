@@ -28,7 +28,7 @@ class Calendar
     /**
      * Add an event to the calendar.
      */
-    public function add(Event $model)
+    public function add(Event $model): void
     {
         if (!empty($model->start_time) && !empty($model->end_time)) {
             $start = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->start_date . ' ' . $model->start_time . ':00'), false);

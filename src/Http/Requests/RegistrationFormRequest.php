@@ -6,6 +6,7 @@ use TypiCMS\Modules\Core\Http\Requests\AbstractFormRequest;
 
 class RegistrationFormRequest extends AbstractFormRequest
 {
+    /** @return array<string, string> */
     public function rules(): array
     {
         return [

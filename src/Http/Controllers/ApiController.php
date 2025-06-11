@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,7 @@ class ApiController extends BaseApiController
         return $data;
     }
 
-    protected function updatePartial(Event $event, Request $request)
+    protected function updatePartial(Event $event, Request $request): void
     {
         foreach ($request->only('status') as $key => $content) {
             if ($event->isTranslatableAttribute($key)) {
@@ -47,8 +48,10 @@ class ApiController extends BaseApiController
         $event->save();
     }
 
-    public function destroy(Event $event)
+    public function destroy(Event $event): JsonResponse
     {
         $event->delete();
+
+        return response()->json(status: 204);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
@@ -48,7 +49,7 @@ class PublicController extends BasePublicController
             ->with(compact('models'));
     }
 
-    public function show($slug): View
+    public function show(string $slug): View
     {
         $model = Event::query()
             ->published()
@@ -64,7 +65,7 @@ class PublicController extends BasePublicController
             ->with(compact('model'));
     }
 
-    public function showRegistrationForm($slug)
+    public function showRegistrationForm(string $slug): View
     {
         $event = Event::query()
             ->published()
@@ -78,7 +79,7 @@ class PublicController extends BasePublicController
             ->with(compact('event'));
     }
 
-    public function register($slug, RegistrationFormRequest $request)
+    public function register(string $slug, RegistrationFormRequest $request): RedirectResponse
     {
         $event = Event::query()
             ->published()
@@ -109,7 +110,7 @@ class PublicController extends BasePublicController
             ->with('success', true);
     }
 
-    public function registered($slug)
+    public function registered(string $slug): RedirectResponse
     {
         $event = Event::query()
             ->published()
@@ -122,7 +123,7 @@ class PublicController extends BasePublicController
         return redirect(url('/'));
     }
 
-    public function ics($slug): Response
+    public function ics(string $slug): Response
     {
         $event = Event::query()
             ->published()

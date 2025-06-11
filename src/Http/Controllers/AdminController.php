@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Events\Exports\Export;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
@@ -18,7 +19,7 @@ class AdminController extends BaseAdminController
         return view('events::admin.index');
     }
 
-    public function export(Request $request)
+    public function export(Request $request): BinaryFileResponse
     {
         $filename = date('Y-m-d') . ' ' . config('app.name') . ' events.xlsx';
 
