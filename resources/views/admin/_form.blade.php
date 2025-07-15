@@ -1,8 +1,3 @@
-@push('js')
-    <script type="module" src="{{ asset('components/ckeditor4/ckeditor.js') }}"></script>
-    <script type="module" src="{{ asset('components/ckeditor4/config-full.js') }}"></script>
-@endpush
-
 <div class="header">
     @include('core::admin._button-back', ['url' => $model->indexUrl(), 'title' => __('Events')])
     @include('core::admin._title', ['default' => __('New event')])
@@ -39,5 +34,7 @@
     {!! TranslatableBootForm::textarea(__('Address'), 'address')->rows(3) !!}
     {!! TranslatableBootForm::text(__('Website'), 'website')->type('url')->placeholder('https://') !!}
     {!! TranslatableBootForm::textarea(__('Summary'), 'summary')->rows(4) !!}
-    {!! TranslatableBootForm::textarea(__('Body'), 'body')->addClass('ckeditor-full') !!}
+    @foreach(locales() as $locale)
+        <tiptap-editor name="body[{{ $locale }}]" locale="{{ $locale }}" init-content="{{ $model->getTranslation('body', $locale) }}"></tiptap-editor>
+    @endforeach
 </div>
