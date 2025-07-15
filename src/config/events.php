@@ -7,7 +7,7 @@ return [
         'end_date' => 'desc',
     ],
     'sidebar' => [
-        'icon' => '<i class="bi bi-calendar-range"></i>',
+        'icon' => '<i class="icon-calendar-range"></i>',
         'weight' => 50,
     ],
     'permissions' => [
