@@ -49,6 +49,13 @@ class ApiController extends BaseApiController
         $event->save();
     }
 
+    public function duplicate(Event $event)
+    {
+        $newEvent = $event->replicate();
+        $newEvent->setTranslations('status', []);
+        $newEvent->save();
+    }
+
     public function destroy(Event $event): JsonResponse
     {
         $event->delete();

@@ -54,6 +54,7 @@ Route::middleware('admin')->prefix('admin')->name('admin::')->group(function (Ro
 Route::middleware(['api', 'auth:api'])->prefix('api')->group(function (Router $router) {
     $router->get('events', [ApiController::class, 'index'])->middleware('can:read events');
     $router->patch('events/{event}', [ApiController::class, 'updatePartial'])->middleware('can:update events');
+    $router->post('events/{event}/duplicate', [ApiController::class, 'duplicate'])->middleware('can:create events');
     $router->delete('events/{event}', [ApiController::class, 'destroy'])->middleware('can:delete events');
 
     $router->get('events/{event}/registrations', [RegistrationsApiController::class, 'index'])->middleware('can:read registrations');
