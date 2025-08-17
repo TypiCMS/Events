@@ -5,7 +5,7 @@
 @section('content')
     <item-list url-base="/api/events/{{ $event->id }}/registrations" fields="id,event_id,created_at,first_name,last_name,email,locale,number_of_people,message" table="registrations" title="registrations" :show-title="false" :exportable="true" :publishable="false" :multilingual="false" :searchable="['created_at,first_name,last_name,email,locale,number_of_people,message']" :sorting="['-created_at']">
         <template #back-button>
-            @include('core::admin._button-back', ['url' => $event->indexUrl(), 'title' => __('Events')])
+            <x-core::back-button :url="$event->indexUrl()" :title="__('Events')" />
         </template>
 
         <template #columns="{ sortArray }">
