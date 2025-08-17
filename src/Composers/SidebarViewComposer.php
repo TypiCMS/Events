@@ -22,7 +22,6 @@ class SidebarViewComposer
                 $item->icon = config('typicms.modules.events.sidebar.icon');
                 $item->weight = config('typicms.modules.events.sidebar.weight');
                 $item->route('admin::index-events');
-                $item->append('admin::create-event');
             });
         });
     }
