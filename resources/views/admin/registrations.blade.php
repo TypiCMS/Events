@@ -32,7 +32,7 @@
             <td>@{{ model.first_name }}</td>
             <td>@{{ model.last_name }}</td>
             <td><a :href="'mailto:' + model.email">@{{ model.email }}</a></td>
-            <td><span class="badge bg-secondary">@{{ model.locale.toUpperCase() }}</span></td>
+            <td><span class="badge text-bg-secondary">@{{ model.locale.toUpperCase() }}</span></td>
             <td>@{{ model.message }}</td>
         </template>
     </item-list>
