@@ -3,7 +3,6 @@
 namespace TypiCMS\Modules\Events\Exports;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -20,7 +19,7 @@ use TypiCMS\Modules\Events\Models\Registration;
  */
 class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping
 {
-    /** @var Collection<int, Model> */
+    /** @var Collection<int, Registration> */
     protected Collection $collection;
 
     public function __construct(Request $request)
@@ -71,7 +70,7 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeading
         ];
     }
 
-    /** @return Collection<int, Model> */
+    /** @return Collection<int, Registration> */
     public function collection(): Collection
     {
         return $this->collection;
