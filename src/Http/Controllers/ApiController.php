@@ -49,7 +49,7 @@ class ApiController extends BaseApiController
         $event->save();
     }
 
-    public function duplicate(Event $event)
+    public function duplicate(Event $event): void
     {
         $newEvent = $event->replicate();
         $newEvent->setTranslations('status', []);
