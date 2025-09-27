@@ -7,7 +7,7 @@
 <div class="content">
     <x-core::form-errors />
 
-    <file-manager related-table="{{ $model->getTable() }}" :related-id="{{ $model->id ?? 0 }}"></file-manager>
+    <file-manager></file-manager>
     <file-field type="image" field="image_id" :init-file="{{ $model->image ?? 'null' }}"></file-field>
     <file-field type="image" field="og_image_id" :init-file="{{ $model->ogImage ?? 'null' }}" label="Open Graph image"></file-field>
     <files-field :init-files="{{ $model->files }}"></files-field>
