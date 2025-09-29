@@ -18,7 +18,7 @@ class RegistrationsAdminController extends BaseAdminController
 {
     public function index(Event $event): View
     {
-        return view('events::admin.registrations')->with(compact('event'));
+        return view('events::admin.registrations')->with(['event' => $event]);
     }
 
     public function export(Request $request, Event $event): BinaryFileResponse

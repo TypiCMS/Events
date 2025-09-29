@@ -88,7 +88,7 @@ class Event extends Base
 
     public function url(?string $locale = null): string
     {
-        $locale = $locale ?: app()->getLocale();
+        $locale ??= app()->getLocale();
         $route = $locale . '::event';
         $slug = $this->translate('slug', $locale) ?: null;
 
@@ -102,7 +102,7 @@ class Event extends Base
             ->published()
             ->where('end_date', '>=', date('Y-m-d'))
             ->orderBy('start_date');
-        if ($number) {
+        if ($number !== null && $number !== 0) {
             $query->take($number);
         }
 
@@ -116,7 +116,7 @@ class Event extends Base
             ->published()
             ->where('end_date', '<', date('Y-m-d'))
             ->order();
-        if ($number) {
+        if ($number !== null && $number !== 0) {
             $query->take($number);
         }
 
@@ -126,11 +126,7 @@ class Event extends Base
     public function adjacent(int $direction, mixed $model, ?int $category_id = null): ?Model
     {
         $currentModel = $model;
-        if ($currentModel->end_date < date('Y-m-d')) {
-            $models = $this->past();
-        } else {
-            $models = $this->upcoming();
-        }
+        $models = $currentModel->end_date < date('Y-m-d') ? $this->past() : $this->upcoming();
         foreach ($models as $key => $model) {
             if ($currentModel->id === $model->id) {
                 $adjacentKey = $key + $direction;

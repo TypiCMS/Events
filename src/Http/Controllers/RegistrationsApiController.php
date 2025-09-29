@@ -19,14 +19,13 @@ class RegistrationsApiController extends BaseApiController
     {
         $query = Registration::query()->selectFields()
             ->where('event_id', $event->id);
-        $data = QueryBuilder::for($query)
+
+        return QueryBuilder::for($query)
             ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
             ->allowedFilters([
                 AllowedFilter::custom('created_at,first_name,last_name,email,locale,number_of_people,message', new FilterRegistrations()),
             ])
             ->paginate($request->integer('per_page'));
-
-        return $data;
     }
 
     public function destroy(Event $event, Registration $registration): JsonResponse

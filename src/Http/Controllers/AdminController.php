@@ -31,7 +31,7 @@ class AdminController extends BaseAdminController
         $model = new Event();
 
         return view('events::admin.create')
-            ->with(compact('model'));
+            ->with(['model' => $model]);
     }
 
     public function edit(Event $event): View

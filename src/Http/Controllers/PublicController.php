@@ -28,7 +28,7 @@ class PublicController extends BasePublicController
             ->paginate(config('typicms.modules.events.per_page'));
 
         return view('events::public.index')
-            ->with(compact('models'));
+            ->with(['models' => $models]);
     }
 
     public function past(): View
@@ -41,7 +41,7 @@ class PublicController extends BasePublicController
             ->paginate(config('typicms.modules.events.per_page'));
 
         return view('events::public.past')
-            ->with(compact('models'));
+            ->with(['models' => $models]);
     }
 
     public function show(string $slug): View
@@ -57,7 +57,7 @@ class PublicController extends BasePublicController
             ->firstOrFail();
 
         return view('events::public.show')
-            ->with(compact('model'));
+            ->with(['model' => $model]);
     }
 
     public function showRegistrationForm(string $slug): View
@@ -66,12 +66,10 @@ class PublicController extends BasePublicController
             ->published()
             ->whereSlugIs($slug)
             ->firstOrFail();
-        if (!$event->registration_form || $event->end_date < date('Y-m-d')) {
-            abort(404);
-        }
+        abort_if(!$event->registration_form || $event->end_date < date('Y-m-d'), 404);
 
         return view('events::public.registration')
-            ->with(compact('event'));
+            ->with(['event' => $event]);
     }
 
     public function register(string $slug, RegistrationFormRequest $request): RedirectResponse
@@ -80,9 +78,7 @@ class PublicController extends BasePublicController
             ->published()
             ->whereSlugIs($slug)
             ->firstOrFail();
-        if (!$event->registration_form || $event->end_date < date('Y-m-d')) {
-            abort(404);
-        }
+        abort_if(!$event->registration_form || $event->end_date < date('Y-m-d'), 404);
         $user = auth()->user();
         $data = $request->validated();
         $data['user_id'] = $user->id;
@@ -112,7 +108,7 @@ class PublicController extends BasePublicController
             ->whereSlugIs($slug)
             ->firstOrFail();
         if (session('success')) {
-            return view('events::public.registered')->with(compact('event'));
+            return view('events::public.registered')->with(['event' => $event]);
         }
 
         return redirect(url('/'));

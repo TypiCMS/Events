@@ -28,7 +28,7 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeading
             ->selectFields()
             ->where('event_id', $request->route()->originalParameter('event'))
             ->addSelect([
-                'event_name' => Event::select(column('title'))
+                'event_name' => Event::query()->select(column('title'))
                     ->whereColumn('event_id', 'events.id')
                     ->limit(1),
             ]);

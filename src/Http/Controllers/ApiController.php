@@ -23,15 +23,13 @@ class ApiController extends BaseApiController
                 'registration_count' => DB::table('registrations')->selectRaw('COUNT(*)')->whereColumn('events.id', 'registrations.event_id'),
             ]);
 
-        $data = QueryBuilder::for($query)
+        return QueryBuilder::for($query)
             ->allowedSorts(['status_translated', 'start_date', 'end_date', 'title_translated'])
             ->allowedFilters([
                 AllowedFilter::custom('title', new FilterOr()),
             ])
             ->allowedIncludes(['image'])
             ->paginate($request->integer('per_page'));
-
-        return $data;
     }
 
     protected function updatePartial(Event $event, Request $request): void

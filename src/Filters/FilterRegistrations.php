@@ -20,10 +20,10 @@ class FilterRegistrations implements Filter
 
         $columns = explode(',', $property);
 
-        return $query->where(function (Builder $query) use ($columns, $value) {
+        return $query->where(function (Builder $query) use ($columns, $value): void {
             foreach ($columns as $column) {
                 if ($column === 'event_name') {
-                    $query->orWhereHas('event', function ($query) use ($value) {
+                    $query->orWhereHas('event', function ($query) use ($value): void {
                         $query->where('title', 'like', '%' . $value . '%');
                     });
                 } else {
