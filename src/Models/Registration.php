@@ -11,6 +11,7 @@ use Laracasts\Presenter\PresentableTrait;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\Core\Models\History;
 use TypiCMS\Modules\Core\Traits\Historable;
+use TypiCMS\Modules\Events\Models\Event as EventModel;
 use TypiCMS\Modules\Events\Presenters\RegistrationPresenter;
 
 /**
@@ -25,7 +26,7 @@ use TypiCMS\Modules\Events\Presenters\RegistrationPresenter;
  * @property string|null $message
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Event $event
+ * @property-read EventModel $event
  * @property-read Collection<int, History> $history
  * @property-read int|null $history_count
  * @property-write mixed $status
@@ -59,9 +60,9 @@ class Registration extends Base
         return route('dashboard');
     }
 
-    /** @return BelongsTo<Event, $this> */
+    /** @return BelongsTo<EventModel, $this> */
     public function event(): BelongsTo
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(EventModel::class);
     }
 }
