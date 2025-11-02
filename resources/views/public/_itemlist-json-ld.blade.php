@@ -1,6 +1,6 @@
 <script type="application/ld+json">
     {
-    "@context":"https://schema.org",
+    "@@context":"https://schema.org",
     "@type":"ItemList",
     "itemListElement":[
         @foreach ($items as $item)
