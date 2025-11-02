@@ -6,14 +6,14 @@ use DateTimeZone as PhpDateTimeZone;
 use Eluceo\iCal\Domain\Entity\Calendar as ICalendar;
 use Eluceo\iCal\Domain\Entity\Event as IEvent;
 use Eluceo\iCal\Domain\Entity\TimeZone;
-use Eluceo\iCal\Domain\ValueObject\Date;
-use Eluceo\iCal\Domain\ValueObject\DateTime;
+use Eluceo\iCal\Domain\ValueObject\Date as iCalDate;
+use Eluceo\iCal\Domain\ValueObject\DateTime as iCalDateTime;
 use Eluceo\iCal\Domain\ValueObject\Location;
 use Eluceo\iCal\Domain\ValueObject\MultiDay;
 use Eluceo\iCal\Domain\ValueObject\SingleDay;
 use Eluceo\iCal\Domain\ValueObject\TimeSpan;
 use Eluceo\iCal\Presentation\Factory\CalendarFactory;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 use TypiCMS\Modules\Events\Models\Event;
 
 class Calendar
@@ -23,15 +23,15 @@ class Calendar
     public function add(Event $model): void
     {
         if (!empty($model->start_time) && !empty($model->end_time)) {
-            $start = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->start_date . ' ' . $model->start_time . ':00'), false);
-            $end = new DateTime(Carbon::createFromFormat('Y-m-d H:i:s', $model->end_date . ' ' . $model->end_time . ':00'), false);
+            $start = new iCalDateTime(Date::createFromFormat('Y-m-d H:i:s', $model->start_date . ' ' . $model->start_time . ':00'), false);
+            $end = new iCalDateTime(Date::createFromFormat('Y-m-d H:i:s', $model->end_date . ' ' . $model->end_time . ':00'), false);
             $occurrence = new TimeSpan($start, $end);
         } elseif ($model->start_date === $model->end_date) {
-            $date = new Date(Carbon::createFromFormat('Y-m-d', $model->start_date));
+            $date = new iCalDate(Date::createFromFormat('Y-m-d', $model->start_date));
             $occurrence = new SingleDay($date);
         } else {
-            $firstDay = new Date($model->start_date);
-            $lastDay = new Date($model->end_date);
+            $firstDay = new iCalDate($model->start_date);
+            $lastDay = new iCalDate($model->end_date);
             $occurrence = new MultiDay($firstDay, $lastDay);
         }
         // fill event
