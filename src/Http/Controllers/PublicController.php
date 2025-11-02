@@ -97,7 +97,7 @@ class PublicController extends BasePublicController
         Notification::route('mail', $data['email'])
             ->notify(new RegisteredToEvent($event, $registration));
 
-        return redirect()->route(app()->getLocale() . '::event-registered', $event->slug)
+        return to_route(app()->getLocale() . '::event-registered', $event->slug)
             ->with('success', true);
     }
 
