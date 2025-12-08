@@ -37,7 +37,7 @@
             <td><img :src="model.thumb" alt="" height="27" /></td>
             <td>@{{ formatDate(model.start_date) }}</td>
             <td>@{{ formatDate(model.end_date) }}</td>
-            <td v-html="model.title_translated"></td>
+            <td>@{{ model.title_translated }}</td>
         </template>
     </item-list>
 @endsection
