@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Filters;
 
 use Illuminate\Database\Eloquent\Builder;

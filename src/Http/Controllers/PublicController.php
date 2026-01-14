@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
@@ -14,9 +16,11 @@ use TypiCMS\Modules\Events\Notifications\NewRegistrationToAnEvent;
 use TypiCMS\Modules\Events\Notifications\RegisteredToEvent;
 use TypiCMS\Modules\Events\Services\Calendar;
 
-class PublicController extends BasePublicController
+final class PublicController extends BasePublicController
 {
-    public function __construct(protected Calendar $calendar) {}
+    public function __construct(
+        protected Calendar $calendar,
+    ) {}
 
     public function index(): View
     {
@@ -27,8 +31,7 @@ class PublicController extends BasePublicController
             ->where('end_date', '>=', date('Y-m-d'))
             ->paginate(config('typicms.modules.events.per_page'));
 
-        return view('events::public.index')
-            ->with(['models' => $models]);
+        return view('events::public.index', ['models' => $models]);
     }
 
     public function past(): View
@@ -40,8 +43,7 @@ class PublicController extends BasePublicController
             ->where('end_date', '<', date('Y-m-d'))
             ->paginate(config('typicms.modules.events.per_page'));
 
-        return view('events::public.past')
-            ->with(['models' => $models]);
+        return view('events::public.past', ['models' => $models]);
     }
 
     public function show(string $slug): View
@@ -56,8 +58,7 @@ class PublicController extends BasePublicController
             ->whereSlugIs($slug)
             ->firstOrFail();
 
-        return view('events::public.show')
-            ->with(['model' => $model]);
+        return view('events::public.show', ['model' => $model]);
     }
 
     public function showRegistrationForm(string $slug): View
@@ -68,8 +69,7 @@ class PublicController extends BasePublicController
             ->firstOrFail();
         abort_if(!$event->registration_form || $event->end_date < date('Y-m-d'), 404);
 
-        return view('events::public.registration')
-            ->with(['event' => $event]);
+        return view('events::public.registration', ['event' => $event]);
     }
 
     public function register(string $slug, RegistrationFormRequest $request): RedirectResponse
@@ -91,14 +91,14 @@ class PublicController extends BasePublicController
         $registration = Registration::query()->create($data);
         (new Event())->flushCache();
 
-        Notification::route('mail', config('typicms.webmaster_email'))
-            ->notify(new NewRegistrationToAnEvent($event, $registration));
+        Notification::route('mail', config('typicms.webmaster_email'))->notify(new NewRegistrationToAnEvent(
+            $event,
+            $registration,
+        ));
 
-        Notification::route('mail', $data['email'])
-            ->notify(new RegisteredToEvent($event, $registration));
+        Notification::route('mail', $data['email'])->notify(new RegisteredToEvent($event, $registration));
 
-        return to_route(app()->getLocale() . '::event-registered', $event->slug)
-            ->with('success', true);
+        return to_route(app()->getLocale() . '::event-registered', $event->slug)->with('success', true);
     }
 
     public function registered(string $slug): RedirectResponse|View
@@ -108,7 +108,7 @@ class PublicController extends BasePublicController
             ->whereSlugIs($slug)
             ->firstOrFail();
         if (session('success')) {
-            return view('events::public.registered')->with(['event' => $event]);
+            return view('events::public.registered', ['event' => $event]);
         }
 
         return redirect(url('/'));

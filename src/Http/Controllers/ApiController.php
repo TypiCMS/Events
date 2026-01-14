@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
@@ -12,7 +14,7 @@ use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Events\Models\Event;
 
-class ApiController extends BaseApiController
+final class ApiController extends BaseApiController
 {
     /** @return LengthAwarePaginator<int, mixed> */
     public function index(Request $request): LengthAwarePaginator
@@ -20,7 +22,9 @@ class ApiController extends BaseApiController
         $query = Event::query()
             ->selectFields()
             ->addSelect([
-                'registration_count' => DB::table('registrations')->selectRaw('COUNT(*)')->whereColumn('events.id', 'registrations.event_id'),
+                'registration_count' => DB::table('registrations')
+                    ->selectRaw('COUNT(*)')
+                    ->whereColumn('events.id', 'registrations.event_id'),
             ]);
 
         return QueryBuilder::for($query)

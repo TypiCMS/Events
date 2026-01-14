@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
@@ -12,18 +14,20 @@ use TypiCMS\Modules\Events\Filters\FilterRegistrations;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Models\Registration;
 
-class RegistrationsApiController extends BaseApiController
+final class RegistrationsApiController extends BaseApiController
 {
     /** @return LengthAwarePaginator<int, mixed> */
     public function index(Request $request, Event $event): LengthAwarePaginator
     {
-        $query = Registration::query()->selectFields()
-            ->where('event_id', $event->id);
+        $query = Registration::query()->selectFields()->where('event_id', $event->id);
 
         return QueryBuilder::for($query)
             ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
             ->allowedFilters([
-                AllowedFilter::custom('created_at,first_name,last_name,email,locale,number_of_people,message', new FilterRegistrations()),
+                AllowedFilter::custom(
+                    'created_at,first_name,last_name,email,locale,number_of_people,message',
+                    new FilterRegistrations(),
+                ),
             ])
             ->paginate($request->integer('per_page'));
     }

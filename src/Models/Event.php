@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -141,9 +143,7 @@ class Event extends Base
     /** @return Attribute<string, null> */
     protected function thumb(): Attribute
     {
-        return Attribute::make(
-            get: fn () => $this->present()->image(null, 54)
-        );
+        return Attribute::make(get: fn () => $this->present()->image(null, 54));
     }
 
     /** @return HasMany<Registration, $this> */

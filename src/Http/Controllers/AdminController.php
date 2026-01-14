@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
@@ -12,7 +14,7 @@ use TypiCMS\Modules\Events\Exports\Export;
 use TypiCMS\Modules\Events\Http\Requests\FormRequest;
 use TypiCMS\Modules\Events\Models\Event;
 
-class AdminController extends BaseAdminController
+final class AdminController extends BaseAdminController
 {
     public function index(): View
     {
@@ -30,29 +32,25 @@ class AdminController extends BaseAdminController
     {
         $model = new Event();
 
-        return view('events::admin.create')
-            ->with(['model' => $model]);
+        return view('events::admin.create', ['model' => $model]);
     }
 
     public function edit(Event $event): View
     {
-        return view('events::admin.edit')
-            ->with(['model' => $event]);
+        return view('events::admin.edit', ['model' => $event]);
     }
 
     public function store(FormRequest $request): RedirectResponse
     {
         $event = Event::query()->create($request->validated());
 
-        return $this->redirect($request, $event)
-            ->withMessage(__('Item successfully created.'));
+        return $this->redirect($request, $event)->withMessage(__('Item successfully created.'));
     }
 
     public function update(Event $event, FormRequest $request): RedirectResponse
     {
         $event->update($request->validated());
 
-        return $this->redirect($request, $event)
-            ->withMessage(__('Item successfully updated.'));
+        return $this->redirect($request, $event)->withMessage(__('Item successfully updated.'));
     }
 }

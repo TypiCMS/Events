@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Providers;
 
 use Illuminate\Foundation\AliasLoader;
@@ -21,8 +23,16 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../../resources/views/', 'events');
 
-        $this->publishes([__DIR__ . '/../../database/migrations/create_events_table.php.stub' => getMigrationFileName('create_events_table')], 'typicms-migrations');
-        $this->publishes([__DIR__ . '/../../database/migrations/create_registrations_table.php.stub' => getMigrationFileName('create_registrations_table')], 'typicms-migrations');
+        $this->publishes([
+            __DIR__ . '/../../database/migrations/create_events_table.php.stub' => getMigrationFileName(
+                'create_events_table',
+            ),
+        ], 'typicms-migrations');
+        $this->publishes([
+            __DIR__ . '/../../database/migrations/create_registrations_table.php.stub' => getMigrationFileName(
+                'create_registrations_table',
+            ),
+        ], 'typicms-migrations');
         $this->publishes([__DIR__ . '/../../resources/views' => resource_path('views/vendor/events')], 'typicms-views');
         $this->publishes([__DIR__ . '/../../resources/scss' => resource_path('scss')], 'typicms-resources');
 

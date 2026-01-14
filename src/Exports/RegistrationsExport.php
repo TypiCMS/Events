@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Exports;
 
 use Illuminate\Database\Eloquent\Collection;
@@ -28,14 +30,18 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeading
             ->selectFields()
             ->where('event_id', $request->route()->originalParameter('event'))
             ->addSelect([
-                'event_name' => Event::query()->select(column('title'))
+                'event_name' => Event::query()
+                    ->select(column('title'))
                     ->whereColumn('event_id', 'events.id')
                     ->limit(1),
             ]);
         $this->collection = QueryBuilder::for($query)
             ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
             ->allowedFilters([
-                AllowedFilter::custom('created_at,first_name,last_name,email,locale,number_of_people,message', new FilterRegistrations()),
+                AllowedFilter::custom(
+                    'created_at,first_name,last_name,email,locale,number_of_people,message',
+                    new FilterRegistrations(),
+                ),
             ])
             ->get();
     }

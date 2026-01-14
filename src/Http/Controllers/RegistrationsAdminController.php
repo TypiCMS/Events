@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
@@ -14,11 +16,11 @@ use TypiCMS\Modules\Events\Http\Requests\RegistrationFormRequest;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Models\Registration;
 
-class RegistrationsAdminController extends BaseAdminController
+final class RegistrationsAdminController extends BaseAdminController
 {
     public function index(Event $event): View
     {
-        return view('events::admin.registrations')->with(['event' => $event]);
+        return view('events::admin.registrations', ['event' => $event]);
     }
 
     public function export(Request $request, Event $event): BinaryFileResponse
@@ -33,8 +35,7 @@ class RegistrationsAdminController extends BaseAdminController
     {
         $event = $registration->event;
 
-        return view('events::admin.edit-registration')
-            ->with(['model' => $registration, 'event' => $event]);
+        return view('events::admin.edit-registration', ['model' => $registration, 'event' => $event]);
     }
 
     public function update(Event $event, Registration $registration, RegistrationFormRequest $request): RedirectResponse
