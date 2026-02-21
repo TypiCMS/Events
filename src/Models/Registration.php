@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laracasts\Presenter\PresentableTrait;
-use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\Core\Models\History;
+use TypiCMS\Modules\Core\Traits\HasConfigurableOrder;
+use TypiCMS\Modules\Core\Traits\HasSelectableFields;
+use TypiCMS\Modules\Core\Traits\HasSlugScope;
 use TypiCMS\Modules\Core\Traits\Historable;
+use TypiCMS\Modules\Core\Traits\Publishable;
 use TypiCMS\Modules\Events\Models\Event as EventModel;
 use TypiCMS\Modules\Events\Presenters\RegistrationPresenter;
 
@@ -33,10 +38,15 @@ use TypiCMS\Modules\Events\Presenters\RegistrationPresenter;
  * @property-read int|null $history_count
  * @property-write mixed $status
  */
-class Registration extends Base
+class Registration extends Model
 {
+    use Cachable;
+    use HasConfigurableOrder;
+    use HasSelectableFields;
+    use HasSlugScope;
     use Historable;
     use PresentableTrait;
+    use Publishable;
 
     protected string $presenter = RegistrationPresenter::class;
 
