@@ -45,7 +45,7 @@
                 <p class="event-summary">{!! nl2br($model->summary) !!}</p>
             @endif
 
-            @include('core::public._share-links')
+            <x-core::share-links :$model />
             @if(!empty($model->image))
                 <figure class="event-picture">
                     <img class="event-picture-image" src="{{ $model->present()->image(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="" />
