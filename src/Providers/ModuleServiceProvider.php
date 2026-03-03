@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Providers;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Observers\SlugObserver;
 use TypiCMS\Modules\Core\Observers\TipTapHTMLObserver;
 use TypiCMS\Modules\Events\Composers\SidebarViewComposer;
-use TypiCMS\Modules\Events\Facades\Events;
 use TypiCMS\Modules\Events\Models\Event;
 
 class ModuleServiceProvider extends ServiceProvider
@@ -36,8 +34,6 @@ class ModuleServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../../resources/views' => resource_path('views/vendor/events')], 'typicms-views');
         $this->publishes([__DIR__ . '/../../resources/scss' => resource_path('scss')], 'typicms-resources');
 
-        AliasLoader::getInstance()->alias('Events', Events::class);
-
         // Observers
         Event::observe(new SlugObserver());
         Event::observe(new TipTapHTMLObserver());
@@ -50,10 +46,5 @@ class ModuleServiceProvider extends ServiceProvider
         View::composer('events::public.*', function ($view): void {
             $view->page = getPageLinkedToModule('events');
         });
-    }
-
-    public function register(): void
-    {
-        $this->app->bind('Events', Event::class);
     }
 }
