@@ -40,7 +40,25 @@
             </div>
         </header>
         <div class="event-body">
-            @include('events::public._json-ld', ['event' => $model])
+            <x-core::json-ld :schema="[
+                '@context' => 'https://schema.org',
+                '@type' => 'Event',
+                'name' => $model->title,
+                'startDate' => $model->start_date->format('c'),
+                'endDate' => $model->end_date->format('c'),
+                'description' => $model->summary !== '' ? $model->summary : strip_tags($model->body),
+                'image' => [$model->present()->image()],
+                'location' => [
+                    '@type' => 'Place',
+                    'name' => $model->venue,
+                    'address' => $model->address,
+                ],
+                ...(!empty($model->website) ? ['url' => $model->website] : []),
+                'mainEntityOfPage' => [
+                    '@type' => 'WebPage',
+                    '@id' => $model->url(),
+                ],
+            ]" />
             @if(!empty($model->summary))
                 <p class="event-summary">{!! nl2br($model->summary) !!}</p>
             @endif
