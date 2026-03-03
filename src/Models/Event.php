@@ -113,7 +113,7 @@ class Event extends Model
     /** @return Collection<int, $this> */
     public function upcoming(?int $number = null): Collection
     {
-        $query = self::query()
+        $query = static::query()
             ->published()
             ->where('end_date', '>=', date('Y-m-d'))
             ->orderBy('start_date');
@@ -127,7 +127,7 @@ class Event extends Model
     /** @return Collection<int, $this> */
     public function past(?int $number = null): Collection
     {
-        $query = self::query()
+        $query = static::query()
             ->published()
             ->where('end_date', '<', date('Y-m-d'))
             ->order();
