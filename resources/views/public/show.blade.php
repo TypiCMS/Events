@@ -11,7 +11,7 @@
         <header class="event-header">
             <div class="event-header-container">
                 <div class="event-header-navigator">
-                    <x-core::items-navigator module="Events" :$model :$page />
+                    <x-core::items-navigator :$model :$page />
                 </div>
                 <h1 class="event-title">{{ $model->title }}</h1>
                 <div class="event-date">{{ $model->present()->dateFromTo }}</div>
