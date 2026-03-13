@@ -44,7 +44,6 @@
             @endif
 
             {!! BootForm::open()->action(route($lang . '::event-register', $event->slug)) !!}
-            {!! Honeypot::generate('my_name', 'my_time') !!}
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
                     {!! BootForm::number(__('Number of people'), 'number_of_people')->min(1)->value(1)->required() !!}
