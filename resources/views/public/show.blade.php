@@ -3,7 +3,7 @@
 @section('title', $model->title . ' – ' . __('Events') . ' – ' . $websiteTitle)
 @section('ogTitle', $model->title)
 @section('description', $model->summary)
-@section('ogImage', $model->present()->ogImage())
+@section('ogImage', $model->ogImageUrl())
 @section('bodyClass', 'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id)
 
 @section('content')
@@ -14,7 +14,7 @@
                     <x-core::items-navigator :$model :$page />
                 </div>
                 <h1 class="event-title">{{ $model->title }}</h1>
-                <div class="event-date">{{ $model->present()->dateFromTo }}</div>
+                <div class="event-date">{{ $model->dateFromTo() }}</div>
                 <a class="btn btn-light btn-xs" href="{{ route($lang . '::event-ics', $model->slug) }}">
                     @lang('Add to calendar')
                 </a>
@@ -47,7 +47,7 @@
                 'startDate' => $model->start_date->format('c'),
                 'endDate' => $model->end_date->format('c'),
                 'description' => $model->summary !== '' ? $model->summary : strip_tags($model->body),
-                'image' => [$model->present()->image()],
+                'image' => [$model->imageUrl()],
                 'location' => [
                     '@type' => 'Place',
                     'name' => $model->venue,
@@ -66,7 +66,7 @@
             <x-core::share-links :$model />
             @if(!empty($model->image))
                 <figure class="event-picture">
-                    <img class="event-picture-image" src="{{ $model->present()->image(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="" />
+                    <img class="event-picture-image" src="{{ $model->imageUrl(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="" />
                     @if(!empty($model->image->description))
                         <figcaption class="event-picture-legend">{{ $model->image->description }}</figcaption>
                     @endif
@@ -74,7 +74,7 @@
             @endif
 
             @if(!empty($model->body))
-                <div class="rich-content">{!! $model->present()->body !!}</div>
+                <div class="rich-content">{!! $model->formattedBody() !!}</div>
             @endif
 
             @include('files::public._document-list')

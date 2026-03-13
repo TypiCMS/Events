@@ -1,7 +1,7 @@
 <div class="header">
     <x-core::back-button :url="route('admin::index-registrations', $event->id)" />
-    <h1 class="header-title @if (!$model->present()->title) text-muted @endif">
-        {{ $model->present()->title ?: __('Untitled') }}
+    <h1 class="header-title @if (!$model->presentTitle()) text-muted @endif">
+        {{ $model->presentTitle() ?: __('Untitled') }}
     </h1>
     <x-core::form-buttons :$model />
 </div>

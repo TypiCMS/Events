@@ -20,7 +20,7 @@
     {{ config('typicms.webmaster_email') }}
 
     @lang('We look forward to seeing you on:')
-    {{ $event->present()->dateFromTo }}.
+    {{ $event->dateFromTo() }}.
 
     {{ config('app.name') }}
 @endcomponent

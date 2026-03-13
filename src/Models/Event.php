@@ -12,18 +12,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
-use Laracasts\Presenter\PresentableTrait;
 use TypiCMS\Modules\Core\Models\File;
 use TypiCMS\Modules\Core\Models\History;
 use TypiCMS\Modules\Core\Traits\HasAdminUrls;
 use TypiCMS\Modules\Core\Traits\HasConfigurableOrder;
 use TypiCMS\Modules\Core\Traits\HasFiles;
+use TypiCMS\Modules\Core\Traits\HasPresenterMethods;
 use TypiCMS\Modules\Core\Traits\HasSelectableFields;
 use TypiCMS\Modules\Core\Traits\HasSlugScope;
 use TypiCMS\Modules\Core\Traits\Historable;
 use TypiCMS\Modules\Core\Traits\Navigable;
 use TypiCMS\Modules\Core\Traits\Publishable;
-use TypiCMS\Modules\Events\Presenters\ModulePresenter;
 use TypiCMS\Translatable\HasTranslations;
 
 /**
@@ -61,15 +60,13 @@ class Event extends Model
     use HasAdminUrls;
     use HasConfigurableOrder;
     use HasFiles;
+    use HasPresenterMethods;
     use HasSelectableFields;
     use HasSlugScope;
     use HasTranslations;
     use Historable;
     use Navigable;
-    use PresentableTrait;
     use Publishable;
-
-    protected string $presenter = ModulePresenter::class;
 
     /** @return array<string, string> */
     protected function casts(): array
@@ -153,10 +150,33 @@ class Event extends Model
         return null;
     }
 
+    public function dateFromTo(string $format = 'D MMMM'): string
+    {
+        $startDate = $this->start_date;
+        $endDate = $this->end_date;
+
+        if ($startDate->eq($endDate)) {
+            return $startDate->isoFormat($format . ' YYYY');
+        }
+
+        $showYear = $startDate->format('Y') !== date('Y') || $endDate->format('Y') !== date('Y');
+        $startFormat = $format . ($showYear ? ' YYYY' : '');
+        $endFormat = $format . ' YYYY';
+
+        if ($startDate->format('Y') === $endDate->format('Y')) {
+            $startFormat = $format;
+            if ($startDate->format('m') === $endDate->format('m')) {
+                $startFormat = 'D';
+            }
+        }
+
+        return $startDate->isoFormat($startFormat) . ' → ' . $endDate->isoFormat($endFormat);
+    }
+
     /** @return Attribute<string, null> */
     protected function thumb(): Attribute
     {
-        return Attribute::make(get: fn () => $this->present()->image(null, 54));
+        return Attribute::make(get: fn () => $this->imageUrl(null, 54));
     }
 
     /** @return HasMany<Registration, $this> */

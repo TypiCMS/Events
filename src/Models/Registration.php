@@ -11,15 +11,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Laracasts\Presenter\PresentableTrait;
 use TypiCMS\Modules\Core\Models\History;
 use TypiCMS\Modules\Core\Traits\HasConfigurableOrder;
+use TypiCMS\Modules\Core\Traits\HasPresenterMethods;
 use TypiCMS\Modules\Core\Traits\HasSelectableFields;
 use TypiCMS\Modules\Core\Traits\HasSlugScope;
 use TypiCMS\Modules\Core\Traits\Historable;
 use TypiCMS\Modules\Core\Traits\Publishable;
 use TypiCMS\Modules\Events\Models\Event as EventModel;
-use TypiCMS\Modules\Events\Presenters\RegistrationPresenter;
 
 /**
  * @property int $id
@@ -42,13 +41,11 @@ class Registration extends Model
 {
     use Cachable;
     use HasConfigurableOrder;
+    use HasPresenterMethods;
     use HasSelectableFields;
     use HasSlugScope;
     use Historable;
-    use PresentableTrait;
     use Publishable;
-
-    protected string $presenter = RegistrationPresenter::class;
 
     protected $guarded = ['id', 'exit', 'my_name', 'my_time'];
 
@@ -70,6 +67,16 @@ class Registration extends Model
         }
 
         return route('dashboard');
+    }
+
+    public function formattedCreatedAt(): string
+    {
+        return $this->created_at->format('d.m.Y');
+    }
+
+    public function presentTitle(): string
+    {
+        return __('Reservation of') . ' ' . $this->first_name . ' ' . $this->last_name;
     }
 
     /** @return BelongsTo<EventModel, $this> */

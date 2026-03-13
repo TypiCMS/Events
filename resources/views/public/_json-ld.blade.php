@@ -12,7 +12,7 @@
     "endDate": "{{ $event->end_date->format('c') }}",
     "description": "{{ $event->summary !== '' ? $event->summary : strip_tags($event->body) }}",
     "image": [
-        "{{ $event->present()->image() }}"
+        "{{ $event->imageUrl() }}"
     ],
     @if(!empty($event->website))
         "url": "{{ $event->website }}",

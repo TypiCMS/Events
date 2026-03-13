@@ -1,10 +1,10 @@
 <li class="event-list-item">
     <a class="event-list-item-link" href="{{ $event->url() }}">
         <div class="event-list-item-image-wrapper">
-            <img class="event-list-item-image" src="{{ $event->present()->image(800, 600) }}" width="400" height="300" alt="{{ $event->image?->alt_attribute }}" />
+            <img class="event-list-item-image" src="{{ $event->imageUrl(800, 600) }}" width="400" height="300" alt="{{ $event->image?->alt_attribute }}" />
         </div>
         <div class="event-list-item-info">
-            <div class="event-list-item-date">{{ $event->present()->dateFromTo }}</div>
+            <div class="event-list-item-date">{{ $event->dateFromTo() }}</div>
             <div class="event-list-item-title">{{ $event->title }}</div>
             <div class="event-list-item-location">
                 <span class="event-list-item-venue">{{ $event->venue }}</span>

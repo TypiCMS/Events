@@ -16,7 +16,7 @@
                 </div>
                 <h1 class="event-title">{{ $event->title }}</h1>
                 <div class="event-date">
-                    {{ $event->present()->dateFromTo }}
+                    {{ $event->dateFromTo() }}
                     <a class="event-add-to-calendar" href="{{ route($lang . '::event-ics', $event->slug) }}">
                         <span class="visually-hidden">@lang('Add to calendar')</span>
                         <img class="ms-2" src="/img/calendar-add.svg" alt="" />
