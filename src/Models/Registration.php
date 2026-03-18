@@ -17,7 +17,6 @@ use TypiCMS\Modules\Core\Traits\HasPresenterMethods;
 use TypiCMS\Modules\Core\Traits\HasSelectableFields;
 use TypiCMS\Modules\Core\Traits\HasSlugScope;
 use TypiCMS\Modules\Core\Traits\Historable;
-use TypiCMS\Modules\Core\Traits\Publishable;
 use TypiCMS\Modules\Events\Models\Event as EventModel;
 
 /**
@@ -45,7 +44,6 @@ class Registration extends Model
     use HasSelectableFields;
     use HasSlugScope;
     use Historable;
-    use Publishable;
 
     protected $guarded = ['id', 'exit', 'my_name', 'my_time'];
 
