@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Uri;
 use TypiCMS\Modules\Core\Models\File;
 use TypiCMS\Modules\Core\Models\History;
 use TypiCMS\Modules\Core\Traits\HasAdminUrls;
@@ -98,13 +99,28 @@ class Event extends Model
         'body',
     ];
 
-    public function url(?string $locale = null): string
+    public function url(?string $locale = null): ?string
     {
         $locale ??= app()->getLocale();
-        $route = $locale . '::event';
-        $slug = $this->translate('slug', $locale) ?: null;
+        $route = "{$locale}::event";
+        $slug = $this->translate('slug', $locale);
 
-        return Route::has($route) && $slug ? url(route($route, $slug)) : url('/');
+        if (Route::has($route) && $slug) {
+            return route($route, $slug);
+        }
+
+        return null;
+    }
+
+    public function previewUrl(?string $locale = null): ?string
+    {
+        $url = $this->url($locale);
+
+        if (!$url) {
+            return null;
+        }
+
+        return (string) Uri::of($url)->withQuery(['preview' => 'true']);
     }
 
     /** @return Collection<int, $this> */
