@@ -22,20 +22,19 @@ final class RegistrationsApiController extends BaseApiController
         $query = Registration::query()->selectFields()->where('event_id', $event->id);
 
         return QueryBuilder::for($query)
-            ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
-            ->allowedFilters([
+            ->allowedSorts('created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message')
+            ->allowedFilters(
                 AllowedFilter::custom(
                     'created_at,first_name,last_name,email,locale,number_of_people,message',
                     new FilterRegistrations(),
                 ),
-            ])
+            )
             ->paginate($request->integer('per_page'));
     }
 
     public function destroy(Event $event, Registration $registration): JsonResponse
     {
         $registration->delete();
-        (new Event())->flushCache();
 
         return response()->json(status: 204);
     }

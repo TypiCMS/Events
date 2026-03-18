@@ -36,13 +36,13 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeading
                     ->limit(1),
             ]);
         $this->collection = QueryBuilder::for($query)
-            ->allowedSorts(['created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message'])
-            ->allowedFilters([
+            ->allowedSorts('created_at', 'first_name', 'last_name', 'email', 'locale', 'number_of_people', 'message')
+            ->allowedFilters(
                 AllowedFilter::custom(
                     'created_at,first_name,last_name,email,locale,number_of_people,message',
                     new FilterRegistrations(),
                 ),
-            ])
+            )
             ->get();
     }
 
