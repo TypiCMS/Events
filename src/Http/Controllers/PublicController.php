@@ -89,7 +89,6 @@ final class PublicController extends BasePublicController
         $data['locale'] = $user->locale;
 
         $registration = Registration::query()->create($data);
-        (new Event())->flushCache();
 
         Notification::route('mail', config('typicms.webmaster_email'))->notify(new NewRegistrationToAnEvent(
             $event,

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Models;
 
-use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,7 +37,6 @@ use TypiCMS\Modules\Events\Models\Event as EventModel;
  */
 class Registration extends Model
 {
-    use Cachable;
     use HasConfigurableOrder;
     use HasPresenterMethods;
     use HasSelectableFields;
