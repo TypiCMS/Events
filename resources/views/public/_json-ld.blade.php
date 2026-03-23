@@ -12,9 +12,9 @@
     "endDate": "{{ $event->end_date->format('c') }}",
     "description": "{{ $event->summary !== '' ? $event->summary : strip_tags($event->body) }}",
     "image": [
-        "{{ $event->imageUrl() }}"
+        "{{ $event->image?->render() }}"
     ],
-    @if(!empty($event->website))
+    @if ($event->website)
         "url": "{{ $event->website }}",
     @endif
     "mainEntityOfPage": {

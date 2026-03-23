@@ -18,10 +18,8 @@ use TypiCMS\Modules\Core\Traits\HasAdminUrls;
 use TypiCMS\Modules\Core\Traits\HasBodyPresenter;
 use TypiCMS\Modules\Core\Traits\HasConfigurableOrder;
 use TypiCMS\Modules\Core\Traits\HasContentPresenter;
-use TypiCMS\Modules\Core\Traits\HasDatePresenter;
 use TypiCMS\Modules\Core\Traits\HasFiles;
-use TypiCMS\Modules\Core\Traits\HasImagePresenter;
-use TypiCMS\Modules\Core\Traits\HasOgImagePresenter;
+use TypiCMS\Modules\Core\Traits\HasOgImage;
 use TypiCMS\Modules\Core\Traits\HasSelectableFields;
 use TypiCMS\Modules\Core\Traits\HasSlugScope;
 use TypiCMS\Modules\Core\Traits\Historable;
@@ -64,10 +62,8 @@ class Event extends Model
     use HasBodyPresenter;
     use HasConfigurableOrder;
     use HasContentPresenter;
-    use HasDatePresenter;
     use HasFiles;
-    use HasImagePresenter;
-    use HasOgImagePresenter;
+    use HasOgImage;
     use HasSelectableFields;
     use HasSlugScope;
     use HasTranslations;
@@ -129,7 +125,7 @@ class Event extends Model
         return (string) Uri::of($url)->withQuery(['preview' => 'true']);
     }
 
-    /** @return Collection<int, $this> */
+    /** @return Collection<int, static> */
     public function upcoming(?int $number = null): Collection
     {
         $query = static::query()
@@ -143,7 +139,7 @@ class Event extends Model
         return $query->get();
     }
 
-    /** @return Collection<int, $this> */
+    /** @return Collection<int, static> */
     public function past(?int $number = null): Collection
     {
         $query = static::query()
@@ -175,7 +171,7 @@ class Event extends Model
     /** @return Attribute<string, null> */
     protected function thumb(): Attribute
     {
-        return Attribute::make(get: fn () => $this->imageUrl(null, 54));
+        return Attribute::make(get: fn () => imageOrDefault($this->image, null, 54));
     }
 
     /** @return HasMany<Registration, $this> */

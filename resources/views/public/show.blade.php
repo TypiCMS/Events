@@ -7,7 +7,7 @@
 @section('bodyClass', 'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id)
 
 @section('content')
-    <article class="event">
+    <article class="event container-xl">
         <header class="event-header">
             <div class="event-header-container">
                 <div class="event-header-navigator">
@@ -22,7 +22,7 @@
                     <span class="event-venue">{{ $model->venue }}</span>
                     <div class="event-address">{!! nl2br($model->address) !!}</div>
                 </div>
-                @if(!empty($model->website))
+                @if ($model->website)
                     <div class="event-url">
                         <a href="{{ $model->website }}" target="_blank" rel="noopener noreferrer">
                             {{ parse_url($model->website, PHP_URL_HOST) }}
@@ -47,33 +47,33 @@
                 'startDate' => $model->start_date->format('c'),
                 'endDate' => $model->end_date->format('c'),
                 'description' => $model->summary !== '' ? $model->summary : strip_tags($model->body),
-                'image' => [$model->imageUrl()],
+                'image' => [$model->image?->render()],
                 'location' => [
                     '@type' => 'Place',
                     'name' => $model->venue,
                     'address' => $model->address,
                 ],
-                ...(!empty($model->website) ? ['url' => $model->website] : []),
+                ...($model->website ? ['url' => $model->website] : []),
                 'mainEntityOfPage' => [
                     '@type' => 'WebPage',
                     '@id' => $model->url(),
                 ],
             ]" />
-            @if(!empty($model->summary))
+            @if ($model->summary)
                 <p class="event-summary">{!! nl2br($model->summary) !!}</p>
             @endif
 
             <x-core::share-links :$model />
-            @if(!empty($model->image))
+            @if ($model->image)
                 <figure class="event-picture">
-                    <img class="event-picture-image" src="{{ $model->imageUrl(2000) }}" width="{{ $model->image->width }}" height="{{ $model->image->height }}" alt="" />
-                    @if(!empty($model->image->description))
+                    <img class="event-picture-image" src="{{ $model->image->render(2000) }}" width="{{ $model->image->width / 5 }}" height="{{ $model->image->height / 5 }}" alt="" />
+                    @if ($model->image->description)
                         <figcaption class="event-picture-legend">{{ $model->image->description }}</figcaption>
                     @endif
                 </figure>
             @endif
 
-            @if(!empty($model->body))
+            @if ($model->body)
                 <div class="rich-content">{!! $model->formattedBody() !!}</div>
             @endif
 

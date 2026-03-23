@@ -19,10 +19,10 @@
 
             <div class="row gx-3">
                 <div class="col-sm-6">
-                    {!! BootForm::date(__('Start date'), 'start_date')->value(old('start_date') ?: $model->dateOrNow('start_date'))->required() !!}
+                    {!! BootForm::date(__('Start date'), 'start_date')->value(old('start_date') ?: ($model->start_date ?: now())->format('Y-m-d'))->required() !!}
                 </div>
                 <div class="col-sm-6">
-                    {!! BootForm::date(__('End date'), 'end_date')->value(old('end_date') ?: $model->dateOrNow('end_date'))->required() !!}
+                    {!! BootForm::date(__('End date'), 'end_date')->value(old('end_date') ?: ($model->end_date ?: now())->format('Y-m-d'))->required() !!}
                 </div>
             </div>
 
