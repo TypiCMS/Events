@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use TypiCMS\Modules\Core\Models\History;
 use TypiCMS\Modules\Core\Traits\HasConfigurableOrder;
-use TypiCMS\Modules\Core\Traits\HasPresenterMethods;
+use TypiCMS\Modules\Core\Traits\HasContentPresenter;
 use TypiCMS\Modules\Core\Traits\HasSelectableFields;
 use TypiCMS\Modules\Core\Traits\HasSlugScope;
 use TypiCMS\Modules\Core\Traits\Historable;
@@ -38,7 +38,7 @@ use TypiCMS\Modules\Events\Models\Event as EventModel;
 class Registration extends Model
 {
     use HasConfigurableOrder;
-    use HasPresenterMethods;
+    use HasContentPresenter;
     use HasSelectableFields;
     use HasSlugScope;
     use Historable;
