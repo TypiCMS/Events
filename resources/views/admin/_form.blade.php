@@ -36,7 +36,7 @@
             <div class="right-column">
                 <file-manager></file-manager>
                 <file-field type="image" field="image_id" :init-file="{{ $model->image ?? 'null' }}"></file-field>
-                <file-field type="image" field="og_image_id" :init-file="{{ $model->ogImage ?? 'null' }}" label="Open Graph image"></file-field>
+                <file-field type="image" field="og_image_id" :init-file="{{ $model->ogImage ?? 'null' }}" label="@lang('Social Share Image')" hint="1200 × 630 px"></file-field>
                 <files-field :init-files="{{ $model->files }}"></files-field>
             </div>
         </div>
