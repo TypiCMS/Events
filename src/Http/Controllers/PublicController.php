@@ -19,7 +19,7 @@ use TypiCMS\Modules\Events\Services\Calendar;
 final class PublicController extends BasePublicController
 {
     public function __construct(
-        protected Calendar $calendar,
+        private readonly Calendar $calendar,
     ) {}
 
     public function index(): View

@@ -60,6 +60,6 @@ class Calendar
 
     public function render(): string
     {
-        return (new CalendarFactory())->createCalendar($this->iCalendar);
+        return new CalendarFactory()->createCalendar($this->iCalendar);
     }
 }
