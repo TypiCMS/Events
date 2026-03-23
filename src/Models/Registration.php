@@ -65,11 +65,6 @@ class Registration extends Model
         return route('dashboard');
     }
 
-    public function formattedCreatedAt(): string
-    {
-        return $this->created_at->format('d.m.Y');
-    }
-
     public function presentTitle(): string
     {
         return __('Reservation of') . ' ' . $this->first_name . ' ' . $this->last_name;

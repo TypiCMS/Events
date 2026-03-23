@@ -32,6 +32,8 @@ use TypiCMS\Translatable\HasTranslations;
  * @property int $id
  * @property Carbon $start_date
  * @property Carbon $end_date
+ * @property string|null $start_time
+ * @property string|null $end_time
  * @property int $registration_form
  * @property int|null $og_image_id
  * @property int|null $image_id

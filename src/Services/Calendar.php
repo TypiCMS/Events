@@ -27,14 +27,15 @@ class Calendar
     public function add(Event $model): void
     {
         if ($model->start_time && $model->end_time) {
-            $start = new iCalDateTime(
-                Date::createFromFormat('Y-m-d H:i:s', $model->start_date . ' ' . $model->start_time . ':00'),
-                false,
-            );
-            $end = new iCalDateTime(
-                Date::createFromFormat('Y-m-d H:i:s', $model->end_date . ' ' . $model->end_time . ':00'),
-                false,
-            );
+            $startDate = Date::createFromFormat('Y-m-d H:i:s', $model->start_date . ' ' . $model->start_time . ':00');
+            $endDate = Date::createFromFormat('Y-m-d H:i:s', $model->end_date . ' ' . $model->end_time . ':00');
+
+            if (!$startDate || !$endDate) {
+                return;
+            }
+
+            $start = new iCalDateTime($startDate, false);
+            $end = new iCalDateTime($endDate, false);
             $occurrence = new TimeSpan($start, $end);
         } elseif ($model->start_date === $model->end_date) {
             $date = new iCalDate(Date::createFromFormat('Y-m-d', $model->start_date));
@@ -60,6 +61,6 @@ class Calendar
 
     public function render(): string
     {
-        return new CalendarFactory()->createCalendar($this->iCalendar);
+        return (string) new CalendarFactory()->createCalendar($this->iCalendar);
     }
 }

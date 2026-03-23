@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
+use TypiCMS\Modules\Core\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Notification;
@@ -79,6 +80,7 @@ final class PublicController extends BasePublicController
             ->whereSlugIs($slug)
             ->firstOrFail();
         abort_if(!$event->registration_form || $event->end_date < date('Y-m-d'), 404);
+        /** @var User $user */
         $user = auth()->user();
         $data = $request->validated();
         $data['user_id'] = $user->id;
