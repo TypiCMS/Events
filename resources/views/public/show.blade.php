@@ -14,7 +14,7 @@
                     <x-core::items-navigator :$model :$page />
                 </div>
                 <h1 class="event-title">{{ $model->title }}</h1>
-                <div class="event-date">{{ $model->dateFromTo() }}</div>
+                <div class="event-date"><x-core::date-range :start="$model->start_date" :end="$model->end_date" /></div>
                 <a class="btn btn-light btn-xs" href="{{ route($lang . '::event-ics', $model->slug) }}">
                     @lang('Add to calendar')
                 </a>

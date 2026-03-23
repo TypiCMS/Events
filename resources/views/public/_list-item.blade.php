@@ -4,7 +4,7 @@
             <img class="event-list-item-image" src="{{ $event->imageUrl(800, 600) }}" width="400" height="300" alt="{{ $event->image?->alt_attribute }}" />
         </div>
         <div class="event-list-item-info">
-            <div class="event-list-item-date">{{ $event->dateFromTo() }}</div>
+            <div class="event-list-item-date"><x-core::date-range :start="$event->start_date" :end="$event->end_date" /></div>
             <div class="event-list-item-title">{{ $event->title }}</div>
             <div class="event-list-item-location">
                 <span class="event-list-item-venue">{{ $event->venue }}</span>

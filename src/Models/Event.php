@@ -172,29 +172,6 @@ class Event extends Model
         return null;
     }
 
-    public function dateFromTo(string $format = 'D MMMM'): string
-    {
-        $startDate = $this->start_date;
-        $endDate = $this->end_date;
-
-        if ($startDate->eq($endDate)) {
-            return $startDate->isoFormat($format . ' YYYY');
-        }
-
-        $showYear = $startDate->format('Y') !== date('Y') || $endDate->format('Y') !== date('Y');
-        $startFormat = $format . ($showYear ? ' YYYY' : '');
-        $endFormat = $format . ' YYYY';
-
-        if ($startDate->format('Y') === $endDate->format('Y')) {
-            $startFormat = $format;
-            if ($startDate->format('m') === $endDate->format('m')) {
-                $startFormat = 'D';
-            }
-        }
-
-        return $startDate->isoFormat($startFormat) . ' → ' . $endDate->isoFormat($endFormat);
-    }
-
     /** @return Attribute<string, null> */
     protected function thumb(): Attribute
     {

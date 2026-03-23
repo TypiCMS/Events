@@ -20,7 +20,7 @@
     {{ config('typicms.webmaster_email') }}
 
     @lang('We look forward to seeing you on:')
-    {{ $event->dateFromTo() }}.
+    <x-core::date-range :start="$event->start_date" :end="$event->end_date" />.
 
     {{ config('app.name') }}
 @endcomponent
