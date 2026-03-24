@@ -46,7 +46,7 @@
                 'name' => $model->title,
                 'startDate' => $model->start_date->format('c'),
                 'endDate' => $model->end_date->format('c'),
-                'description' => $model->summary !== '' ? $model->summary : strip_tags($model->body),
+                'description' => $model->summary ? $model->summary : Str::limit(strip_tags($model->body), 200),
                 'image' => [$model->image?->render()],
                 'location' => [
                     '@type' => 'Place',
