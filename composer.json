@@ -1,6 +1,6 @@
 {
     "name": "typicms/events",
-    "description": "",
+    "description": "A module to manage and display multilingual events with ICS export in TypiCMS applications.",
     "license": "MIT",
     "authors": [
         {
