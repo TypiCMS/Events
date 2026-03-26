@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Http\Controllers;
 
-use TypiCMS\Modules\Core\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
+use TypiCMS\Modules\Core\Models\User;
 use TypiCMS\Modules\Events\Http\Requests\RegistrationFormRequest;
 use TypiCMS\Modules\Events\Models\Event;
 use TypiCMS\Modules\Events\Models\Registration;
