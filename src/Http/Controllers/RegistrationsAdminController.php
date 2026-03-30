@@ -25,7 +25,7 @@ final class RegistrationsAdminController extends BaseAdminController
 
     public function export(Request $request, Event $event): BinaryFileResponse
     {
-        $filename = 'Registrations-for-' . Str::slug($event->title);
+        $filename = 'Registrations-for-'.Str::slug($event->title);
         $filename .= '.xlsx';
 
         return Excel::download(new RegistrationsExport($request), $filename);

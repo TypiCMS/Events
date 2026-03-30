@@ -27,10 +27,10 @@ class Calendar
     public function add(Event $model): void
     {
         if ($model->start_time && $model->end_time) {
-            $startDate = Date::createFromFormat('Y-m-d H:i:s', $model->start_date . ' ' . $model->start_time . ':00');
-            $endDate = Date::createFromFormat('Y-m-d H:i:s', $model->end_date . ' ' . $model->end_time . ':00');
+            $startDate = Date::createFromFormat('Y-m-d H:i:s', $model->start_date.' '.$model->start_time.':00');
+            $endDate = Date::createFromFormat('Y-m-d H:i:s', $model->end_date.' '.$model->end_time.':00');
 
-            if (!$startDate || !$endDate) {
+            if (! $startDate || ! $endDate) {
                 return;
             }
 
@@ -47,7 +47,7 @@ class Calendar
         }
 
         // fill event
-        $iEvent = new IEvent();
+        $iEvent = new IEvent;
         $iEvent
             ->setOccurrence($occurrence)
             ->setSummary($model->title)

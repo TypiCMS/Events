@@ -30,7 +30,7 @@ final class ApiController extends BaseApiController
         return QueryBuilder::for($query)
             ->allowedSorts('status_translated', 'start_date', 'end_date', 'title_translated')
             ->allowedFilters(
-                AllowedFilter::custom('title', new FilterOr()),
+                AllowedFilter::custom('title', new FilterOr),
             )
             ->allowedIncludes('image')
             ->paginate($request->integer('per_page'));

@@ -40,7 +40,7 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithHeading
             ->allowedFilters(
                 AllowedFilter::custom(
                     'created_at,first_name,last_name,email,locale,number_of_people,message',
-                    new FilterRegistrations(),
+                    new FilterRegistrations,
                 ),
             )
             ->get();

@@ -68,7 +68,7 @@ final class PublicController extends BasePublicController
             ->published()
             ->whereSlugIs($slug)
             ->firstOrFail();
-        abort_if(!$event->registration_form || $event->end_date < date('Y-m-d'), 404);
+        abort_if(! $event->registration_form || $event->end_date < date('Y-m-d'), 404);
 
         return view('events::public.registration', ['event' => $event]);
     }
@@ -79,7 +79,7 @@ final class PublicController extends BasePublicController
             ->published()
             ->whereSlugIs($slug)
             ->firstOrFail();
-        abort_if(!$event->registration_form || $event->end_date < date('Y-m-d'), 404);
+        abort_if(! $event->registration_form || $event->end_date < date('Y-m-d'), 404);
         /** @var User $user */
         $user = auth()->user();
         $data = $request->validated();
@@ -99,7 +99,7 @@ final class PublicController extends BasePublicController
 
         Notification::route('mail', $data['email'])->notify(new RegisteredToEvent($event, $registration));
 
-        return to_route(app()->getLocale() . '::event-registered', $event->slug)->with('success', true);
+        return to_route(app()->getLocale().'::event-registered', $event->slug)->with('success', true);
     }
 
     public function registered(string $slug): RedirectResponse|View
@@ -126,7 +126,7 @@ final class PublicController extends BasePublicController
 
         $response = response($this->calendar->render(), 200);
         $response->header('Content-Type', 'text/calendar; charset=utf-8');
-        $response->header('Content-Disposition', 'attachment; filename="' . $event->slug . '.ics"');
+        $response->header('Content-Disposition', 'attachment; filename="'.$event->slug.'.ics"');
 
         return $response;
     }

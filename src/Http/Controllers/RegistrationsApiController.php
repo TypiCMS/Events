@@ -26,7 +26,7 @@ final class RegistrationsApiController extends BaseApiController
             ->allowedFilters(
                 AllowedFilter::custom(
                     'created_at,first_name,last_name,email,locale,number_of_people,message',
-                    new FilterRegistrations(),
+                    new FilterRegistrations,
                 ),
             )
             ->paginate($request->integer('per_page'));

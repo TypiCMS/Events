@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -48,7 +47,7 @@ class Registration extends Model
 
     public function editUrl(): string
     {
-        $route = 'admin::edit-' . Str::singular($this->getTable());
+        $route = 'admin::edit-'.Str::singular($this->getTable());
         if (Route::has($route)) {
             return route($route, [$this->event_id, $this->id]);
         }
@@ -58,7 +57,7 @@ class Registration extends Model
 
     public function indexUrl(): string
     {
-        $route = 'admin::index-' . $this->getTable();
+        $route = 'admin::index-'.$this->getTable();
         if (Route::has($route)) {
             return route($route, $this->event_id);
         }
@@ -68,7 +67,7 @@ class Registration extends Model
 
     public function presentTitle(): string
     {
-        return __('Reservation of') . ' ' . $this->first_name . ' ' . $this->last_name;
+        return __('Reservation of').' '.$this->first_name.' '.$this->last_name;
     }
 
     /** @return BelongsTo<EventModel, $this> */

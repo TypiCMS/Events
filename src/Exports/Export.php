@@ -28,7 +28,7 @@ class Export implements FromCollection, ShouldAutoSize, WithColumnFormatting, Wi
         return QueryBuilder::for(Event::class)
             ->allowedSorts('status_translated', 'start_date', 'end_date', 'title_translated')
             ->allowedFilters(
-                AllowedFilter::custom('title', new FilterOr()),
+                AllowedFilter::custom('title', new FilterOr),
             )
             ->get();
     }
