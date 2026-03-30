@@ -12,5 +12,4 @@
     {!! BootForm::text(__('Event'), 'event')->value($model->event->title)->readOnly() !!}
     {!! Bootform::number(__('Number of people'), 'number_of_people')->min(1)->required() !!}
     {!! Bootform::textarea(__('Message'), 'message')->rows(3) !!}
-    {!! BootForm::hidden('my_time')->value(Crypt::encrypt(time() - 60)) !!}
 </div>

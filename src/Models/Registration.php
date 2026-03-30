@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,6 +37,7 @@ use TypiCMS\Modules\Events\Models\Event as EventModel;
  * @property-read int|null $history_count
  * @property-write mixed $status
  */
+#[Unguarded]
 class Registration extends Model
 {
     use HasConfigurableOrder;
@@ -42,8 +45,6 @@ class Registration extends Model
     use HasSelectableFields;
     use HasSlugScope;
     use Historable;
-
-    protected $guarded = ['id', 'exit', 'my_name', 'my_time'];
 
     public function editUrl(): string
     {

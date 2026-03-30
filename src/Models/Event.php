@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +17,8 @@ use Illuminate\Support\Uri;
 use Override;
 use TypiCMS\Modules\Core\Models\File;
 use TypiCMS\Modules\Core\Models\History;
+use TypiCMS\Modules\Core\Observers\SlugObserver;
+use TypiCMS\Modules\Core\Observers\TipTapHTMLObserver;
 use TypiCMS\Modules\Core\Traits\HasAdminUrls;
 use TypiCMS\Modules\Core\Traits\HasBodyPresenter;
 use TypiCMS\Modules\Core\Traits\HasConfigurableOrder;
@@ -59,6 +63,8 @@ use TypiCMS\Translatable\HasTranslations;
  * @property-read mixed $translations
  * @property-read Collection<int, File> $videos
  */
+#[ObservedBy([SlugObserver::class, TipTapHTMLObserver::class])]
+#[Unguarded]
 class Event extends Model
 {
     use HasAdminUrls;
@@ -83,8 +89,6 @@ class Event extends Model
             'end_date' => 'datetime:Y-m-d',
         ];
     }
-
-    protected $guarded = [];
 
     protected $appends = ['thumb'];
 
