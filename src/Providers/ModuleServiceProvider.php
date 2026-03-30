@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Providers;
 
+use Override;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Events\Composers\SidebarViewComposer;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    public function boot(): void
+    #[Override]
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/events.php', 'typicms.modules.events');
+    }
 
+    public function boot(): void
+    {
         $this->loadRoutesFrom(__DIR__.'/../routes/events.php');
 
         $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'events');
