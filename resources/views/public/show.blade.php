@@ -1,8 +1,8 @@
 @extends('core::public.master')
 
 @section('title', $model->title . ' – ' . __('Events') . ' – ' . $websiteTitle)
-@section('ogTitle', $model->title)
-@section('description', $model->summary)
+@section('ogTitle', $model->title ?? '')
+@section('description', $model->summary ?? '')
 @section('ogImage', $model->ogImageUrl())
 @section('bodyClass', 'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id)
 
