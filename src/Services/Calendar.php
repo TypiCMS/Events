@@ -14,6 +14,7 @@ use Eluceo\iCal\Domain\ValueObject\Location;
 use Eluceo\iCal\Domain\ValueObject\MultiDay;
 use Eluceo\iCal\Domain\ValueObject\SingleDay;
 use Eluceo\iCal\Domain\ValueObject\TimeSpan;
+use Eluceo\iCal\Presentation\Component;
 use Eluceo\iCal\Presentation\Factory\CalendarFactory;
 use Illuminate\Support\Facades\Date;
 use TypiCMS\Modules\Events\Models\Event;
@@ -50,17 +51,16 @@ class Calendar
         $iEvent = new IEvent;
         $iEvent
             ->setOccurrence($occurrence)
-            ->setSummary($model->title)
-            ->setDescription($model->summary)
+            ->setSummary($model->title ?? '')
+            ->setDescription($model->summary ?? '')
             ->setLocation(new Location($model->address, $model->venue));
         // add it to the calendar
         $this->iCalendar->addEvent($iEvent);
-
-        // $this->iCalendar->addTimeZone(TimeZone::createFromPhpDateTimeZone(new PhpDateTimeZone(config('app.timezone'))));
+        $this->iCalendar->addTimeZone(new TimeZone(config('app.timezone')));
     }
 
-    public function render(): string
+    public function render(): Component
     {
-        return (string) new CalendarFactory()->createCalendar($this->iCalendar);
+        return new CalendarFactory()->createCalendar($this->iCalendar);
     }
 }
