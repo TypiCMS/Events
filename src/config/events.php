@@ -2,8 +2,12 @@
 
 declare(strict_types=1);
 
+use TypiCMS\Modules\Events\Models\Event;
+
 return [
+    'model' => Event::class,
     'linkable_to_page' => true,
+    'llms_txt' => true,
     'per_page' => 50,
     'order' => [
         'end_date' => 'desc',
