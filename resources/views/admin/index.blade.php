@@ -14,8 +14,7 @@
             <item-list-column-header name="registrations" v-if="$can('read registrations')"></item-list-column-header>
             <item-list-column-header name="status_translated" sortable :sort-array="sortArray" :label="$t('Status')"></item-list-column-header>
             <item-list-column-header name="image" :label="$t('Image')"></item-list-column-header>
-            <item-list-column-header name="start_date" sortable :sort-array="sortArray" :label="$t('Start date')"></item-list-column-header>
-            <item-list-column-header name="end_date" sortable :sort-array="sortArray" :label="$t('End date')"></item-list-column-header>
+            <item-list-column-header name="start_date" sortable :sort-array="sortArray" :label="$t('Date')"></item-list-column-header>
             <item-list-column-header name="title_translated" sortable :sort-array="sortArray" :label="$t('Title')"></item-list-column-header>
         </template>
 
@@ -35,8 +34,7 @@
                 <item-list-status-button :model="model"></item-list-status-button>
             </td>
             <td><img :src="model.thumb" alt="" height="27" /></td>
-            <td>@{{ formatDate(model.start_date) }}</td>
-            <td>@{{ formatDate(model.end_date) }}</td>
+            <td><small class="text-nowrap">@{{ formatDateRange(model.start_date, model.end_date) }}</small></td>
             <td>@{{ model.title_translated }}</td>
         </template>
     </item-list>
