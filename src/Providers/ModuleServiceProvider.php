@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Providers;
 
-use Override;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Override;
 use TypiCMS\Modules\Events\Composers\SidebarViewComposer;
 
 class ModuleServiceProvider extends ServiceProvider

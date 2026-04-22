@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace TypiCMS\Modules\Events\Services;
 
-use DateTimeZone as PhpDateTimeZone;
 use Eluceo\iCal\Domain\Entity\Calendar as ICalendar;
 use Eluceo\iCal\Domain\Entity\Event as IEvent;
 use Eluceo\iCal\Domain\Entity\TimeZone;
