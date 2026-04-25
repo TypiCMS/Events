@@ -1,4 +1,4 @@
-@extends('core::admin.master')
+@extends('admin::core.master')
 
 @section('title', __('Events'))
 

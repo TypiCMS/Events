@@ -32,7 +32,7 @@ final class PublicController extends BasePublicController
             ->where('end_date', '>=', date('Y-m-d'))
             ->paginate(config('typicms.modules.events.per_page'));
 
-        return view('events::public.index', ['models' => $models]);
+        return view('public::events.index', ['models' => $models]);
     }
 
     public function past(): View
@@ -44,7 +44,7 @@ final class PublicController extends BasePublicController
             ->where('end_date', '<', date('Y-m-d'))
             ->paginate(config('typicms.modules.events.per_page'));
 
-        return view('events::public.past', ['models' => $models]);
+        return view('public::events.past', ['models' => $models]);
     }
 
     public function show(string $slug): View
@@ -59,7 +59,7 @@ final class PublicController extends BasePublicController
             ->whereSlugIs($slug)
             ->firstOrFail();
 
-        return view('events::public.show', ['model' => $model]);
+        return view('public::events.show', ['model' => $model]);
     }
 
     public function showRegistrationForm(string $slug): View
@@ -70,7 +70,7 @@ final class PublicController extends BasePublicController
             ->firstOrFail();
         abort_if(! $event->registration_form || $event->end_date < date('Y-m-d'), 404);
 
-        return view('events::public.registration', ['event' => $event]);
+        return view('public::events.registration', ['event' => $event]);
     }
 
     public function register(string $slug, RegistrationFormRequest $request): RedirectResponse
@@ -109,7 +109,7 @@ final class PublicController extends BasePublicController
             ->whereSlugIs($slug)
             ->firstOrFail();
         if (session('success')) {
-            return view('events::public.registered', ['event' => $event]);
+            return view('public::events.registered', ['event' => $event]);
         }
 
         return redirect(url('/'));

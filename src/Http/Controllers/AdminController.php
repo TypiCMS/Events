@@ -18,7 +18,7 @@ final class AdminController extends BaseAdminController
 {
     public function index(): View
     {
-        return view('events::admin.index');
+        return view('admin::events.index');
     }
 
     public function export(Request $request): BinaryFileResponse
@@ -32,12 +32,12 @@ final class AdminController extends BaseAdminController
     {
         $model = new Event;
 
-        return view('events::admin.create', ['model' => $model]);
+        return view('admin::events.create', ['model' => $model]);
     }
 
     public function edit(Event $event): View
     {
-        return view('events::admin.edit', ['model' => $event]);
+        return view('admin::events.edit', ['model' => $event]);
     }
 
     public function store(FormRequest $request): RedirectResponse

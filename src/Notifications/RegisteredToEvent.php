@@ -27,7 +27,7 @@ class RegisteredToEvent extends Notification
     {
         return new MailMessage()
             ->subject('Your registration to “'.$this->event->title.'”.')
-            ->markdown('events::mail.your-registration-to-event', [
+            ->markdown('mail::events.your-registration-to-event', [
                 'event' => $this->event,
                 'registration' => $this->registration,
             ]);

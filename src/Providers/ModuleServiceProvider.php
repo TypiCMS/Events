@@ -21,8 +21,6 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/../routes/events.php');
 
-        $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'events');
-
         $this->publishes([
             __DIR__.'/../../database/migrations/create_events_table.php.stub' => getMigrationFileName(
                 'create_events_table',
@@ -33,15 +31,23 @@ class ModuleServiceProvider extends ServiceProvider
                 'create_registrations_table',
             ),
         ], 'typicms-migrations');
-        $this->publishes([__DIR__.'/../../resources/views' => resource_path('views/vendor/events')], 'typicms-views');
+        $this->publishes([
+            __DIR__.'/../../resources/views/admin/events' => resource_path('views/admin/events'),
+        ], ['typicms-views', 'typicms-admin-views', 'typicms-admin-events-views']);
+        $this->publishes([
+            __DIR__.'/../../resources/views/public/events' => resource_path('views/public/events'),
+        ], ['typicms-views', 'typicms-public-views', 'typicms-public-events-views']);
+        $this->publishes([
+            __DIR__.'/../../resources/views/mail/events' => resource_path('views/mail/events'),
+        ], ['typicms-views', 'typicms-mail-views', 'typicms-mail-events-views']);
         $this->publishes([__DIR__.'/../../resources/scss' => resource_path('scss')], 'typicms-resources');
 
-        View::composer('core::admin._sidebar', SidebarViewComposer::class);
+        View::composer('admin::core._sidebar', SidebarViewComposer::class);
 
         /*
          * Add the page in the view.
          */
-        View::composer('events::public.*', function ($view): void {
+        View::composer('public::events.*', function ($view): void {
             $view->page = getPageLinkedToModule('events');
         });
     }

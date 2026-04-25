@@ -1,4 +1,4 @@
-@extends('pages::public.master')
+@extends('public::pages.master')
 
 @section('bodyClass', 'body-events body-events-index body-page body-page-' . $page->id)
 @section('page-header', '')
@@ -12,7 +12,7 @@
 
     <div class="page-body">
         <div class="page-body-container">
-            @includeWhen($models->count() > 0, 'events::public._list', ['items' => $models])
+            @includeWhen($models->count() > 0, 'public::events._list', ['items' => $models])
 
             {!! $models->appends(Request::except('page'))->links() !!}
 

@@ -20,7 +20,7 @@ final class RegistrationsAdminController extends BaseAdminController
 {
     public function index(Event $event): View
     {
-        return view('events::admin.registrations', ['event' => $event]);
+        return view('admin::events.registrations', ['event' => $event]);
     }
 
     public function export(Request $request, Event $event): BinaryFileResponse
@@ -35,7 +35,7 @@ final class RegistrationsAdminController extends BaseAdminController
     {
         $event = $registration->event;
 
-        return view('events::admin.edit-registration', ['model' => $registration, 'event' => $event]);
+        return view('admin::events.edit-registration', ['model' => $registration, 'event' => $event]);
     }
 
     public function update(Event $event, Registration $registration, RegistrationFormRequest $request): RedirectResponse

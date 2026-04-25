@@ -1,10 +1,10 @@
-@extends('core::admin.master')
+@extends('admin::core.master')
 
 @section('title', $model->presentTitle())
 
 @section('content')
     {!! BootForm::open()->put()->action(route('admin::update-registration', [$event->id, $model->id]))->addClass('form') !!}
     {!! BootForm::bind($model) !!}
-    @include('events::admin._form-registration')
+    @include('admin::events._form-registration')
     {!! BootForm::close() !!}
 @endsection

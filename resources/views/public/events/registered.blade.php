@@ -1,4 +1,4 @@
-@extends('pages::public.master')
+@extends('public::pages.master')
 
 @section('bodyClass', 'body-registrations body-registration-sent body-page body-page-' . $page->id)
 
