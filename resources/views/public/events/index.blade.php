@@ -23,7 +23,7 @@
             {!! $models->appends(Request::except('page'))->links() !!}
 
             <div class="text-center">
-                <a href="{{ route($lang . '::past-events') }}" class="btn btn-light">@lang('Past events')</a>
+                <a href="{{ route(app()->getLocale() . '::past-events') }}" class="btn btn-light">@lang('Past events')</a>
             </div>
         </div>
     </div>

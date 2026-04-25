@@ -17,7 +17,7 @@
             {!! $models->appends(Request::except('page'))->links() !!}
 
             <div class="text-center">
-                <a href="{{ route($lang . '::index-events') }}" class="btn btn-light">@lang('Upcoming events')</a>
+                <a href="{{ route(app()->getLocale() . '::index-events') }}" class="btn btn-light">@lang('Upcoming events')</a>
             </div>
         </div>
     </div>

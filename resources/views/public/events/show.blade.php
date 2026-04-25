@@ -15,7 +15,7 @@
                 </div>
                 <h1 class="event-title">{{ $model->title }}</h1>
                 <div class="event-date"><x-core::date-range :start="$model->start_date" :end="$model->end_date" /></div>
-                <a class="btn btn-light btn-xs" href="{{ route($lang . '::event-ics', $model->slug) }}">
+                <a class="btn btn-light btn-xs" href="{{ route(app()->getLocale() . '::event-ics', $model->slug) }}">
                     @lang('Add to calendar')
                 </a>
                 <div class="event-location">
@@ -32,7 +32,7 @@
 
                 @if ($model->registration_form && $model->end_date >= date('Y-m-d'))
                     <div class="event-register">
-                        <a class="btn btn-sm btn-success" href="{{ Route::has($lang . '::event-registration') ? route($lang . '::event-registration', ['slug' => $model->slug]) : '/' }}">
+                        <a class="btn btn-sm btn-success" href="{{ Route::has(app()->getLocale() . '::event-registration') ? route(app()->getLocale() . '::event-registration', ['slug' => $model->slug]) : '/' }}">
                             @lang('Register')
                         </a>
                     </div>
