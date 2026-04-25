@@ -1,6 +1,6 @@
 @extends('public::core.master')
 
-@section('title', $model->title . ' – ' . __('Events') . ' – ' . $websiteTitle)
+@section('title', $model->title . ' – ' . __('Events') . ' – ' . websiteTitle())
 @section('ogTitle', $model->title ?? '')
 @section('description', $model->summary ?? '')
 @section('ogImage', $model->ogImageUrl())
