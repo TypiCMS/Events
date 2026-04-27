@@ -33,7 +33,7 @@
             <td>
                 <item-list-status-button :model="model"></item-list-status-button>
             </td>
-            <td><img :src="model.thumb" alt="" height="27" /></td>
+            <td><img v-if="model.image_id" :src="model.thumb" alt="" height="27" /></td>
             <td><small class="text-nowrap">@{{ formatDateRange(model.start_date, model.end_date) }}</small></td>
             <td>@{{ model.title_translated }}</td>
         </template>
