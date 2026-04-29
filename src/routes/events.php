@@ -66,10 +66,6 @@ Route::middleware('admin')
             ->name('edit-event')
             ->middleware('can:read events');
         $router
-            ->get('events/{event}/files', [AdminController::class, 'files'])
-            ->name('edit-event-files')
-            ->middleware('can:update events');
-        $router
             ->post('events', [AdminController::class, 'store'])
             ->name('store-event')
             ->middleware('can:create events');
