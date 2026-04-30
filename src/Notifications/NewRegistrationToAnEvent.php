@@ -26,7 +26,7 @@ class NewRegistrationToAnEvent extends Notification
     public function toMail(): MailMessage
     {
         return new MailMessage()
-            ->subject('New registration to “'.$this->event->title.'”.')
+            ->subject('['.websiteTitle().'] '.__('New registration to :event', ['event' => $this->event->title]))
             ->markdown('mail::events.new-registration-to-event', [
                 'event' => $this->event,
                 'registration' => $this->registration,

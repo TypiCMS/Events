@@ -21,5 +21,6 @@ return [
         'create events' => 'Create',
         'update events' => 'Update',
         'delete events' => 'Delete',
+        'receive event registration notifications' => 'Receive registration notifications',
     ],
 ];

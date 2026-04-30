@@ -92,10 +92,9 @@ final class PublicController extends BasePublicController
 
         $registration = Registration::query()->create($data);
 
-        Notification::route('mail', config('typicms.webmaster_email'))->notify(new NewRegistrationToAnEvent(
-            $event,
-            $registration,
-        ));
+        $recipients = User::query()->permission('receive event registration notifications')->get();
+
+        Notification::send($recipients, new NewRegistrationToAnEvent($event, $registration));
 
         Notification::route('mail', $data['email'])->notify(new RegisteredToEvent($event, $registration));
 
