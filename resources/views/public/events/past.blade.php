@@ -1,14 +1,14 @@
-@extends('public::pages.master')
-
-@section('bodyClass', 'body-events body-events-index body-page body-page-' . $page->id)
-@section('page-header', '')
-
-@section('page')
-    <header class="page-header">
-        <div class="page-header-container">
-            <h1>@lang('Past events')</h1>
-        </div>
-    </header>
+<x-core::layouts.page
+    :page="$page"
+    :body-class="'body-events body-events-index body-page body-page-' . $page->id"
+>
+    <x-slot:page-header>
+        <header class="page-header">
+            <div class="page-header-container">
+                <h1>@lang('Past events')</h1>
+            </div>
+        </header>
+    </x-slot:page-header>
 
     <div class="page-body">
         <div class="page-body-container">
@@ -21,4 +21,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-core::layouts.page>

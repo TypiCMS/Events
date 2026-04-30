@@ -1,8 +1,7 @@
-@extends('public::pages.master')
-
-@section('bodyClass', 'body-events body-events-index body-page body-page-' . $page->id)
-
-@section('page')
+<x-core::layouts.page
+    :page="$page"
+    :body-class="'body-events body-events-index body-page body-page-' . $page->id"
+>
     <x-core::json-ld :schema="[
         '@context' => 'https://schema.org',
         '@type' => 'ItemList',
@@ -17,7 +16,7 @@
             @include('public::pages._main-content', ['page' => $page])
             @include('public::files._document-list', ['model' => $page])
             @include('public::files._image-list', ['model' => $page])
-            
+
             @includeWhen($models->count() > 0, 'public::events._list', ['items' => $models])
 
             {!! $models->appends(Request::except('page'))->links() !!}
@@ -27,4 +26,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-core::layouts.page>

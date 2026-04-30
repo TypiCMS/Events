@@ -1,8 +1,7 @@
-@extends('public::pages.master')
-
-@section('bodyClass', 'body-registrations body-registration-sent body-page body-page-' . $page->id)
-
-@section('page')
+<x-core::layouts.page
+    :page="$page"
+    :body-class="'body-registrations body-registration-sent body-page body-page-' . $page->id"
+>
     <article class="event">
         <header class="event-header">
             <div class="event-header-container">
@@ -37,4 +36,4 @@
             </a>
         </div>
     </article>
-@endsection
+</x-core::layouts.page>

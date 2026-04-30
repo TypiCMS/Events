@@ -1,12 +1,12 @@
-@extends('public::core.master')
-
-@section('title', $model->title . ' – ' . __('Events') . ' – ' . websiteTitle())
-@section('ogTitle', $model->title ?? '')
-@section('description', $model->summary ?? '')
-@section('ogImage', $model->ogImageUrl())
-@section('bodyClass', 'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id)
-
-@section('content')
+<x-core::layouts.public
+    :title="$model->title . ' – ' . __('Events') . ' – ' . websiteTitle()"
+    :og-title="$model->title ?? ''"
+    :description="$model->summary ?? ''"
+    :og-image="$model->ogImageUrl()"
+    :body-class="'body-events body-event-' . $model->id . ' body-page body-page-' . $page->id"
+    :page="$page"
+    :model="$model"
+>
     <article class="event container-xl">
         <header class="event-header">
             <div class="event-header-container">
@@ -81,4 +81,4 @@
             @include('public::files._image-list')
         </div>
     </article>
-@endsection
+</x-core::layouts.public>
