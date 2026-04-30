@@ -1,8 +1,4 @@
-@extends('admin::core.master')
-
-@section('title', __('Events'))
-
-@section('content')
+<x-core::layouts.admin :title="__('Events')">
     <item-list url-base="/api/events" fields="id,image_id,start_date,end_date,status,title" table="events" title="events" include="image" :exportable="true" :duplicable="false" :searchable="['title']" :sorting="['-end_date']">
         <template #top-buttons v-if="$can('create events')">
             <x-core::create-button :url="route('admin::create-event')" :label="__('Create event')" />
@@ -38,4 +34,4 @@
             <td>@{{ model.title_translated }}</td>
         </template>
     </item-list>
-@endsection
+</x-core::layouts.admin>

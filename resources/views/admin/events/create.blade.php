@@ -1,9 +1,5 @@
-@extends('admin::core.master')
-
-@section('title', __('New event'))
-
-@section('content')
+<x-core::layouts.admin :title="__('New event')">
     {!! BootForm::open()->action(route('admin::index-events'))->addClass('form') !!}
     @include('admin::events._form')
     {!! BootForm::close() !!}
-@endsection
+</x-core::layouts.admin>

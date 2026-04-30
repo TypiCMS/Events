@@ -1,8 +1,4 @@
-@extends('admin::core.master')
-
-@section('title', 'Registrations > ' . $event->title)
-
-@section('content')
+<x-core::layouts.admin :title="'Registrations > ' . $event->title">
     <item-list url-base="/api/events/{{ $event->id }}/registrations" fields="id,event_id,created_at,first_name,last_name,email,locale,number_of_people,message" table="registrations" title="registrations" :show-title="false" :exportable="true" :publishable="false" :translatable="false" :searchable="['created_at,first_name,last_name,email,locale,number_of_people,message']" :sorting="['-created_at']">
         <template #back-button>
             <x-core::back-button :back-url="$event->indexUrl()" :back-label="__('Events')" />
@@ -36,4 +32,4 @@
             <td>@{{ model.message }}</td>
         </template>
     </item-list>
-@endsection
+</x-core::layouts.admin>
