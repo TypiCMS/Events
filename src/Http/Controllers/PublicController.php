@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
+use Spatie\ResponseCache\Attributes\NoCache;
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
 use TypiCMS\Modules\Core\Models\User;
 use TypiCMS\Modules\Events\Http\Requests\RegistrationFormRequest;
@@ -101,6 +102,7 @@ final class PublicController extends BasePublicController
         return to_route(app()->getLocale().'::event-registered', $event->slug)->with('success', true);
     }
 
+    #[NoCache]
     public function registered(string $slug): RedirectResponse|View
     {
         $event = Event::query()
