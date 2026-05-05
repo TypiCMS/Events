@@ -20,7 +20,7 @@
             <item-list-column-header name="registrations" v-if="$can('read registrations')"></item-list-column-header>
             <item-list-column-header name="status_translated" sortable :sort-array="sortArray" :label="$t('Status')"></item-list-column-header>
             <item-list-column-header name="image" :label="$t('Image')"></item-list-column-header>
-            <item-list-column-header name="start_date" sortable :sort-array="sortArray" :label="$t('Date')"></item-list-column-header>
+            <item-list-column-header name="end_date" sortable :sort-array="sortArray" :label="$t('Date')"></item-list-column-header>
             <item-list-column-header name="title_translated" sortable :sort-array="sortArray" :label="$t('Title')"></item-list-column-header>
         </template>
 
