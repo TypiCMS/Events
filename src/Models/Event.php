@@ -161,19 +161,17 @@ class Event extends Model
         return $query->get();
     }
 
-    public function adjacent(int $direction, mixed $model, ?int $category_id = null): ?Model
+    public function adjacent(int $direction, ?int $category_id = null): ?Model
     {
-        $currentModel = $model;
-        $models = $currentModel->end_date < date('Y-m-d') ? $this->past() : $this->upcoming();
-        foreach ($models as $key => $model) {
-            if ($currentModel->id === $model->id) {
-                $adjacentKey = $key + $direction;
+        $collection = $this->end_date->lt(today()) ? $this->past() : $this->upcoming();
 
-                return $models[$adjacentKey] ?? null;
-            }
+        $key = $collection->search(fn (self $event): bool => $event->id === $this->id);
+
+        if ($key === false) {
+            return null;
         }
 
-        return null;
+        return $collection[$key + $direction] ?? null;
     }
 
     /** @return Attribute<string, null> */
