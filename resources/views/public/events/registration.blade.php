@@ -41,9 +41,9 @@
 
             {!! BootForm::open()->action(route(app()->getLocale() . '::event-register', $event->slug)) !!}
             <div class="row">
-                <div class="col-sm-6 col-lg-3">{!! BootForm::number(__('Number of people'), 'number_of_people')->min(1)->value(1)->required() !!}</div>
+                <div class="col-sm-6 col-lg-3"><x-bootform::number :label="__('Number of people')" name="number_of_people" min="1" :value="1" required /></div>
             </div>
-            {!! BootForm::textarea(__('Comment'), 'message')->rows(3) !!}
+            <x-bootform::textarea :label="__('Comment')" name="message" rows="3" />
             <button class="btn btn-primary" type="submit">{{ __('Register') }}</button>
             {!! BootForm::close() !!}
         </div>

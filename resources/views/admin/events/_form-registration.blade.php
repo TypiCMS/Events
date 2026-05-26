@@ -3,5 +3,9 @@
 <div class="form-body">
     <x-core::form-errors />
 
-    {!! BootForm::text(__('Event'), 'event')->value($model->event->title)->readOnly() !!} {!! Bootform::number(__('Number of people'), 'number_of_people')->min(1)->required() !!} {!! Bootform::textarea(__('Message'), 'message')->rows(3) !!}
+    <x-bootform::text :label="__('Event')" name="event" :value="$model->event->title" readonly />
+
+    <x-bootform::number :label="__('Number of people')" name="number_of_people" min="1" required />
+
+    <x-bootform::textarea :label="__('Message')" name="message" rows="3" />
 </div>
