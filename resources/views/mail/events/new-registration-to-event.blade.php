@@ -1,29 +1,28 @@
-@component('mail::message')
-    #
-    @lang('New registration to an event')
+<x-mail::message>
+    # {{ __('New registration to an event') }}
 
-    @lang('A new registration to')
+    {{ __('A new registration to') }}
     [{{ $event->title }}]({{ route(app()->getLocale() . '::event', $event->slug) }})
-    @lang('was requested by')
+    {{ __('was requested by') }}
     {{ $registration->title }} {{ $registration->first_name }} {{ $registration->last_name }}.
 
-    @component('mail::table')
+    <x-mail::table>
         | | | | ------------------------------ | ------------------ | | **
-        @lang('Event')
+        {{ __('Event') }}
         ** | [{{ $event->title }}]({{ route(app()->getLocale() . '::event', $event->slug) }}) | **
-        @lang('Name')
+        {{ __('Name') }}
         ** | {{ $registration->first_name }} {{ $registration->last_name }} | **
-        @lang('Email')
+        {{ __('Email') }}
         ** | [{{ $registration->email }}](mailto:{{ $registration->email }}) | **
-        @lang('Number of people')
+        {{ __('Number of people') }}
         ** | {{ $registration->number_of_people }} | **
-        @lang('Message')
+        {{ __('Message') }}
         ** | {{ $registration->message }}
-    @endcomponent
+    </x-mail::table>
 
-    @component('mail::button', ['url' => route('admin::edit-registration', [$event->id, $registration->id])])
-        @lang('See online')
-    @endcomponent
+    <x-mail::button :url="route('admin::edit-registration', [$event->id, $registration->id])">
+        {{ __('See online') }}
+    </x-mail::button>>
 
     {{ config('app.name') }}
-@endcomponent
+</x-mail::button>

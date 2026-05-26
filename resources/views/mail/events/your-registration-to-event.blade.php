@@ -1,24 +1,23 @@
-@component('mail::message')
-    # @lang('Dear'),
+<x-mail::message>
+    # {{ __('Dear'), }}
 
-    @lang('Thank you for your registration to')
+    {{ __('Thank you for your registration to') }}
     “[{{ $event->title }}]({{ route(app()->getLocale() . '::event', $event->slug) }})”.
 
-    @component('mail::table')
+    <x-mail::table>
         | | | | ----------------------------- | ------------------ | | **
-        @lang('Name')
+        {{ __('Name') }}
         ** | {{ $registration->first_name }} {{ $registration->last_name }} | **
-        @lang('Number of people')
+        {{ __('Number of people') }}
         ** | {{ $registration->number_of_people }} | **
-        @lang('Message')
+        {{ __('Message') }}
         ** | {{ $registration->message }}
-    @endcomponent
+        </x-mail::table>
 
-    @lang('If you have any questions leading up to the event, feel free to reply to')
-    {{ config('typicms.contact_email') }}
+    {{ __('If you have any questions leading up to the event, feel free to contact us.') }}
 
-    @lang('We look forward to seeing you on:')
+    {{ __('We look forward to seeing you on:') }}
     <x-core::date-range :start="$event->start_date" :end="$event->end_date" />.
 
     {{ config('app.name') }}
-@endcomponent
+</x-mail::message>
