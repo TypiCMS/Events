@@ -63,6 +63,7 @@ final class PublicController extends BasePublicController
         return view('public::events.show', ['model' => $model]);
     }
 
+    #[NoCache]
     public function showRegistrationForm(string $slug): View
     {
         $event = Event::query()
